@@ -195,12 +195,14 @@
   **适用场景**：**软体抓取、布料折叠、医疗辅助触诊**等需高触觉分辨率的柔性操作。
 
 - **X-VLA: Soft-Prompted Transformer as Scalable Cross-Embodiment Vision-Language-Action Model**  
-  [Paper](https://arxiv.org/abs/2510.10274) | [Code](https://github.com/2toinf/X-VLA)  
+  [Paper](https://arxiv.org/abs/2510.10274) | [Code](https://github.com/2toinf/X-VLA)
+  
   **创新点**：
     1. Soft Prompt 机制：为每个异构数据源引入最小参数（<1%）的可学习嵌入，作为 embodiment-specific 提示，早融合注入 Transformer，自动编码硬件配置（如相机视角、动作空间），有效化解跨平台视觉/任务异构性，确保稳定预训练。
     2. 纯 Transformer 架构：摒弃复杂 DiT，采用高维（多视角图像+语言）与低维（本体感觉 $R_t$ + 动作）双流分离编码后统一自注意力堆叠，实现简洁多模态融合，支持流匹配（flow-matching）动作生成，提升可扩展性。
     3. 数据处理优化：统一 EEF Pose 动作表示（xyz + Rotate6D + 夹爪 BCE 损失）、时间下采样意图抽象、平衡采样，减少噪声，提升跨 embodiment 一致性与泛化。
-    4. 两阶段参数高效适配：Phase I 异构预训练（290K 轨迹）学通用策略；Phase II 新机器人时，先 Prompt Warm-up（冻结骨干，仅优 32K 参数编码硬件），再联合 LoRA 微调（仅 9M 参数），仅 1% 总参数达 LIBERO 93%、Simpler-WidowX 54% SOTA，媲美 3B 全调 π0。 
+    4. 两阶段参数高效适配：Phase I 异构预训练（290K 轨迹）学通用策略；Phase II 新机器人时，先 Prompt Warm-up（冻结骨干，仅优 32K 参数编码硬件），再联合 LoRA 微调（仅 9M 参数），仅 1% 总参数达 LIBERO 93%、Simpler-WidowX 54% SOTA，媲美 3B 全调 π0。
+  
   **结构图**：
 <img width="400" height="600" alt="image" src="https://github.com/user-attachments/assets/6fcedbc7-2da0-42b0-833e-0b4f626c8dff" />
   
