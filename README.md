@@ -160,28 +160,43 @@
   **创新点**：
     1. 独立扭矩模态：首将 6-DoF 扭矩信号作为独立输入模态，摆脱传统仅视觉/力耦合依赖。
     2. 系统融合设计空间探索：早/中/晚三层融合策略全面对比，揭示最优力控路径。
-    3.鲁棒性显著提升：力控任务成功率 ↑20%+，抗扰动能力业界领先。
+    3. 鲁棒性显著提升：力控任务成功率 ↑20%+，抗扰动能力业界领先。
 
   **适用场景**：**高精度插拔、螺丝拧紧、门把操作**等需精确力反馈的工业装配线。
 
 - **ForceVLA: Enhancing VLA Models with a Force-aware MoE for Contact-Rich Manipulation**  
-  [Paper](https://arxiv.org/abs/2505.22159) | Code（未开源）  
-  **创新点**：力感知MoE动态路由6轴力/扭矩反馈至VLA骨干，插拔任务成功率↑23.2%，桥接感知-执行延迟。  
+  [Paper](https://arxiv.org/abs/2505.22159) | Code（未开源）
+  
+  **创新点**：
+    1. 力感知 MoE 路由：动态分配 6 轴力/扭矩至 VLA 骨干，实时桥接感知-执行延迟。
+    3. 瞬态接触优化：接触瞬间成功率 ↑23.2%，超越传统固定融合。
+    
   **适用场景**：**USB/HDMI插拔、钥匙开锁、精密对接**等接触瞬态敏感的自动化场景。
 
 - **OpenVLA-OFT: Optimized Fine-Tuning for Speed and Success**  
-  [Paper](https://arxiv.org/abs/2502.19645) | [Code](https://github.com/moojink/openvla-oft)  
-  **创新点**：OFT高效微调策略，支持多图输入+高频双臂输出，推理加速25-50倍，LIBERO↑15%。  
+  [Paper](https://arxiv.org/abs/2502.19645) | [Code](https://github.com/moojink/openvla-oft)
+  
+  **创新点**：
+    1. OFT 高效微调：参数高效策略，支持多图输入 + 高频双臂输出。
+    2. 推理加速 25-50倍：LIBERO 基准 ↑15%，兼顾速度与性能。
+  
   **适用场景**：**双臂协作搬运、快速分拣、桌面整理**等需高吞吐的仓储/服务机器人。
 
 - **SmolVLA: Compact VLA for Affordable Robotics**  
-  [Paper](https://arxiv.org/abs/2506.01844) | [Code](https://github.com/huggingface/lerobot)  
-  **创新点**：450M参数异步推理栈，社区数据训练，性能媲美10倍大的大模型，内存占用仅1/10。  
+  [Paper](https://arxiv.org/abs/2506.01844) | [Code](https://github.com/huggingface/lerobot)
+  
+  **创新点**：
+    1. 450M 极致压缩：异步推理栈，内存仅 1/10 大模型。
+    2. 社区数据驱动：性能媲美 10× 参数量 SOTA，成本可控。
+  
   **适用场景**：**低成本教育机器人、家庭助手、边缘设备部署**（如Raspberry Pi级硬件）。
 
 - **GR00T N1: Heterogeneous Data VLA for Humanoids**  
-  [Paper](https://arxiv.org/abs/2503.14734) | [Code](https://github.com/NVIDIA/Isaac-GR00T)  
-  **创新点**：融合轨迹+视频+合成数据异构训练，长时序鲁棒性↑22%，System2感知解耦执行。  
+  [Paper](https://arxiv.org/abs/2503.14734) | [Code](https://github.com/NVIDIA/Isaac-GR00T)
+  
+  **创新点**：
+    1. 异构数据融合：轨迹 + 视频 + 合成数据联合训练，长时序鲁棒性 ↑22%。
+    2. System2 解耦：感知与执行分离，提升复杂环境适应性。
   **适用场景**：**工厂无人巡检、灾后搜救、动态环境适应**等需跨模态泛化的复杂任务。
 
 - **Long-VLA: Unleashing Long-Horizon Capabilities**  
