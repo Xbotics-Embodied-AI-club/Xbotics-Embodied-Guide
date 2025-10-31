@@ -625,7 +625,7 @@ W. et al. 提出 **ScaleDP**，将模型参数规模扩展至 10⁹ 级，实现
 | Helix             | 双层系统 (S₂认知 + S₁反应) | 分层执行控制          | 人形机器人500 h训练    | 2025 |
 
 **相关链接：**  
-- [RT-2: Vision-Language-Action Models (Google Robotics)](https://robotics.google/robotics-research/rt-2/)  
+- [RT-2: Vision-Language-Action Models (Google Robotics)](https://arxiv.org/abs/2307.15818)  
 - [OpenVLA GitHub](https://github.com/openvla/openvla)  
 
 ---
