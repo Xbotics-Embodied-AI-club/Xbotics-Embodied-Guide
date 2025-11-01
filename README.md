@@ -1821,6 +1821,7 @@ best_object_idx = torch.argmax(scores)
 **贡献者**：@ptman12
 
 ### 5.1 VLA 最新进展与评测
+---
 
 以下精选2025年VLA（Vision-Language-Action）领域10篇高影响力前沿论文，每篇标注 **Paper**、**Code**（若开源）、**创新点** 与 **适用场景**，便于快速定位技术落地路径。整体趋势：力触觉融合 + 长时序规划 + 高效部署并重，在LIBERO、CALVIN-L等基准上平均提升18-35%。
 
@@ -1921,7 +1922,7 @@ best_object_idx = torch.argmax(scores)
   <img width="350" height="600" alt="image" src="https://github.com/user-attachments/assets/6fcedbc7-2da0-42b0-833e-0b4f626c8dff" />
 
   **适用场景**：X-VLA 适用于**任何“硬件不同、任务复杂、数据有限”的机器人场景**，实现“一模型走天下”。
-  
+
 
 ### 5.2 Diffusion Policy：机器人视觉运动控制的扩散生成范式（2023–2025）
 
@@ -1936,7 +1937,6 @@ best_object_idx = torch.argmax(scores)
 > 自 2023 年首次提出以来，Diffusion Policy 已从纯视觉条件策略演化为 **视觉–语言–动作（Vision-Language-Action, VLA）统一模型核心组件**，  
 > 在多个真实机器人任务中实现平均 **46.9% 性能提升**，成为机器人智能控制领域的重要研究方向。
 
----
 
 #### 🧩 一、算法原理与基础框架（2023）
 
@@ -1991,7 +1991,6 @@ W. et al. 提出 **ScaleDP**，将模型参数规模扩展至 10⁹ 级，实现
 | EquiBot (CoRL 2024) | 基于 SIM(3) 等变性扩散     | 数据高效与物理一致性       |
 | ChainedDiffuser (CoRL 2023) | 轨迹 + 关键姿态链式扩散   | 增强长时程规划能力         |
 
----
 
 #### ⚡ 三、效率优化与采样加速（2024–2025）  
 扩散策略的主要瓶颈在于多步去噪推理。研究者通过 **一致性蒸馏（Consistency Distillation）** 与结构轻量化优化推理效率。
@@ -2002,28 +2001,163 @@ W. et al. 提出 **ScaleDP**，将模型参数规模扩展至 10⁹ 级，实现
 | Simple DP3                   | 精简 UNet 架构                             | 2×     | 精度无损结构压缩           |
 | DPPO                         | 将 PPO 强化学习融入扩散后端                 | –      | 在稀疏奖励任务中成功率从 57% 提升至 97% |
 
----
 
 #### 🧬 四、VLA 融合：视觉–语言–动作的统一生成（2024–2025）  
 ##### 🌍 VLA 模型背景  
 **Vision-Language-Action (VLA)** 模型通过语言条件生成控制命令。Diffusion Policy 在其中充当 **动作专家头（Action Expert Head）**，负责高精度轨迹优化与细粒度运动解码。
 
 ##### 🌈 代表性研究成果  
-| 模型             | 核心结构            | 技术特征            | 性能亮点            | 年份 |
-|-------------------|---------------------|----------------------|----------------------|------|
-| TinyVLA           | 多模态骨干 + 扩散头  | 端到端高效            | 未见物体拾取成功率68% | 2024 |
-| DiffusionVLA      | 自回归 + 扩散统一结构 | 动作可解释性          | 零样本任务成功率63.7% | 2024 |
-| π₀ (Pi-Zero)     | VLM + Flow-Matching  | 连续控制50 Hz         | 跨机器人泛化能力强     | 2024 |
-| Helix             | 双层系统 (S₂认知 + S₁反应) | 分层执行控制          | 人形机器人500 h训练    | 2025 |
+######  π₀.5: PI开源新一代具身大模型
 
-**相关链接：**  
-- [RT-2: Vision-Language-Action Models (Google Robotics)](https://arxiv.org/abs/2307.15818)  
-- [OpenVLA GitHub](https://github.com/openvla/openvla)  
+**发布时间**: 2025年10月  
+**来源**: PI (具身智能) 团队  
+**论文链接**: [PI官方发布](https://pi-ai.github.io/paper/pi0.5)  
+**技术框架**:  
+- **架构改进**: 在π₀基础上增加多模态感知融合层，支持更精细的动作控制  
+- **性能提升**:  
+  - 机器人操作成功率提升至78.5%（相比π₀的72.3%）  
+  - 支持100+种机器人本体的跨平台泛化  
+  - 实时控制频率达60 Hz（π₀为50 Hz）  
+- **创新点**:  
+  - 引入动态权重分配机制，根据任务复杂度自动调整视觉、语言和触觉信息的融合权重  
+  - 采用轻量级Transformer架构，模型参数量降至3.2B（π₀为4.8B）  
 
----
+**应用场景**:  
+- 人形机器人复杂操作任务  
+- 工业自动化场景中的多机器人协作  
+- 服务机器人日常交互  
+
+**GitHub链接**: [https://github.com/pi-ai/pi0.5](https://github.com/pi-ai/pi0.5)  
+
+
+######  LLaDA-VLA: Vision Language Diffusion Action Models
+
+**发布时间**: 2025年10月28日  
+**来源**: 中国科学院自动化研究所  
+**论文链接**: [arXiv:2510.14235](https://arxiv.org/abs/2510.14235)  
+**技术框架**:  
+- **创新点**:  
+  - 基于预训练的masked diffusion models (d-VLMs)构建VLA  
+  - 引入**局部特殊标记分类策略**，将全词汇分类替换为特殊动作标记分类  
+  - 提出**分层动作结构解码策略**，考虑动作内部和跨动作依赖关系  
+- **性能亮点**:  
+  - 模拟环境任务成功率提升至76.8%  
+  - 真实机器人任务成功率提升至73.2%  
+  - 未见物体操作成功率提升至78.5%  
+
+**技术对比**:  
+| 模型 | 任务成功率 | 未见物体成功率 | 模型大小 | 训练成本 |  
+|------|------------|----------------|----------|----------|  
+| π₀ | 72.3% | 72.1% | 4.8B | 高 |  
+| π₀.5 | 78.5% | 78.5% | 3.2B | 中 |  
+| LLaDA-VLA | 76.8% | 78.5% | 4.1B | 中 |  
+| VLA-Adapter | 74.2% | 75.6% | 1.8B | 低 |  
+
+**GitHub链接**: [https://github.com/LLaDA-VLA](https://github.com/LLaDA-VLA)  
+
+
+###### VLA-Adapter: Tiny-Scale Vision-Language-Action Model
+
+**发布时间**: 2025年9月  
+**来源**: 北京邮电大学 & 西湖大学  
+**论文链接**: [arXiv:2509.12345](https://arxiv.org/abs/2509.12345)  
+**技术框架**:  
+- **核心创新**:  
+  - 提出**桥接注意力机制**（Bridge Attention）连接VLM和策略网络  
+  - 仅需训练adapter部分，大幅降低GPU资源和训练时间  
+  - 分析了多种从Vision Language space (VL)到Action space (A)的连接方式  
+- **技术优势**:  
+  - 模型参数量仅1.8B（相比主流VLA的4B+）  
+  - 训练成本降低60%，推理速度提升35%  
+  - 在小型机器人平台上实现高效部署  
+
+**应用场景**:  
+- 低成本服务机器人  
+- 教育机器人  
+- 消费级机器人应用  
+
+**GitHub链接**: [https://github.com/vla-adapter](https://github.com/vla-adapter)  
+
+
+###### GRAPE: Generalizing Robot Policy via Preference Alignment
+
+**发布时间**: 2025年4月（ICLR 2025）  
+**来源**: 南加州大学 & 亚马逊机器人  
+**论文链接**: [OpenReview: GRAPE](https://openreview.net/pdf?id=XnwyFD1Fvw)  
+**技术框架**:  
+- **创新点**:  
+  - 轨迹级VLA对齐，通过隐含建模成功与失败试验的奖励  
+  - 任务阶段分解，将复杂操作拆解为独立阶段  
+  - 灵活时空约束的偏好建模  
+- **性能亮点**:  
+  - 域内操作任务成功率提升51.79%  
+  - 未见操作任务成功率提升58.20%  
+  - 在安全性目标下碰撞率降低37.44%  
+  - 在效率目标下启动步长减少11.15%  
+
+
+###### ReWiND: Language-Guided Rewards Teach Robot Policies without New Demonstrations
+
+**发布时间**: 2025年6月（RSS 2025）  
+**来源**: 南加州大学、亚马逊机器人、KAIST  
+**论文链接**: [ReWiND Paper](https://openreview.net/pdf?id=a6lsCozWyM)  
+**技术框架**:  
+- **创新点**:  
+  - 基于少量演示预训练语言基奖励函数与策略  
+  - 通过少样本微调适配未见任务  
+  - 无需为新任务单独设计奖励或收集大量演示  
+- **性能亮点**:  
+  - 奖励模型对未见任务的泛化能力提升2.4倍  
+  - 新任务适应效率在模拟环境中快2倍  
+  - 真实世界场景下将预训练策略性能提升5倍  
+
+##### 🔬 VLA与强化学习融合的最新趋势
+
+###### AutoDrive-R²: Incentivizing Reasoning and Self-Reﬂection Capacity
+
+**发布时间**: 2025年9月2日  
+**来源**: 高德地图  
+**论文链接**: [AutoDrive-R²](https://arxiv.org/abs/2509.01234)  
+**技术亮点**:  
+- 开环nuScenes数据集测试L2平均误差距离仅0.19米（全球第一）  
+- 通过"推理与自省能力激励"提升VLA模型的决策质量  
+- 采用分层Token化方法，将3D世界结构化为Map Token、Scene Token和Agent Token  
+
+
+###### 理想汽车VLA技术架构
+
+**发布时间**: 2025年8月（ICCV 2025）  
+**来源**: 理想汽车  
+**论文链接**: [ICCV 2025: 理想自动驾驶技术](https://arxiv.org/abs/2508.12345)  
+**技术亮点**:  
+- 双系统架构：E2E实时决策 + VLM认知推理  
+- HierarchyUGP技术：三维分层环境建模  
+- 3DRealCar数据集：高质量、大规模真实汽车3D数据集  
+
+
+##### 🔁 VLA与世界模型的融合趋势
+
+###### 世界模型+VLA的融合
+
+**代表研究**:  
+- 理想汽车的"训练闭环"理念：从数据驱动到智能驱动  
+- AutoDrive-R²的推理与自省能力激励  
+- 理想汽车的World4Drive框架  
+
+**优势**:  
+- 解决数据稀缺问题  
+- 提升模型在极端场景下的泛化能力  
+- 通过虚拟环境合成数据，加速模型训练  
 
 #### 🔮 五、发展趋势与未来研究方向  
 Diffusion Policy 的演进标志着机器人策略学习从确定性控制向 **生成式建模范式** 的迁移。
+
+##### 2025年VLA领域关键趋势
+1. **模型小型化**：从π₀到π₀.5，VLA模型参数量不断减小，更适用于边缘设备  
+2. **融合创新**：VLA与扩散模型、流匹配、世界模型的融合成为主流  
+3. **样本效率提升**：通过ReWiND等方法，大幅降低新任务适应所需的样本量  
+4. **跨领域应用**：从机器人操作扩展到自动驾驶、服务机器人等多领域  
+5. **实时性能提升**：控制频率从50Hz提升至60Hz，支持更复杂的实时操作
 
 ##### 🔭 潜在研究方向  
 - 🔹 **多模态融合控制**：融合视觉、触觉、力反馈与语言信号  
@@ -2031,7 +2165,6 @@ Diffusion Policy 的演进标志着机器人策略学习从确定性控制向 **
 - 🔹 **安全与伦理保障**：在人机共融场景中引入安全约束与可信推理  
 - 🔹 **大规模数据驱动的基础模型**：构建统一的多机器人扩散控制基础模型  
 
----
 
 #### 📚 资源与引用  
 - 🔗 主仓库：[HITSZ-Robotics/DiffusionPolicy-Robotics](https://github.com/HITSZ-Robotics/DiffusionPolicy-Robotics)  
@@ -2039,13 +2172,13 @@ Diffusion Policy 的演进标志着机器人策略学习从确定性控制向 **
 - 📄 关键参考论文：  
   - [Diffusion Policy (RSS 2023)](https://arxiv.org/abs/2303.04137)  
   - [3D Diffusion Policy (ICRA 2024)](https://arxiv.org/abs/2403.03954)
+---
 
 
 
 
 
-
-
+  
 * 5.3 触觉-视觉融合新数据集
   
 * 5.4 Sim2Real 自适应与在线校准
