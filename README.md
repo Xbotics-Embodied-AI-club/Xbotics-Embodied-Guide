@@ -1951,9 +1951,9 @@ GAIL（Generative Adversarial Imitation Learning）借鉴了生成对抗网络�
 ##### 1.3 收敛与稳定性问题
 
 * 在有限状态／动作、表格形式（tabular）下，Q-learning 可证收敛于最优 (Q^\*)（在适当探索、学习率衰减条件下）。
-* 但在函数逼近（尤其是深度网络）情形下，估计 Q 值可能产生“过估计”、“震荡”或“发散”问题。
-* 例如，在结合深度网络时，需特别关注目标网络、经验回放、截断梯度等机制以增强稳定性。
-* 最新综述指出：值函数方法在复杂环境中仍可能受限于估计偏差／方差／探索不足的问题。 ([arxiv.org](https://arxiv.org/html/2509.08329v1?utm_source=chatgpt.com "Accelerating Reinforcement Learning Algorithms ..."))
+* 在函数逼近（尤其是深度网络）情形下，估计 Q 值可能产生“过估计”、“震荡”或“发散”问题。
+* 在结合深度网络时，需特别关注目标网络、经验回放、截断梯度等机制以增强稳定性。
+* 值函数方法在复杂环境中仍可能受限于估计偏差／方差／探索不足的问题。 ([arxiv.org](https://arxiv.org/html/2509.08329v1?utm_source=chatgpt.com "Accelerating Reinforcement Learning Algorithms ..."))
 
 
 #### 2. 策略直接优化方法（Policy-based Methods）
