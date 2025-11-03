@@ -1807,15 +1807,15 @@ best_object_idx = torch.argmax(scores)
 **贡献者**：@ptman12
 
 
-### Imitation Learning（模仿学习）经典算法综述
+### 4.1 Imitation Learning（模仿学习）经典算法综述
 
 
 本节聚焦于模仿学习（Imitation Learning, IL）中的三大经典方法：​**行为克隆（Behavioral Cloning, BC）**​、​**数据集聚合（Dataset Aggregation, DAgger）**​、以及​**生成式对抗模仿学习（Generative Adversarial Imitation Learning, GAIL）**​。重点讨论它们的原理、经典论文、数据分布偏移（covariate shift）与误差累积问题，以及它们之间的关系与演进。
 
 
-#### 2. 行为克隆（BC）
+#### 1. 行为克隆（BC）
 
-##### 2.1 算法简介
+##### 1.1 算法简介
 
 行为克隆将模仿学习视为一个典型的监督学习问题。给定专家演示数据集<img width="116" height="30" alt="image" src="https://github.com/user-attachments/assets/e900cab4-60d4-4148-8a7f-76e27fc1fcef" />
 
@@ -1827,13 +1827,13 @@ best_object_idx = torch.argmax(scores)
 
 例如交叉熵损失、回归均方误差等。许多早期工作（如 ALVINN）即采用此方式。 ([arxiv.org](https://arxiv.org/pdf/2106.12177?utm_source=chatgpt.com "Imitation Learning: Progress, Taxonomies and Challenges"))
 
-##### 2.2 优点
+##### 1.2 优点
 
 * 简单易实现：直接将监督学习技术迁移至策略学习。
 * 在专家演示覆盖面较好、环境状态分布较为稳定的场景下，表现常常不错。
 * 无需额外设计奖励函数、无需智能体与环境反复交互。
 
-##### 2.3 缺点 — 数据分布偏移与误差累积
+##### 1.3 缺点 — 数据分布偏移与误差累积
 
 正如前文所述，BC 的关键短板在于：训练时只见到了专家策略下的状态分布，而部署时智能体策略可能偏离专家，进入“未知”状态区域，导致性能剧降。这个过程往往伴随着误差累积。文献中从“值差异”角度分析，指出 BC 的值差异（在无穷期折扣模型下）是<img width="112" height="33" alt="image" src="https://github.com/user-attachments/assets/2642ee1b-0c53-4b9a-bcb8-5dba86ce5c40" />
  级别。 ([arxiv.org](https://arxiv.org/abs/1911.07027?utm_source=chatgpt.com "On Value Discrepancy of Imitation Learning"))
@@ -1841,9 +1841,9 @@ best_object_idx = torch.argmax(scores)
 换句话说，如果智能体偶尔偏离专家轨迹，一旦进入偏离状态，再恢复到专家轨迹的难度就会变大，错误可能一发不可收。很多实践中，这一问题使 BC 在真实环境（尤其是高维、长时序任务）中表现并不稳定。
 
 
-#### 3. 数据集聚合（DAgger）
+#### 2. 数据集聚合（DAgger）
 
-##### 3.1 算法简介
+##### 2.1 算法简介
 
 为了解决 BC 的分布偏移问题，DAgger（Dataset Aggregation）在训练过程中允许智能体以当前策略与专家策略混合控制，从而生成新的状态–动作对，并让专家对智能体经历的新状态进行标注。这样，数据集不断 **聚合（aggregate）** 新状态–动作对，包含智能体可能进入的“偏离”状态，从而缩小训练／部署时状态分布的差距。
 典型流程：
@@ -1859,22 +1859,22 @@ best_object_idx = torch.argmax(scores)
 5. 重复训练直到收敛。
    详见教材中算法说明。 ([algorithmsbook.com](https://algorithmsbook.com/files/chapter-18.pdf?utm_source=chatgpt.com "18 Imitation Learning"))
 
-##### 3.2 优点
+##### 2.2 优点
 
 * 能有效缓解智能体进入“未见状态”时缺乏标注的问题。
 * 通过在线“探索”其策略可能到达的状态，并让专家加标签，从而覆盖更多状态–动作对。
 * 在理论上，为策略的训练损失在其自身状态分布下提供了边界保障。 ([arxiv.org](https://arxiv.org/pdf/2106.12177?utm_source=chatgpt.com "Imitation Learning: Progress, Taxonomies and Challenges"))
 
-##### 3.3 缺点与实际考量
+##### 2.3 缺点与实际考量
 
 * 需要专家随时可查询：在执行过程中智能体生成新状态时，需要专家实时标注动作，这在许多现实场景中成本较高或不可行。
 * 虽然改进了 BC 的分布偏移问题，但仍可能存在：如果策略已严重偏离，生成状态–动作对的质量可能较低。
 * 在安全敏感任务中，智能体自主探索可能带来风险。相关扩展如 DropoutDAgger 试图引入不确定性估计以控制风险。 ([arxiv.org](https://arxiv.org/abs/1709.06166?utm_source=chatgpt.com "DropoutDAgger: A Bayesian Approach to Safe Imitation Learning"))
 
 
-#### 4. 生成式对抗模仿学习（GAIL）
+#### 3. 生成式对抗模仿学习（GAIL）
 
-##### 4.1 算法简介
+##### 3.1 算法简介
 
 GAIL（Generative Adversarial Imitation Learning）借鉴了生成对抗网络（GAN）的思想，将模仿学习转化为一种 **匹配专家与政策的状态–动作分布** 的问题。
 
@@ -1890,7 +1890,7 @@ GAIL（Generative Adversarial Imitation Learning）借鉴了生成对抗网络�
 
   策略训练通常结合强化学习（如 TRPO）驱动。 ([arxiv.org](https://arxiv.org/html/2408.06536v2?utm_source=chatgpt.com "A Comparison of Imitation Learning Algorithms for ..."))
 
-##### 4.2 优点
+##### 3.2 优点
 
 * 本质上考虑了 ​**分布匹配**​（而非仅监督拟合专家动作），因此在理论上比单纯 BC 更强。比如，通过 “值差异” 框架表明，GAIL 的误差为 <img width="109" height="29" alt="image" src="https://github.com/user-attachments/assets/f7090970-bbb3-43ab-bea2-97bd033d360f" />
 ，好于 BC 的<img width="110" height="33" alt="image" src="https://github.com/user-attachments/assets/90c85de0-5493-4b58-b2a4-cc780b077f6a" />
@@ -1898,27 +1898,27 @@ GAIL（Generative Adversarial Imitation Learning）借鉴了生成对抗网络�
 * 能适应更灵活的行为复制（不仅仅是专家动作的直接复制）——通过交互获得更多样本。
 * 在仿真任务中通常优于 BC。 ([ziiiliu.github.io](https://ziiiliu.github.io/files/R255_zl413_Topic_1.pdf?utm_source=chatgpt.com "Generative Adversarial Imitation Learning Benchmarking and ..."))
 
-##### 4.3 缺点与挑战
+##### 3.3 缺点与挑战
 
 * 训练不稳定：GAN 式训练容易出现判别器／生成器失衡、模式崩塌等问题。
 * 仍需与环境交互（需要 rollout），对于真实物理系统可能成本高或不安全。
 * 对于真实专家状态–动作覆盖非常稀疏或多模态行为，匹配专家分布仍面临挑战（例如模态丢失）——有研究将其与 (f)-散度最小化框架关联。 ([arxiv.org](https://arxiv.org/abs/1905.12888?utm_source=chatgpt.com "Imitation Learning as $f$-Divergence Minimization"))
 
-##### 4.4 经典论文／引用
+##### 3.4 经典论文／引用
 
 * Ho, Jonathan & Ermon, Stefano, “Generative Adversarial Imitation Learning”, NeurIPS 2016.
 * 相关综述：Liu, Z. “Generative Adversarial Imitation Learning Benchmarking and …” ([ziiiliu.github.io](https://ziiiliu.github.io/files/R255_zl413_Topic_1.pdf?utm_source=chatgpt.com "Generative Adversarial Imitation Learning Benchmarking and ..."))
 
 
-#### 5. 三者关系与误差累积视角总结
+#### 4. 三者关系与误差累积视角总结
 
-##### 5.1 从 BC → DAgger → GAIL 的演进
+##### 4.1 从 BC → DAgger → GAIL 的演进
 
 * ​**BC**​：最为简单、监督学习式，但受限于专家状态分布，容易偏离后累积错误。
 * ​**DAgger**​：引入在线采样＋专家标注机制，缓解状态分布偏移，但需要专家持续参与。
 * ​**GAIL**​：进一步把焦点放在智能体生成状态–动作分布与专家匹配上，通过 adversarial training 实现更强泛化能力。
 
-##### 5.3 实践建议
+##### 4.3 实践建议
 
 * 若演示数据量大、覆盖面广、状态–动作映射稳定、环境变化少：BC 是一个合理起点。
 * 若部署环境复杂、策略偏离风险高、专家仍可参与：推荐使用 DAgger 或其变体。
@@ -1926,13 +1926,121 @@ GAIL（Generative Adversarial Imitation Learning）借鉴了生成对抗网络�
 * 在任何方法中，都应关注：演示数据的覆盖质量、智能体训练后可能到达的状态范围、以及对“偏离状态”的监控或补充机制。
 
 
-#### 6. 总结
+#### 5. 总结
 
 模仿学习作为连接专家演示与决策策略的重要范式，其经典方法 BC/DAgger/GAIL 在理论和工程上都起到了标杆作用。理解它们之间的差别、各自的适用场景和限制，有助于在实际系统中进行合理选择与设计。尤其是“数据分布偏移”与“误差累积”这两个核心风险，是选择和改进算法时必须正视的问题。
 
 
+### 4.2 RL 经典：值/策略/Actor-Critic，收敛与稳定性
 
-* 4.2 RL 经典：值/策略/Actor-Critic，收敛与稳定性
+## 1. 值函数方法（Value-based Methods）
+
+### 1.1 算法简介
+
+值函数方法主要通过估计状态值函数(V(s))或状态－动作值函数(Q(s,a))，然后由此导出或近似最优策略。典型代表包括 Q‑learning 和 Deep Q‑Network (DQN) 等。
+算法一般形式（例如 Q-learning）为：
+<img width="446" height="38" alt="image" src="https://github.com/user-attachments/assets/015f0f2e-5713-4926-aa48-a5c8992960f1" />
+
+然后策略取<img width="200" height="31" alt="image" src="https://github.com/user-attachments/assets/37da9159-e904-4f2e-a6fe-a3e29efc77e4" />
+
+### 1.2 优势
+
+* 在离散状态／动作空间中、或动作空间可枚举时，值函数方法直观、实现简单。
+* 值函数学习利用了动态规划或时序差分 (TD) 原理，往往更新高效。
+
+### 1.3 收敛与稳定性问题
+
+* 在有限状态／动作、表格形式（tabular）下，Q-learning 可证收敛于最优 (Q^\*)（在适当探索、学习率衰减条件下）。
+* 但在函数逼近（尤其是深度网络）情形下，估计 Q 值可能产生“过估计”、“震荡”或“发散”问题。
+* 例如，在结合深度网络时，需特别关注目标网络、经验回放、截断梯度等机制以增强稳定性。
+* 最新综述指出：值函数方法在复杂环境中仍可能受限于估计偏差／方差／探索不足的问题。 ([arxiv.org](https://arxiv.org/html/2509.08329v1?utm_source=chatgpt.com "Accelerating Reinforcement Learning Algorithms ..."))
+
+
+## 2. 策略直接优化方法（Policy-based Methods）
+
+### 2.1 算法简介
+
+策略方法直接对策略<img width="63" height="28" alt="image" src="https://github.com/user-attachments/assets/5568911a-8514-4c97-9e63-637183b82246" />
+进行参数化，并通过梯度上升（或下降）优化预期累积奖励<img width="37" height="26" alt="image" src="https://github.com/user-attachments/assets/b5bc3f88-6f20-4f32-ac68-dfe95c3f3e7b" />
+。常见的有 REINFORCE (Williams, 1992) 等。其基本更新形式为：
+<img width="228" height="33" alt="image" src="https://github.com/user-attachments/assets/4ad55a12-c169-4e1d-9a4f-04ece21fb0fa" />
+其中 (G) 是一次采样轨迹的回报。策略方法具备自然处理连续动作空间、可直接学习随机策略等优势。
+
+### 2.2 优势
+
+* 对连续动作空间原生支持，无需枚举或最大化 Q 值。
+* 可直接优化期望回报，策略可采用随机形式，从而自然包含探索。
+* 有丰富的理论（如策略梯度定理）支持。
+
+### 2.3 收敛与稳定性问题
+
+* 策略梯度方法虽然理论上具有收敛保证（在梯度噪声受控、学习率衰减、无函数逼近偏差的情形下），但在实践中往往受到“高方差”、“梯度估计不精确”、“探索/利用难平衡”等困扰。
+* 方差大导致训练不稳定、震荡明显。
+* 在与函数逼近结合时，还可能遭遇 “策略陷入局部最优”、“退化为确定性策略导致停滞” 等问题。
+* 因此，在实践中，通常搭配基准（baseline）、熵正则化、自然梯度或其他稳定化技巧使用。
+
+
+## 3. 演员-评论员方法（Actor-Critic Methods）
+
+### 3.1 算法简介
+
+演员-评论员方法兼具策略优化和值函数估计两者。演员 (Actor) 负责生成动作，评论员 (Critic) 估计值函数，为演员提供信号，以更低方差方式更新策略。典型流程：
+
+* Critic 通过 TD 或样本估计当前策略的值函数。
+* Actor 根据 Critic 的反馈更新策略参数。
+* 重复直至收敛。
+
+这一结构使得策略优化中方差控制更好，学习更高效。 ([busoniu.net](https://busoniu.net/files/papers/ivo_smcc12_survey.pdf?utm_source=chatgpt.com "A Survey of Actor-Critic Reinforcement Learning"))
+
+### 3.2 优势
+
+* 政策梯度方差低于纯策略方法。
+* 支持连续动作、高维状态空间，普遍用于现代深度 RL。
+* 在“在线”情境中，Actor-Critic 结构较为通用。
+
+### 3.3 收敛与稳定性问题
+
+* 虽然在表格、小规模模型中可获得理论收敛保证，但在函数逼近／深度网络场景下仍缺乏通用的稳定性证明。
+* 例如，有研究指出：Actor-Critic 方法尽管理论上“通常具有良好收敛性质”，但在现实深度学习场景中仍可能“非常不稳定”或“样本效率低”。 ([busoniu.net](https://busoniu.net/files/papers/ivo_smcc12_survey.pdf?utm_source=chatgpt.com "A Survey of Actor-Critic Reinforcement Learning"))
+* 针对闭环控制系统（如机器人控制），还需考虑系统“稳定性”（如闭环收敛、扰动鲁棒性）的问题。有工作结合 Lyapunov 方法提出“具稳定性保证”的 Actor-Critic 框架。 ([ResearchGate](https://www.researchgate.net/publication/343173949_Actor-Critic_Reinforcement_Learning_for_Control_With_Stability_Guarantee?utm_source=chatgpt.com "(PDF) Actor-Critic Reinforcement Learning for Control With ..."))
+* 最新有关两时尺度 Actor-Critic 法的收敛性研究亦在推进中。 ([par.nsf.gov](https://par.nsf.gov/servlets/purl/10462369?utm_source=chatgpt.com "Global Convergence of Two-Timescale Actor-Critic for ..."))
+ 
+
+## 4. 三者关系、收敛与稳定性视角总结
+
+### 4.1 三者的关系与演进
+
+* 值函数方法：通过估计 (Q)/(V) 再导出策略，是 RL 早期经典。
+* 策略方法：直接优化策略，适合连续动作、随机策略场景。
+* Actor-Critic：融合两者优势，更适合现代深度 RL 应用。
+* 在实际工程中，许多“深度 RL”算法（如 Deep Deterministic Policy Gradient、Soft Actor‑Critic 等）其实是 Actor-Critic 或值／策略混合范式。
+
+### 4.2 收敛、稳定性的核心挑战
+
+* ​**收敛**​：算法能否在无限样本、适当学习率、满足假设下，收敛至最优或近似最优？
+* ​**稳定性**​：在有限样本、函数逼近、随机梯度、新旧策略不断变化的现实场景下，算法是否表现出“鲁棒”“不振荡”“不发散”？
+* 核心风险包括：
+  * 函数逼近误差（bias）／估计方差（variance）。
+  * 非稳态分布、策略不断变化、训练–执行分布偏差。
+  * 探索–利用困境、动作连续性、环境非线性／高维。
+* 理论上：某些表格模型可证明收敛；但深度 RL 场景下普遍缺乏全局收敛保证。正如综述指出，“收敛性与稳定性是重要考虑，但在复杂场景中仍无定论”。 ([arxiv.org](https://arxiv.org/html/2411.18892v2?utm_source=chatgpt.com "Comprehensive Survey of Reinforcement Learning"))
+
+### 4.3 实践建议
+
+* 在状态／动作空间较小、可枚举时，优先考虑值函数方法，且确保探索充分、学习率衰减。
+* 在动作连续、策略需要随机性、状态高维时，策略方法或 Actor-Critic 方法更为合适。
+* 对于深度网络场景，务必：使用目标网络、经验回放、熵正则化、双 Q、延迟更新等技巧以增强稳定性。
+* 在安全／机器人控制任务中，关注闭环“稳定性”与“鲁棒性”，考虑将控制理论（如 Lyapunov 方法）与 RL 结合。
+* 实验中监控学习曲线、梯度幅度、策略执行性能，及时发现是否存在震荡、退化或过拟合趋势。
+
+---
+
+## 5. 总结
+
+强化学习作为决策智能体的核心范式，其经典算法体系（值函数、策略优化、Actor-Critic）在理论与工程上均起到了标杆作用。理解它们的区别、各自的适用场景、以及收敛／稳定性的现实挑战，有助于在具体系统中合理选型、设计与调优。尤其是在深度 RL、现实机器人控制、大规模交互系统中，“稳定性”和“收敛性”不再是可忽视的附加项，而是算法可用性的关键门槛。
+
+
+
 * 4.3 视觉与多模态：表征学习、对比学习、SigLIP/CLIP
 * 4.4 控制与规划：iLQR/MPPI/MPC 与 TrajOpt
 * 4.5 扩散与生成：条件扩散、动作分布建模
@@ -1942,10 +2050,8 @@ GAIL（Generative Adversarial Imitation Learning）借鉴了生成对抗网络�
 
 ## 5. 各技术路线前沿（Trends & SOTA）
 
-**贡献者**：@ptman12
 
 ### 5.1 VLA 最新进展与评测
----
 
 以下精选2025年VLA（Vision-Language-Action）领域10篇高影响力前沿论文，每篇标注 **Paper**、**Code**（若开源）、**创新点** 与 **适用场景**，便于快速定位技术落地路径。整体趋势：力触觉融合 + 长时序规划 + 高效部署并重，在LIBERO、CALVIN-L等基准上平均提升18-35%。
 
