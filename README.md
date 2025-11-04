@@ -2043,7 +2043,84 @@ GAIL（Generative Adversarial Imitation Learning）借鉴了生成对抗网络�
 
 
 
-* 4.3 视觉与多模态：表征学习、对比学习、SigLIP/CLIP
+### 4.3 视觉与多模态：表征学习、对比学习、SigLIP/CLIP
+
+#### 1. 表征学习：为何重要？
+
+##### 1.1 什么是“表征”
+
+在深度学习中，“表征”（representation）通常指将原始输入（例如图像、文本）映射为一个向量或特征空间中的点。良好的表征应有以下特性：
+
+* ​**语义聚合**​：语义相近的输入在嵌入空间中距离较近。
+* ​**泛化能力**​：在新的任务、新的数据上也能有效迁移。
+* ​**紧凑有效**​：避免冗余且便于 downstream 任务使用。
+
+##### 1.2 表征学习的主要路径
+
+* ​**监督学习​**​：用标签指导特征提取器学习，比如分类任务中的最后一层前特征。
+* ​**无监督／自监督学习​**​：没有或少量人工标签，通过输入自身、数据增强或结构约束来学习。
+* ​**多模态学习​**​：同时处理多个模态（例如图像 + 文本），学习跨模态共享的表征空间。
+
+##### 1.3 为何视觉+文本（多模态）值得关注？
+
+* 自然语言为视觉学习提供了丰富且人类理解的语义信号。
+* 多模态表征可以实现跨模态任务：图像-文本检索、文本条件生成、零样本分类等。
+* 视觉模型与语言模型融合，是通用人工智能发展的重要方向。
+
+
+#### 2. 对比学习：核心思想与机制
+
+##### 2.1 对比学习 (Contrastive Learning) 概述
+
+对比学习通过“拉近正样本对”（positive pair）和“推远负样本对”（negative pair）来训练模型。
+  ![The Beginner's Guide to Contrastive Learning](https://framerusercontent.com/images/BTYwexvG8pobxihJcbBy0Vp4aE.png?height=1124&width=1600)
+  ![Full Guide to Contrastive Learning | Encord](https://images.prismic.io/encord/fb3171a4-933d-4d63-8be3-8da581413db0_image1.png?auto=compress%2Cformat)
+  ![The t-SNE [85] visualizations of learned feature spaces using SimCLR... |  Download Scientific Diagram](https://www.researchgate.net/publication/355729857/figure/fig3/AS%3A1084085812371456%401635477607010/The-t-SNE-85-visualizations-of-learned-feature-spaces-using-SimCLR-16-and-IP-IRM-on.png)
+例如，在图像领域，给定一张图片，通过数据增强生成两个视图视为正样本对，而其他图片的视图视为负样本。模型学习特征，使得正样本对在嵌入空间距离更近。这个机制被证明能学到非常强的视觉特征。
+
+
+##### 2.2 对比学习在多模态中的延伸
+
+**优点**
+
+* 利用大规模未标注或弱标注数据（如图像-文本对）进行学习。
+* 学到的特征可迁移至多种下游任务。
+  **缺点**
+* 需要大量负样本，否则模型可能陷入“坍缩” (collapse) 问题。
+* 批量大小 (batch size)、负样本数、温度参数 (temperature) 等超参数影响显著。
+* 在模态差异大（如图像 vs 文本）时，对齐难度增大。
+
+
+#### 3. 多模态表征：CLIP 模型详解
+
+##### 3.1 模型背景与意义
+
+CLIP（Contrastive Language–Image Pre-training）由 OpenAI 提出，用于用自然语言监督来学习视觉概念。模型的关键贡献在于：
+
+* 用 4 亿 (image, text) 对预训练。 [arXiv**+1**](https://arxiv.org/abs/2103.00020?utm_source=chatgpt.com)
+* 将图像和文本映射到同一特征空间，从而实现“零样本” (zero-shot) 图像分类。 
+
+##### 3.2 架构与训练流程
+
+* ​**图像编码器**​：例如 ResNet 或 ViT，用于将图像 II**I** 编码成向量 f(I)f(I)**f**(**I**)。
+* ​**文本编码器**​：Transformer 模型，用于将文本 TT**T** 编码成向量 g(T)g(T)**g**(**T**)。
+* ​**对比损失**​（对称 softmax 形式）：在一个批次中，计算所有图像-文本对的相似度 (通常用余弦相似度或点积)，然后对匹配与不匹配进行 softmax 归一化。
+<img width="2560" height="1690" alt="image" src="https://github.com/user-attachments/assets/cc20e1b8-256f-46a9-9400-49a0bf7bcd74" />
+<img width="1400" height="616" alt="image" src="https://github.com/user-attachments/assets/bdc566cd-7b70-4a6d-b0cc-36010529ec1b" />
+<img width="850" height="246" alt="image" src="https://github.com/user-attachments/assets/8b76abc6-39c6-4f48-8fd9-f94172f69981" />
+
+#### 3.3 主要能力与应用
+
+* ​**零样本分类**​：给定类别文本提示 (e.g. “a photo of a {class}.”)，直接用文本编码与图像编码比对，无需微调。 [milvus.io**+1**](https://milvus.io/ai-quick-reference/how-does-clip-contrastive-languageimage-pretraining-work-for-multimodal-embeddings?utm_source=chatgpt.com)
+* ​**图像-文本检索**​：通过在共享嵌入空间中比对，支持图像检索文本或文本检索图像。
+* ​**迁移学习​**​：图像编码器可作为通用视觉表征器，应用于多种下游视觉任务。
+
+#### 3.4 局限与挑战
+
+* 对于小批量 (small batch) 训练表现不佳，因为软最大化 softmax 损失依赖于丰富的负样本。
+* 对噪声数据较为敏感（如图像-文本对中的误配对）。
+* 模型可能偏向“语言先验”，即更多依赖文本提示而非纯视觉特征。
+
 * 4.4 控制与规划：iLQR/MPPI/MPC 与 TrajOpt
 * 4.5 扩散与生成：条件扩散、动作分布建模
 * 4.6 世界模型：潜在动力学与想象训练
