@@ -2075,6 +2075,7 @@ GAIL（Generative Adversarial Imitation Learning）借鉴了生成对抗网络�
 对比学习通过“拉近正样本对”（positive pair）和“推远负样本对”（negative pair）来训练模型。
   ![The Beginner's Guide to Contrastive Learning](https://framerusercontent.com/images/BTYwexvG8pobxihJcbBy0Vp4aE.png?height=1124&width=1600)
   ![Full Guide to Contrastive Learning | Encord](https://images.prismic.io/encord/fb3171a4-933d-4d63-8be3-8da581413db0_image1.png?auto=compress%2Cformat)
+  
 在图像领域，给定一张图片，通过数据增强生成两个视图视为正样本对，而其他图片的视图视为负样本。模型学习特征，使得正样本对在嵌入空间距离更近。这个机制被证明能学到非常强的视觉特征。
 
 
@@ -2108,18 +2109,45 @@ CLIP（Contrastive Language–Image Pre-training）由 OpenAI 提出，用于用
 <img width="1400" height="616" alt="image" src="https://github.com/user-attachments/assets/bdc566cd-7b70-4a6d-b0cc-36010529ec1b" />
 <img width="850" height="246" alt="image" src="https://github.com/user-attachments/assets/8b76abc6-39c6-4f48-8fd9-f94172f69981" />
 
-#### 3.3 主要能力与应用
+##### 3.3 主要能力与应用
 
 * ​**零样本分类**​：给定类别文本提示 (e.g. “a photo of a {class}.”)，直接用文本编码与图像编码比对，无需微调。 [milvus.io**+1**](https://milvus.io/ai-quick-reference/how-does-clip-contrastive-languageimage-pretraining-work-for-multimodal-embeddings?utm_source=chatgpt.com)
 * ​**图像-文本检索**​：通过在共享嵌入空间中比对，支持图像检索文本或文本检索图像。
 * ​**迁移学习​**​：图像编码器可作为通用视觉表征器，应用于多种下游视觉任务。
 
-#### 3.4 局限与挑战
+##### 3.4 局限与挑战
 
 * 对于小批量 (small batch) 训练表现不佳，因为软最大化 softmax 损失依赖于丰富的负样本。
 * 对噪声数据较为敏感（如图像-文本对中的误配对）。
 * 模型可能偏向“语言先验”，即更多依赖文本提示而非纯视觉特征。
 
+  
+#### 4. SigLIP：对比 CLIP 的革新
+
+##### 4.1 背景与动机
+
+SigLIP（Sigmoid Loss for Language–Image Pre-training）于 2023 年提出，旨在解决 CLIP 使用 softmax 对比损失时的一些瓶颈。 [arXiv**+1**](https://arxiv.org/abs/2303.15343?utm_source=chatgpt.com)
+
+##### 4.2 核心区别：损失函数
+
+* CLIP 采用 softmax 归一化对比损失，需要对整个 batch 或 batch 内所有配对进行归一化。
+* SigLIP 采用 ​**pairwise sigmoid 损失**​，对每一个图像-文本对独立计算（正对和负对），无需考虑 batch 中所有其他配对。 [arXiv**+1**](https://arxiv.org/abs/2303.15343?utm_source=chatgpt.com)
+
+简化后的损失表示（任意 i,j 对）：
+<img width="360" height="68" alt="image" src="https://github.com/user-attachments/assets/b44d2367-d06c-40ce-88dd-bb850fc5a6c9" />
+
+其中<img width="66" height="33" alt="image" src="https://github.com/user-attachments/assets/0964466d-f1cb-4d0c-afc2-d7749450d0b7" /> 当i=j （匹配对），否则 0（负对）。 
+
+##### 4.3 优势
+
+* 在 **小批量** (small batch) 或资源受限情况下也能取得良好效果。
+* 训练更灵活，不必为 softmax 归一化负对做巨大 batch 或全局视图。
+* 实验表明在一定条件下优于 CLIP 。 
+
+##### 4.4 适用场景与建议
+
+* 当训练资源（如 GPU 内存、batch 大小）受限时，建议优先考虑 SigLIP。
+* 若可使用大 batch 规模、大量数据，并且侧重最大化模型能力， CLIP 仍然具备成熟生态与优异性能。
 * 4.4 控制与规划：iLQR/MPPI/MPC 与 TrajOpt
 * 4.5 扩散与生成：条件扩散、动作分布建模
 * 4.6 世界模型：潜在动力学与想象训练
