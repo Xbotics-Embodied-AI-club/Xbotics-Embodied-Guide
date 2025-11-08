@@ -2414,8 +2414,6 @@ SigLIP（Sigmoid Loss for Language–Image Pre-training）于 2023 年提出，�
 
 ![Image](https://roboticseabass.com/wp-content/uploads/2024/06/manip_intro_banner-1568x606.png)
 
-![Image](https://www.frontiersin.org/files/Articles/724116/fnbot-15-724116-HTML/image_m/fnbot-15-724116-g001.jpg)
-
 ![Image](https://pub.mdpi-res.com/entropy/entropy-24-00653/article_deploy/html/images/entropy-24-00653-ag-550.jpg?1652256370=)
 
 * TrajOpt（Trajectory Optimization，尤其在机器人运动规划领域）是一种将运动规划问题转化为数学优化的问题：通过 Sequential Convex Programming (SCP) 或信赖域 SQP 等方式，对关节/路径/时间参数化轨迹求最优解。 
