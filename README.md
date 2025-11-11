@@ -524,8 +524,10 @@
 ### 目录（Table of Contents）
 - [3.1 机器人学打底：坐标系/运动学/动力学/控制](#31-机器人学打底坐标系运动学动力学控制)
 - [3.2 深度学习打底：Self-Attention与Transformer](#32-深度学习打底self-attention与transformer)
-- [3.3 深度学习打底：优化/正则化/训练技巧](#33-深度学习打底优化正则化训练技巧)
-- [3.4 工程环境：Conda/Docker、日志与可视化、复现实验规范](#34-工程环境condadocker日志与可视化复现实验规范)
+- [3.3 深度学习打底：Diffusion (DDIM)](#33-深度学习打底diffusion-ddim)
+- [3.4 深度学习打底：优化/正则化/训练技巧](#34-深度学习打底优化正则化训练技巧)
+- [3.5 工程环境：Conda/Docker、日志与可视化、复现实验规范](#35-工程环境condadocker日志与可视化复现实验规范)
+- [3.6 实战与应用：机器人中的多模态/GAT](#36-实战与应用机器人中的多模态gat)
 
 ---
 
@@ -552,7 +554,7 @@
 T = [R_{3×3}  P_{3×1}]
     [0_{1×3}     1   ]
 ```
-串联机械臂从基座到末端：$T_0^n = T_0^1 \cdot T_1^2 \cdots T_{n-1}^n$
+串联机械臂从基座到末端： $T_0^n = T_0^1 \cdot T_1^2 \cdots T_{n-1}^n$
 
 **正逆运动学**
 
@@ -564,11 +566,11 @@ T = [R_{3×3}  P_{3×1}]
 
 **DH参数法**
 
-用4个参数$(θ_i, d_i, a_i, α_i)$标准化描述连杆关系：
-- 连杆长度 $a_i$：沿$x_i$轴距离
-- 连杆扭角 $α_i$：绕$x_i$轴角度
-- 连杆偏距 $d_i$：沿$z_{i-1}$轴距离
-- 关节角 $θ_i$：绕$z_{i-1}$轴角度
+用4个参数 $(θ_i, d_i, a_i, α_i)$ 标准化描述连杆关系：
+- 连杆长度 $a_i$：沿 $x_i$ 轴距离
+- 连杆扭角 $α_i$：绕 $x_i$ 轴角度
+- 连杆偏距 $d_i$：沿 $z_{i-1}$ 轴距离
+- 关节角 $θ_i$：绕 $z_{i-1}$ 轴角度
 
 **轨迹规划对比**
 
@@ -581,12 +583,12 @@ T = [R_{3×3}  P_{3×1}]
 
 **雅可比矩阵**
 
-建立关节速度$\dot{q}$和末端速度$v$的桥梁：
+建立关节速度 $\dot{q}$ 和末端速度 $v$ 的桥梁：
 ```
 v = J(q) · q̇  （速度正运动学）
 τ = J^T · F  （静力学关系）
 ```
-当$\det(J)=0$时处于奇异位形，失去某自由度。
+当 $\det(J)=0$ 时处于奇异位形，失去某自由度。
 
 **MoveIt框架架构**
 
@@ -611,7 +613,7 @@ v = J(q) · q̇  （速度正运动学）
 
 #### 实践要点
 
-- **坐标变换**：$T_A^B$表示从A到B，连续变换从右往左读
+- **坐标变换**：$T_A^B$ 表示从A到B，连续变换从右往左读
 - **逆运动学**：优先解析解（快），数值解做后备
 - **轨迹规划**：简单任务用梯形速度，复杂用五次多项式
 - **MoveIt调试**：碰撞太严调`padding`，规划失败查起点碰撞
@@ -625,286 +627,41 @@ v = J(q) · q̇  （速度正运动学）
 🧪 **实作**：手撕一个mini Transformer（<500行代码）
 📄 **论文**：[Attention Is All You Need](https://arxiv.org/abs/1706.03762) - 原始论文
 
-#### Transformer：从黑盒到掌握全貌
-
-咱先从最简单的视角开始——把Transformer当成一个黑盒子。
-
-**第一层理解：纯黑盒**
-
-![输入输出黑盒](./files/images/第三节/2-input-output.png)
-
-就这么简单，法语进去，英语出来。别管里面咋实现的，反正它能工作。这就是2017年Google发表《Attention Is All You Need》时震撼世界的原因——这玩意儿把机器翻译的质量提升到了前所未有的高度。
-
-**第二层理解：打开盖子看大结构**
-
-![编码器解码器结构](./files/images/第三节/2-encoder-decoder.png)
-
-掀开盖子，里面是编码器（Encoder）和解码器（Decoder）两大块。编码器负责理解输入，解码器负责生成输出。原论文各用6层，但这不是死的——BERT用12层，GPT-3更夸张用了96层！
-
-**第三层理解：单层内部到底干啥**
-
-![单层编码器结构](./files/images/第三节/2-encoder.png)
-
-每一层编码器就干两件事：
-1. **Self-Attention**：让每个词都能"看到"整个句子的信息
-2. **Feed Forward**：对每个位置独立做一次非线性变换
-
-这两步都配了"跳线"（残差连接）和"归一化"（Layer Norm），保证信号稳定传递。
-
-![Transformer整体架构](./files/images/第三节/transformer%20structure.png)
-
-#### Self-Attention：核心中的核心
-
-**为啥需要Self-Attention？**
-
-想象你在读这句话："小明喜欢打篮球，他每天都去球场"。当模型处理"他"这个词时，需要知道"他"指的是"小明"。传统RNN得一个词一个词往前传，传到"他"的时候"小明"的信息可能已经丢失了。CNN只能看固定大小的窗口。
-
-Self-Attention的革命性在于：**让序列中任意两个位置都能直接"对话"**！
-
-**Query-Key-Value机制**
-
-![QKV机制](./files/images/第三节/2-qkv.png)
-
-这个机制特别像在图书馆找书：
-- **Query（查询）**：你想找什么书（"我需要关于机器学习的资料"）
-- **Key（键）**：每本书的标签（"深度学习"、"统计学习"、"神经网络"）
-- **Value（值）**：书的实际内容
-
-数学上就是：
-```python
-# 假设输入序列 X 形状为 [batch, seq_len, d_model]
-Q = X @ W_Q  # 生成查询
-K = X @ W_K  # 生成键
-V = X @ W_V  # 生成值
-
-# 计算注意力分数
-scores = Q @ K.T / sqrt(d_k)  # 为啥除以根号d？防止梯度消失
-attention_weights = softmax(scores)
-output = attention_weights @ V
-```
-
-为什么要除以$\sqrt{d_k}$？苏剑林在[《浅谈Transformer的初始化、参数化与标准化》](https://zhuanlan.zhihu.com/p/400925524)里讲得特别清楚——点积的方差会随维度增长，不除的话softmax会饱和。
-
-**注意力可视化**
-
-![词注意力可视化](./files/images/第三节/2-attention-word.png)
-
-这图展示了模型在翻译时的注意力分布。比如翻译"The animal didn't cross the street because it was too tired"时，模型需要判断"it"指代什么。通过注意力权重可视化，我们能看到模型确实学会了正确的指代关系。
-
-#### 多头注意力：团队协作
-
-![多头注意力](./files/images/第三节/2-multi-head.png)
-
-单个注意力头就像一个专家，多头注意力就是专家团队。假设d_model=512，用8个头，每个头负责64维：
-
-```python
-class MultiHeadAttention(nn.Module):
-    def __init__(self, d_model=512, n_heads=8):
-        super().__init__()
-        self.d_k = d_model // n_heads  # 64
-        self.n_heads = n_heads
-
-        # 为所有头一起计算QKV
-        self.W_Q = nn.Linear(d_model, d_model)
-        self.W_K = nn.Linear(d_model, d_model)
-        self.W_V = nn.Linear(d_model, d_model)
-        self.W_O = nn.Linear(d_model, d_model)
-
-    def forward(self, x, mask=None):
-        batch_size, seq_len, _ = x.shape
-
-        # 1. 计算QKV并reshape成多头
-        Q = self.W_Q(x).view(batch_size, seq_len, self.n_heads, self.d_k)
-        K = self.W_K(x).view(batch_size, seq_len, self.n_heads, self.d_k)
-        V = self.W_V(x).view(batch_size, seq_len, self.n_heads, self.d_k)
-
-        # 2. 转置便于并行计算: [batch, n_heads, seq_len, d_k]
-        Q = Q.transpose(1, 2)
-        K = K.transpose(1, 2)
-        V = V.transpose(1, 2)
-
-        # 3. 计算注意力
-        scores = torch.matmul(Q, K.transpose(-2, -1)) / math.sqrt(self.d_k)
-
-        if mask is not None:
-            scores.masked_fill_(mask == 0, -1e9)
-
-        attention = F.softmax(scores, dim=-1)
-        context = torch.matmul(attention, V)
-
-        # 4. 合并多头
-        context = context.transpose(1, 2).contiguous()
-        context = context.view(batch_size, seq_len, d_model)
-
-        return self.W_O(context)
-```
-
-不同的头会学到不同类型的关系：
-- **头1**：可能专注于局部语法（相邻词关系）
-- **头2**：可能捕捉长距离依赖（主语-谓语）
-- **头3**：可能学习指代关系（代词-名词）
-- **头4-8**：各有分工，语义相似度、句法结构等
-
-#### 位置编码：告诉模型词序
-
-![位置编码](./files/images/第三节/2-position.png)
-
-Self-Attention有个问题——它不知道词的顺序！所以需要位置编码：
-
-![位置编码可视化](./files/images/第三节/2-2-pos-embedding.png)
-
-```python
-class PositionalEncoding(nn.Module):
-    def __init__(self, d_model, max_len=5000):
-        super().__init__()
-        pe = torch.zeros(max_len, d_model)
-        position = torch.arange(0, max_len).unsqueeze(1).float()
-
-        # 创建频率项
-        div_term = torch.exp(torch.arange(0, d_model, 2).float() *
-                           -(math.log(10000.0) / d_model))
-
-        # 偶数维度用sin
-        pe[:, 0::2] = torch.sin(position * div_term)
-        # 奇数维度用cos
-        pe[:, 1::2] = torch.cos(position * div_term)
-
-        # 注册为buffer，不参与训练
-        self.register_buffer('pe', pe.unsqueeze(0))
-
-    def forward(self, x):
-        # x: [batch, seq_len, d_model]
-        return x + self.pe[:, :x.size(1)]
-```
-
-为啥用sin/cos？因为它们有个神奇的性质：
-```
-PE(pos+k) 可以表示为 PE(pos) 和 PE(k) 的线性组合
-```
-这让模型能学到相对位置关系！
-
-#### 残差连接与Layer Norm
-
-![残差连接](./files/images/第三节/2-resnet.png)
-
-每个子层都用了残差连接（借鉴ResNet）+ Layer Normalization：
-
-```python
-class ResidualConnection(nn.Module):
-    def __init__(self, d_model, dropout=0.1):
-        super().__init__()
-        self.norm = nn.LayerNorm(d_model)
-        self.dropout = nn.Dropout(dropout)
-
-    def forward(self, x, sublayer):
-        # Post-LN: x + dropout(sublayer(norm(x)))
-        return x + self.dropout(sublayer(self.norm(x)))
-```
-
-为啥要这么做？
-- **残差连接**：防止梯度消失，让深层网络训练更稳定
-- **Layer Norm**：稳定每层的输入分布，加速训练
-
-#### Encoder完整实现
-
-![编码器流程](./files/images/第三节/2-x-encoder.png)
-
-把所有组件拼起来：
-
-```python
-class EncoderLayer(nn.Module):
-    def __init__(self, d_model=512, n_heads=8, d_ff=2048, dropout=0.1):
-        super().__init__()
-        self.attention = MultiHeadAttention(d_model, n_heads)
-        self.feed_forward = nn.Sequential(
-            nn.Linear(d_model, d_ff),
-            nn.ReLU(),
-            nn.Dropout(dropout),
-            nn.Linear(d_ff, d_model)
-        )
-        self.residual1 = ResidualConnection(d_model, dropout)
-        self.residual2 = ResidualConnection(d_model, dropout)
-
-    def forward(self, x, mask=None):
-        # 自注意力 + 残差
-        x = self.residual1(x, lambda x: self.attention(x, mask))
-        # 前馈网络 + 残差
-        x = self.residual2(x, self.feed_forward)
-        return x
-
-class Encoder(nn.Module):
-    def __init__(self, n_layers=6, d_model=512, n_heads=8):
-        super().__init__()
-        self.layers = nn.ModuleList([
-            EncoderLayer(d_model, n_heads) for _ in range(n_layers)
-        ])
-
-    def forward(self, x, mask=None):
-        for layer in self.layers:
-            x = layer(x, mask)
-        return x
-```
-
-#### Decoder：带Mask的生成器
-
-解码器比编码器多了两个东西：
-1. **Masked Self-Attention**：生成时不能看到未来的词
-2. **Encoder-Decoder Attention**：接收编码器的输出作为K和V
-
-```python
-def create_look_ahead_mask(seq_len):
-    """创建下三角掩码，防止看到未来"""
-    mask = torch.tril(torch.ones(seq_len, seq_len))
-    return mask.unsqueeze(0).unsqueeze(0)  # [1, 1, seq_len, seq_len]
-
-# 使用示例
-mask = create_look_ahead_mask(10)
-# mask[0, 0, 3, :] = [1, 1, 1, 1, 0, 0, 0, 0, 0, 0]
-# 位置3只能看到位置0,1,2,3
-```
-
-#### 实战踩坑经验
-
-**坑1：维度对不上**
-```python
-# ❌ 新手常犯错误
-Q = self.W_Q(x)  # [batch, seq, d_model]
-K = self.W_K(x)  # [batch, seq, d_model]
-attention = torch.bmm(Q, K.T)  # 报错！K.T不对
-
-# ✅ 正确做法
-attention = torch.matmul(Q, K.transpose(-2, -1))
-# 或者
-attention = Q @ K.transpose(-2, -1)
-```
-
-**坑2：忘记缩放**
-```python
-# ❌ 不缩放，梯度容易爆炸
-scores = Q @ K.transpose(-2, -1)
-
-# ✅ 除以根号d_k稳定训练
-scores = (Q @ K.transpose(-2, -1)) / math.sqrt(d_k)
-```
-
-**坑3：位置编码当参数训练**
-```python
-# ❌ 位置编码不应该被训练
-self.pos_encoding = nn.Parameter(torch.randn(max_len, d_model))
-
-# ✅ 用register_buffer固定
-self.register_buffer('pos_encoding', create_positional_encoding(max_len, d_model))
-```
-
-**坑4：Layer Norm位置**
-```python
-# Post-LN（原论文）
-x = x + sublayer(layer_norm(x))
-
-# Pre-LN（更稳定）
-x = x + sublayer(x)
-x = layer_norm(x)
-```
+![Transformer整体架构](files/images/第三节/transformer%20structure.png)
+
+#### [Transformer：从黑盒到掌握全貌](files/foundations/3.2-Transformer.md#transformer从黑盒到掌握全貌)
+- **第一层理解**：Transformer是一个黑盒子，输入法语，输出英语，显著提升机器翻译质量。
+- **第二层理解**：Transformer由编码器（Encoder）和解码器（Decoder）组成，原论文各用6层，但层数可变（如BERT用12层，GPT-3用96层）。
+- **第三层理解**：每一层编码器包含Self-Attention和Feed Forward操作，均配备残差连接和Layer Norm。
+
+#### [Self-Attention：核心中的核心](files/foundations/3.2-Transformer.md#self-attention核心中的核心)
+- **为啥需要Self-Attention**：让序列中任意两个位置能直接“对话”，解决传统RNN信息丢失和CNN窗口固定的问题。
+- **Query-Key-Value机制**：通过QKV计算注意力分数，公式为`scores = Q @ K.T / sqrt(d_k)`，除以`sqrt(d_k)`防止梯度消失。
+- **注意力可视化**：通过可视化注意力权重，模型能正确学习指代关系。
+
+#### [多头注意力：团队协作](files/foundations/3.2-Transformer.md#多头注意力团队协作)
+- 多头注意力是多个专家团队，每个头负责不同维度，学习不同类型的关系（如局部语法、长距离依赖等）。
+- 代码示例展示了如何实现多头注意力，包括QKV的计算和多头的合并。
+
+#### [位置编码：告诉模型词序](files/foundations/3.2-Transformer.md#位置编码告诉模型词序)
+- Self-Attention无法感知词序，位置编码通过sin/cos函数解决，能表示相对位置关系。
+- 代码示例展示了位置编码的实现。
+
+#### [残差连接与Layer Norm](files/foundations/3.2-Transformer.md#残差连接与layer-norm)
+- 每个子层使用残差连接（防止梯度消失）和Layer Norm（稳定输入分布），加速训练。
+- 代码示例展示了残差连接和Layer Norm的实现。
+
+#### [Encoder完整实现](files/foundations/3.2-Transformer.md#encoder完整实现)
+- 编码器由多层EncoderLayer组成，每层包含多头注意力、前馈网络和残差连接。
+- 代码示例展示了编码器的完整实现。
+
+#### [Decoder：带Mask的生成器](files/foundations/3.2-Transformer.md#decoder带mask的生成器)
+- 解码器比编码器多了Masked Self-Attention（防止看到未来）和Encoder-Decoder Attention（接收编码器输出）。
+- 代码示例展示了如何创建下三角掩码。
+
+#### [实战踩坑经验](files/foundations/3.2-Transformer.md#实战踩坑经验)
+- 常见错误包括维度对不上、忘记缩放、位置编码当参数训练、Layer Norm位置错误。
+- 提供了正确的代码示例和调试建议。
 
 #### 为什么Transformer这么强？
 
@@ -939,725 +696,184 @@ x = layer_norm(x)
 
 ---
 
-### 3.3 深度学习打底：优化/正则化/训练技巧
+### 3.3 深度学习打底：Diffusion (DDIM)
 
-#### 让模型真正学起来：优化器的选择
+#### 什么是DDIM?
 
-训练神经网络就像爬山找最低点，优化器决定了你怎么走。
+DDIM（Denoising Diffusion Implicit Models）是一种扩散模型的变体，旨在加速图像生成过程并保持生成质量。它是在 **DDPM**（Denoising Diffusion Probabilistic Models）的基础上发展出来的，提供了一种更高效的去噪采样过程，减少了采样所需的步骤数。
 
-**最简单的SGD（随机梯度下降）**
+在DDIM中，通过构造一种**确定性的去噪过程**，可以在显著减少采样步骤的情况下生成高质量图像。与传统的DDPM不同，DDIM不再依赖完全的随机采样过程，而是通过精确控制去噪路径，使得生成的样本更加可控，并允许在更少的步骤内完成采样。
 
-```python
-# 最朴素的更新方式
-for batch in dataloader:
-    loss = model(batch)
-    loss.backward()  # 算梯度
+#### DDIM和DDPM的区别
 
-    # 手动更新参数（实际用optimizer.step()）
-    for param in model.parameters():
-        param.data -= learning_rate * param.grad
-```
+DDPM 和 DDIM 的主要区别可以总结为以下几个方面：
 
-问题来了——SGD太慢了！就像你走迷宫，每一步都小心翼翼，遇到小坑就卡住了。
+1. **采样过程的确定性 vs 随机性**
+   - **DDPM**：采样过程是随机的，每个时间步都通过加噪声和去噪的迭代采样来生成样本。这种随机性确保了样本的多样性和随机性，但会导致采样速度较慢。
+   - **DDIM**：采样过程是确定性的。它通过推导出一种新的去噪方程，能够确定性地生成样本，不需要每一步都添加随机噪声。因此，DDIM 能够以更少的时间步生成样本。
 
-**带动量的SGD：像滚雪球**
+2. **采样速度**
+   - **DDPM**：DDPM 的采样过程需要执行大量的时间步的迭代（例如 1000 个步骤），这使得它在实践中非常慢。
+   - **DDIM**：DDIM 在生成过程中能够通过使用一种隐式的采样机制，大大减少所需的时间步（例如 50 个或 100 个步骤），从而显著加快采样速度，同时保留较高的图像质量。
 
-```python
-optimizer = torch.optim.SGD(model.parameters(), lr=0.1, momentum=0.9)
-```
+3. **采样路径**
+   - **DDPM**：DDPM 的采样路径严格遵循一系列的高斯噪声到纯净数据的逐步去噪。
+   - **DDIM**：DDIM 通过改变时间步的更新规则，使得采样路径可以直接从高斯噪声跳跃到纯净数据，更为灵活。
 
-动量是啥？想象你推一个球下山：
-- 没动量：球在每个小坑都会停
-- 有动量：球有惯性，能冲过小坑继续滚
+4. **样本生成的灵活性**
+   - **DDPM**：由于每一步都添加了随机性，DDPM 的采样过程是不可控的，即使是同样的初始噪声，每次采样的结果也可能不同。
+   - **DDIM**：通过去掉采样过程中的随机性，DDIM 提供了一种确定性生成机制，即同样的初始条件会生成同样的样本。这对于某些任务非常有用，尤其是需要生成相同的图像或在多次采样中保持一致性时。
 
-实际效果对比：
-```python
-# 普通SGD训练ResNet50，100个epoch才收敛
-# 加了momentum=0.9，60个epoch就够了
-```
+#### DDIM的工作原理
 
-**Adam：懒人首选**
+DDIM 的主要目的是在加速采样的同时保留高质量的图像生成。它通过修改扩散模型中的逆扩散过程，从而实现这一目标。
 
-```python
-optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
-```
+**扩散过程**
+在扩散模型中，原始数据（如图像）通过逐步加噪声的方式转变为高斯噪声。这个加噪过程遵循如下的公式：
 
-Adam聪明在哪？
-1. 自适应学习率——每个参数都有自己的学习率
-2. 结合了动量——跑得快
-3. 几乎不用调参——设lr=1e-3基本就行
+\[ q(x_t|x_{t-1}) = \mathcal{N}(x_t; \sqrt{\alpha_t}x_{t-1}, (1 - \alpha_t)I) \]
 
-具体原理（看不懂可以跳过）：
-```python
-# Adam内部大概这么算的
-class SimpleAdam:
-    def __init__(self, params, lr=1e-3, betas=(0.9, 0.999)):
-        self.params = params
-        self.lr = lr
-        self.beta1, self.beta2 = betas
-        self.m = {}  # 一阶矩（动量）
-        self.v = {}  # 二阶矩（梯度平方的滑动平均）
-        self.t = 0   # 时间步
+这里，$x_t$ 是在第 t 个时间步的噪声数据，$\alpha_t$ 是时间步的系数。这个公式描述了如何通过将噪声逐步加到数据上来生成噪声样本。
 
-    def step(self):
-        self.t += 1
-        for param in self.params:
-            grad = param.grad
+**去噪过程**
+在 DDPM 中，去噪过程反向执行，即从 $x_T$（完全噪声的样本）开始逐步去除噪声，生成 $x_0$（即数据样本）。这个去噪过程是逐步的，并且是随机的。
 
-            # 更新一阶矩和二阶矩
-            self.m[param] = self.beta1 * self.m.get(param, 0) + (1 - self.beta1) * grad
-            self.v[param] = self.beta2 * self.v.get(param, 0) + (1 - self.beta2) * grad**2
+在 DDIM 中，去噪过程是确定的，采样过程使用了一种新的公式，不需要每一步都添加随机噪声。具体来说，DDIM 推导出了一个可以直接从高斯噪声样本跳跃到纯净样本的新去噪方程：
 
-            # 偏差修正（刚开始时m和v都接近0，需要修正）
-            m_hat = self.m[param] / (1 - self.beta1**self.t)
-            v_hat = self.v[param] / (1 - self.beta2**self.t)
+\[ x_{t-1} = \frac{1}{\sqrt{\alpha_{t-1}}}x_0 + \sqrt{1 - \alpha_{t-1}}\epsilon_t \]
 
-            # 更新参数
-            param.data -= self.lr * m_hat / (v_hat**0.5 + 1e-8)
-```
+其中，$x_0$ 是通过网络预测得到的纯净样本，$\epsilon_t$ 是噪声。
 
-**什么时候用什么优化器？**
+通过这个公式，DDIM 能够在更少的时间步内从噪声生成样本。这种直接跳跃的去噪路径是 DDIM 比 DDPM 更高效的关键。
 
-做CV（计算机视觉）：
-```python
-# ResNet、VGG这种，SGD+Momentum效果好
-optimizer = torch.optim.SGD(model.parameters(), lr=0.1, momentum=0.9)
-# 但是要配合学习率衰减，不然后期会震荡
-```
+#### 如何使用DDIM
 
-做NLP或Transformer：
-```python
-# Adam几乎是标配
-optimizer = torch.optim.Adam(model.parameters(), lr=3e-4)
-# BERT微调时学习率要小
-optimizer = torch.optim.Adam(model.parameters(), lr=2e-5)
-```
+DDIM 的实现一般依赖于已有的扩散模型（如 DDPM）。只需要调整采样部分的代码即可将 DDPM 的随机采样替换为 DDIM 的确定性采样。
 
-做强化学习：
-```python
-# PPO这种用Adam，学习率更小
-optimizer = torch.optim.Adam(model.parameters(), lr=3e-5)
-```
-
-#### 学习率调度：训练的节奏感
-
-学习率不能一成不变。就像学车，刚开始大步调整，熟练后要精细控制。
-
-**最常用的几种调度器**
-
-1. **阶梯式下降**（训练CNN常用）
-```python
-# 每30个epoch，学习率乘以0.1
-scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=30, gamma=0.1)
-
-# 训练循环
-for epoch in range(100):
-    train_one_epoch()
-    scheduler.step()  # 别忘了调用！
-
-    # 实际的学习率变化：
-    # epoch 0-29:  lr = 0.1
-    # epoch 30-59: lr = 0.01
-    # epoch 60-89: lr = 0.001
-```
-
-2. **余弦退火**（比阶梯更平滑）
-```python
-# T_max是半个余弦周期
-scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=50)
-
-# 学习率像余弦函数一样平滑下降
-# 不会突然掉cliff，训练更稳定
-```
-
-3. **Warmup**（Transformer必备）
-```python
-# Transformer论文的warmup公式
-class WarmupScheduler:
-    def __init__(self, optimizer, d_model, warmup_steps):
-        self.optimizer = optimizer
-        self.d_model = d_model
-        self.warmup_steps = warmup_steps
-        self.step_num = 0
-
-    def step(self):
-        self.step_num += 1
-        # 先线性增长，后按step^-0.5下降
-        lr = self.d_model**(-0.5) * min(
-            self.step_num**(-0.5),
-            self.step_num * self.warmup_steps**(-1.5)
-        )
-        for param_group in self.optimizer.param_groups:
-            param_group['lr'] = lr
-
-# 为啥需要warmup？
-# 刚开始模型参数是随机的，梯度很大
-# 如果学习率也大，容易飞掉
-# 所以先用小学习率"热身"
-```
-
-实际使用时，可以用transformers库：
-```python
-from transformers import get_linear_schedule_with_warmup
-
-scheduler = get_linear_schedule_with_warmup(
-    optimizer,
-    num_warmup_steps=1000,  # 前1000步warmup
-    num_training_steps=10000  # 总共10000步
-)
-```
-
-#### 防止过拟合：正则化技术
-
-模型太强也不好，会把训练集的噪声都记住。就像考试，死记硬背每道题答案，换个题就不会了。
-
-**Dropout：随机关闭神经元**
+下面是一个简化的伪代码，展示如何在生成过程中使用 DDIM 进行加速采样：
 
 ```python
-class MyModel(nn.Module):
-    def __init__(self):
-        super().__init__()
-        self.fc1 = nn.Linear(784, 256)
-        self.dropout1 = nn.Dropout(0.5)  # 50%概率关闭
-        self.fc2 = nn.Linear(256, 10)
-        self.dropout2 = nn.Dropout(0.2)  # 20%概率关闭
+import torch
 
-    def forward(self, x):
-        x = F.relu(self.fc1(x))
-        x = self.dropout1(x)  # 训练时随机置零，测试时不变
-        x = self.fc2(x)
-        x = self.dropout2(x)
-        return x
+def ddim_sampling(model, x_T, num_steps, betas):"""
+    使用 DDIM 采样生成数据
+    :param model: 经过训练的扩散模型
+    :param x_T: 随机噪声初始样本
+    :param num_steps: 采样的总步骤数
+    :param betas: 噪声的时间步参数
+    :return: 生成的样本
+    """
+    x_t = x_T  # 从纯噪声开始for t in reversed(range(1, num_steps)):# 预测当前时间步的纯净样本
+        x_0_pred = model(x_t, t)
+        
+        # 计算DDIM更新步骤
+        alpha_t = torch.prod(1 - betas[:t])
+        alpha_t_prev = torch.prod(1 - betas[:t-1])
+        
+        # 计算噪声项
+        noise = torch.randn_like(x_t) if t &gt; 1 else torch.zeros_like(x_t)
+        x_t_1 = torch.sqrt(alpha_t_prev) * x_0_pred + torch.sqrt(1 - alpha_t_prev) * noise
+        
+    return x_t_1
 ```
 
-不同场景dropout设多少？
-- 全连接层：0.5是经典值（Hinton论文）
-- CNN卷积层：0.1-0.2（卷积层本身就有正则化效果）
-- Transformer：0.1（位置都差不多）
-- 太大会欠拟合，太小没效果
+#### 总结
+DDIM 相比于传统的DDPM，提供了一个加速的采样过程，能够通过确定性去噪生成高质量图像，同时显著减少采样步骤数量。它通过去除每一步的随机噪声引入，实现了一种隐式（Implicit）采样机制，使得同样的输入可以生成一致的样本。
 
-**BatchNorm vs LayerNorm**
+DDIM 的优势在于：
+1. 加速采样过程，能够在更少的时间步内生成图像。
+2. 确定性采样，允许生成一致性更强的样本。
+3. 保留生成质量，在减少时间步的情况下，仍然能够生成高质量的样本。
 
-这俩都是归一化，但归一化的维度不同：
-
-```python
-# 假设输入 x 的形状是 [batch_size=32, seq_len=100, hidden=512]
-
-# BatchNorm: 对batch维度归一化
-bn = nn.BatchNorm1d(512)
-# 它会计算这32个样本在每个特征上的均值和方差
-
-# LayerNorm: 对特征维度归一化
-ln = nn.LayerNorm(512)
-# 它会计算每个样本512个特征的均值和方差
-
-# 直观理解：
-# BatchNorm: "这批人的平均身高是多少？"
-# LayerNorm: "这个人的各项指标平均是多少？"
-```
-
-为啥Transformer用LayerNorm不用BatchNorm？
-1. BatchNorm依赖batch size，batch小了不稳定
-2. 序列长度不固定时BatchNorm很麻烦
-3. LayerNorm对每个样本独立计算，更稳定
-
-**Label Smoothing：让模型别太自信**
-
-正常的分类标签是one-hot：
-```python
-# 假设3分类，真实标签是类别1
-label = [0, 1, 0]  # 100%确信是类别1
-```
-
-Label smoothing把它变成：
-```python
-# smooth_factor = 0.1
-label = [0.05, 0.9, 0.05]  # 90%确信是类别1，各留5%可能
-
-class LabelSmoothingLoss(nn.Module):
-    def __init__(self, classes, smoothing=0.1):
-        super().__init__()
-        self.smoothing = smoothing
-        self.classes = classes
-
-    def forward(self, pred, target):
-        # pred: [batch, classes]的logits
-        # target: [batch]的类别索引
-
-        # 创建smooth的标签
-        smooth_label = torch.full_like(pred, self.smoothing / (self.classes - 1))
-        smooth_label.scatter_(1, target.unsqueeze(1), 1 - self.smoothing)
-
-        # 用KL散度作为损失
-        return F.kl_div(F.log_softmax(pred, dim=1), smooth_label, reduction='sum')
-```
-
-效果：模型不会过度自信，泛化性更好。特别是数据有标注噪声时很有用。
-
-#### 混合精度训练：又快又省显存
-
-正常训练用float32（32位浮点数），混合精度用float16（16位），显存省一半，速度快2-3倍！
-
-```python
-from torch.cuda.amp import autocast, GradScaler
-
-# 创建梯度缩放器（防止fp16下溢）
-scaler = GradScaler()
-
-for batch in dataloader:
-    optimizer.zero_grad()
-
-    # 自动混合精度
-    with autocast():
-        outputs = model(batch['input'])  # 前向用fp16
-        loss = criterion(outputs, batch['target'])
-
-    # 反向传播
-    scaler.scale(loss).backward()  # 梯度缩放
-    scaler.step(optimizer)  # 更新参数
-    scaler.update()  # 更新缩放器
-
-# 注意事项：
-# 1. 只在GPU上有用，CPU不支持
-# 2. 老GPU（比如1080Ti）不支持，需要Volta架构以上（V100, 2080, 3090等）
-# 3. 有些操作不稳定，比如BatchNorm有时会有问题
-```
-
-什么时候用混合精度？
-- 模型很大，显存不够：必须用
-- 想加速训练：推荐用
-- 做实验调参：可以不用（先保证正确性）
-
-混合精度的坑：
-```python
-# ❌ 梯度可能下溢变成0
-loss.backward()
-
-# ✅ 用GradScaler防止下溢
-scaler.scale(loss).backward()
-
-# ❌ 某些loss在fp16下不稳定
-mae_loss = torch.mean(torch.abs(pred - target))
-
-# ✅ 手动指定用fp32
-with autocast():
-    features = model(x)  # fp16
-    with torch.cuda.amp.autocast(enabled=False):
-        loss = custom_loss(features.float(), target.float())  # fp32
-```
+它是扩散模型的一个重要扩展，特别适合在需要快速生成高质量图像的任务中使用。
 
 ---
 
-### 3.4 工程环境：Conda/Docker、日志与可视化
+### 3.4 深度学习打底：优化/正则化/训练技巧
 
-#### 环境管理：让代码在任何地方都能跑
+#### [让模型真正学起来：优化器的选择](files/foundations/3.4-优化.md#让模型真正学起来优化器的选择)
+训练神经网络就像爬山找最低点，优化器决定了你怎么走。
+
+- **最简单的SGD（随机梯度下降）**：简单但收敛慢。
+- **带动量的SGD**：像滚雪球，能冲过小坑加速收敛。
+- **Adam**：自适应学习率，几乎不用调参，适合懒人。
+
+#### [学习率调度：训练的节奏感](files/foundations/3.4-优化.md#学习率调度训练的节奏感)
+学习率不能一成不变，像学车一样需要调整节奏。
+
+- **阶梯式下降**：每固定步数降低学习率。
+- **余弦退火**：学习率像余弦函数一样平滑下降。
+- **Warmup**：先小学习率热身，适合Transformer。
+
+#### [防止过拟合：正则化技术](files/foundations/3.4-优化.md#防止过拟合正则化技术)
+模型太强会过拟合，需要正则化技术来控制。
+
+- **Dropout**：随机关闭神经元，防止过拟合。
+- **BatchNorm vs LayerNorm**：归一化技术，LayerNorm更适合Transformer。
+- **Label Smoothing**：让模型别太自信，泛化性更好。
+
+#### [混合精度训练：又快又省显存](files/foundations/3.4-优化.md#混合精度训练又快又省显存)
+混合精度训练用float16，显存省一半，速度快2-3倍。
+
+- **使用`autocast`和`GradScaler`**：防止梯度下溢，加速训练。
+- **适用场景**：模型大、显存不够时必须用；想加速训练时推荐用。
+- **注意事项**：老GPU不支持，某些操作可能不稳定。
+
+---
+
+### 3.5 工程环境：Conda/Docker/日志与可视化/复现实验规范
+
+#### [环境管理：让代码在任何地方都能跑](files/foundations/3.5-工程环境.md#环境管理：让代码在任何地方都能跑)
 
 **Conda**
-
-Conda的基本操作：
-```bash
-# 创建新环境（相当于给项目一个独立房间）
-conda create -n robotsim python=3.9
-# -n 是name的缩写，robotsim是环境名字，随便起
-
-# 激活环境（进入这个房间）
-conda activate robotsim
-# 你会看到命令行前面多了 (robotsim)
-
-# 查看所有环境
-conda env list
-# 带*号的是当前激活的
-
-# 删除不要的环境
-conda remove -n old_env --all
-```
-
-安装PyTorch的正确姿势：
-```bash
-# 先看你的CUDA版本
-nvidia-smi  # 右上角会显示CUDA Version: 11.8
-
-# 去PyTorch官网(pytorch.org)选对应版本
-# 比如CUDA 11.8：
-conda install pytorch torchvision torchaudio pytorch-cuda=11.8 -c pytorch -c nvidia
-
-# 验证安装
-python -c "import torch; print(torch.cuda.is_available())"  # 应该输出True
-```
-
-环境导出和复现（重要！）：
-```bash
-# 导出当前环境到yml文件
-conda env export > environment.yml
-
-# 但这个文件太详细了，跨平台可能有问题
-# 更好的方式是只导出你explicitly安装的包：
-conda env export --from-history > environment.yml
-
-# 别人拿到你的yml文件后：
-conda env create -f environment.yml
-```
-
-Conda和pip混用的技巧：
-```python
-# 先用conda装大件（numpy, scipy, pytorch这些）
-conda install numpy scipy matplotlib
-
-# 再用pip装小包或conda没有的
-pip install transformers datasets
-
-# 为啥这个顺序？
-# conda会处理系统级依赖（比如MKL、CUDA），pip不会
-# 如果先pip后conda，可能会破坏pip装的包
-```
+- Conda的基本操作：创建、激活环境，安装PyTorch，导出和复现环境。
+- Conda和pip混用的技巧：先用conda装大件，再用pip装小包。
 
 **Docker：终极解决方案**
+- Dockerfile示例：构建和运行容器，挂载本地目录。
+- Docker的坑：Windows路径问题、GPU支持、镜像大小。
 
-Conda还是可能出问题（比如系统库不同），Docker是真正的"带环境运行"。
-
-最简单的Dockerfile：
-```dockerfile
-# 基础镜像（别人已经装好PyTorch的）
-FROM pytorch/pytorch:2.0.1-cuda11.8-cudnn8-runtime
-
-# 设置工作目录
-WORKDIR /workspace
-
-# 复制代码
-COPY . .
-
-# 安装额外依赖
-RUN pip install transformers wandb
-
-# 运行命令
-CMD ["python", "train.py"]
-```
-
-构建和运行：
-```bash
-# 构建镜像
-docker build -t my_robot_model .
-# -t 是tag，给镜像起个名字
-
-# 运行容器
-docker run --gpus all -it my_robot_model
-# --gpus all 让容器能用GPU
-# -it 是交互模式，能看到输出
-
-# 挂载本地目录（开发时常用）
-docker run --gpus all -v /home/user/data:/workspace/data -it my_robot_model
-# -v 是volume，把本地/home/user/data挂载到容器的/workspace/data
-```
-
-Docker的坑：
-1. Windows上路径要用绝对路径，斜杠方向要注意
-2. GPU支持需要装nvidia-docker
-3. 镜像会很大（几个G），注意硬盘空间
-
-#### 实验追踪：WandB让你知道哪次实验效果好
-
-训练模型最怕的：跑了100次实验，不记得哪次参数效果最好...
+#### [实验追踪：WandB让你知道哪次实验效果好](files/foundations/3.5-工程环境.md#实验追踪：wandb让你知道哪次实验效果好)
 
 **WandB（Weights & Biases）入门**
+- 初始化、记录日志、可视化界面。
+- 超参数搜索：贝叶斯优化。
+- TensorBoard（备选）：本地可视化方案。
 
-```python
-import wandb
-
-# 初始化（第一次要去wandb.ai注册账号）
-wandb.init(
-    project="robot-grasping",  # 项目名
-    name="exp-2024-01-15",      # 本次实验名字
-    config={
-        "learning_rate": 1e-3,
-        "batch_size": 32,
-        "model": "resnet50",
-        "epochs": 100
-    }
-)
-
-# 训练循环中记录
-for epoch in range(100):
-    train_loss = train_one_epoch()
-    val_loss, val_acc = validate()
-
-    # 记录到wandb
-    wandb.log({
-        "train_loss": train_loss,
-        "val_loss": val_loss,
-        "val_acc": val_acc,
-        "epoch": epoch
-    })
-
-    # 还能记录图片
-    if epoch % 10 == 0:
-        fig = plot_predictions()
-        wandb.log({"predictions": wandb.Image(fig)})
-
-# 结束
-wandb.finish()
-```
-
-WandB会自动生成漂亮的可视化界面，能看到：
-- 损失曲线
-- 学习率变化
-- 系统资源（GPU利用率、显存）
-- 你记录的所有图片
-
-更高级的用法：
-```python
-# 超参数搜索
-sweep_config = {
-    'method': 'bayes',  # 贝叶斯优化
-    'parameters': {
-        'learning_rate': {'min': 1e-5, 'max': 1e-2},
-        'batch_size': {'values': [16, 32, 64]},
-        'dropout': {'min': 0.1, 'max': 0.5}
-    }
-}
-
-sweep_id = wandb.sweep(sweep_config, project="robot-grasping")
-wandb.agent(sweep_id, train_function, count=50)  # 跑50次实验
-```
-
-**TensorBoard（备选）**
-
-如果不想用云服务，TensorBoard是本地方案：
-```python
-from torch.utils.tensorboard import SummaryWriter
-
-writer = SummaryWriter('runs/exp1')
-
-for epoch in range(100):
-    loss = train()
-    writer.add_scalar('Loss/train', loss, epoch)
-
-    # 记录模型权重分布
-    for name, param in model.named_parameters():
-        writer.add_histogram(name, param, epoch)
-
-writer.close()
-
-# 查看：tensorboard --logdir=runs
-```
-
-#### 实验可重复性：让结果能复现
-
-论文里说准确率95%，你跑出来85%，是不是很郁闷？
+#### [实验可重复性：让结果能复现](files/foundations/3.5-工程环境.md#实验可重复性：让结果能复现)
 
 **固定随机种子**
-```python
-import random
-import numpy as np
-import torch
-
-def set_seed(seed=42):
-    """完全固定随机性"""
-    random.seed(seed)
-    np.random.seed(seed)
-    torch.manual_seed(seed)
-    torch.cuda.manual_seed(seed)
-    torch.cuda.manual_seed_all(seed)  # 多GPU
-
-    # 这两个会降低性能，但保证完全可重复
-    torch.backends.cudnn.deterministic = True
-    torch.backends.cudnn.benchmark = False
-
-# 在代码最开始调用
-set_seed(2024)
-```
-
-但注意，完全固定会让训练变慢（特别是cudnn.benchmark=False）。折中方案：
-```python
-def set_seed_loose(seed=42):
-    """部分固定，性能更好"""
-    random.seed(seed)
-    np.random.seed(seed)
-    torch.manual_seed(seed)
-
-    # 不设置这两个，速度快但可能有细微差异
-    # torch.backends.cudnn.deterministic = True
-    # torch.backends.cudnn.benchmark = False
-```
+- 完全固定随机性（`torch.backends.cudnn.deterministic`和`benchmark`）。
+- 折中方案：部分固定，性能更好。
 
 **配置文件管理**
+- 使用YAML配置文件，命令行参数覆盖配置。
 
-别把超参数硬编码在代码里：
-```yaml
-# config.yaml
-model:
-  name: resnet50
-  pretrained: true
-  num_classes: 10
+#### [代码组织：专业的项目结构](files/foundations/3.5-工程环境.md#代码组织专业的项目结构)
 
-training:
-  batch_size: 32
-  learning_rate: 0.001
-  epochs: 100
-  optimizer: adam
+**标准项目结构**
+- 分层目录结构：`configs`、`data`、`models`、`utils`、`scripts`等。
+- 使用`setup.py`让代码可安装。
 
-data:
-  train_path: /data/train
-  val_path: /data/val
-  num_workers: 4
-```
-
-读取配置：
-```python
-import yaml
-from argparse import ArgumentParser
-
-# 读取yaml
-with open('config.yaml') as f:
-    config = yaml.load(f, Loader=yaml.FullLoader)
-
-# 命令行参数覆盖配置文件
-parser = ArgumentParser()
-parser.add_argument('--batch_size', type=int, default=config['training']['batch_size'])
-parser.add_argument('--lr', type=float, default=config['training']['learning_rate'])
-args = parser.parse_args()
-
-# 使用
-batch_size = args.batch_size
-learning_rate = args.lr
-```
-
-#### 代码组织：专业的项目结构
-
-别把所有代码都塞在一个train.py里！
-
-标准项目结构：
-```
-robot_grasping/
-├── configs/
-│   ├── default.yaml      # 默认配置
-│   └── experiments/       # 不同实验配置
-│       ├── resnet50.yaml
-│       └── vit.yaml
-├── data/
-│   ├── __init__.py
-│   ├── dataset.py        # 数据集定义
-│   └── transforms.py     # 数据增强
-├── models/
-│   ├── __init__.py
-│   ├── backbone.py       # 特征提取器
-│   ├── head.py          # 任务头
-│   └── losses.py        # 损失函数
-├── utils/
-│   ├── __init__.py
-│   ├── metrics.py       # 评价指标
-│   ├── visualization.py # 可视化
-│   └── logger.py        # 日志
-├── scripts/
-│   ├── train.py         # 训练脚本
-│   ├── evaluate.py      # 评估脚本
-│   └── inference.py     # 推理脚本
-├── notebooks/           # Jupyter实验
-│   └── explore_data.ipynb
-├── tests/              # 单元测试
-│   └── test_model.py
-├── README.md
-├── requirements.txt
-└── setup.py            # 包安装配置
-```
-
-让代码可安装：
-```python
-# setup.py
-from setuptools import setup, find_packages
-
-setup(
-    name="robot_grasping",
-    version="0.1.0",
-    packages=find_packages(),
-    install_requires=[
-        "torch>=2.0.0",
-        "numpy>=1.20.0",
-        "wandb",
-    ]
-)
-
-# 这样就能 pip install -e . 安装你的包
-# 然后在任何地方 import robot_grasping
-```
-
-#### 调试技巧：快速定位问题
+#### [调试技巧：快速定位问题](files/foundations/3.5-工程环境.md#调试技巧快速定位问题)
 
 **打印shape是第一步**
-```python
-def forward(self, x):
-    print(f"Input shape: {x.shape}")
-    x = self.conv1(x)
-    print(f"After conv1: {x.shape}")
-    x = self.pool(x)
-    print(f"After pool: {x.shape}")
-    # 很土但很有效！
-```
+- 在每个模块打印输入输出shape。
 
 **用assert检查假设**
-```python
-def process_batch(images, labels):
-    assert images.dim() == 4, f"Expected 4D tensor, got {images.dim()}D"
-    assert images.shape[0] == labels.shape[0], "Batch size mismatch"
-    assert images.min() >= 0 and images.max() <= 1, "Images not normalized"
-    # ...
-```
+- 检查张量维度、值范围等。
 
 **梯度检查**
-```python
-# 检查梯度是否正常
-for name, param in model.named_parameters():
-    if param.grad is not None:
-        grad_norm = param.grad.norm().item()
-        if grad_norm > 100:
-            print(f"Warning: large gradient in {name}: {grad_norm}")
-        if grad_norm == 0:
-            print(f"Warning: zero gradient in {name}")
-```
+- 检查梯度是否正常，避免NaN。
 
 **常见错误和解决**
+- CUDA out of memory：减小batch size、梯度累积、删除变量。
+- Loss变成NaN：检查输入、梯度裁剪、调整学习率。
+- DataLoader卡死：调整`num_workers`。
 
-1. **CUDA out of memory**
-```python
-# 方法1：减小batch size
-batch_size = 16  # 从32改到16
+---
 
-# 方法2：梯度累积
-accumulation_steps = 4
-for i, batch in enumerate(dataloader):
-    loss = model(batch) / accumulation_steps
-    loss.backward()
-
-    if (i + 1) % accumulation_steps == 0:
-        optimizer.step()
-        optimizer.zero_grad()
-
-# 方法3：删除不用的变量
-del intermediate_output
-torch.cuda.empty_cache()
-```
-
-2. **Loss变成NaN**
-```python
-# 检查输入
-assert not torch.isnan(inputs).any()
-
-# 梯度裁剪
-torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
-
-# 检查学习率
-if epoch > 50:
-    for param_group in optimizer.param_groups:
-        param_group['lr'] *= 0.1
-```
-
-3. **DataLoader卡死**
-```python
-# Windows上容易出这个问题
-DataLoader(dataset, num_workers=0)  # 改成0
-
-# Linux上可以用更多workers
-DataLoader(dataset, num_workers=4, pin_memory=True)
-```
+### 3.6 实战与应用：机器人中的多模态/GAT
 
 #### 多模态融合：让机器人有多种感知
 
