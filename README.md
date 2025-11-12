@@ -670,7 +670,7 @@
 - **理论**：
   - **基础**：数据飞轮与遥操作概念 → 力反馈遥操作 → AR/VR 远程控制 → 模型辅助示教（e.g. Diffusion Policy Warm-start）
   - **材料**：
-    - [Tele-operation & Flywheel](https://medium.com/@chaseyvy/teleoperation-the-human-link-and-flywheel-of-physical-ai-1c5b82ba1c80)：：数据飞轮与遥操作基础概念博客
+    - [Tele-operation & Flywheel](https://medium.com/@chaseyvy/teleoperation-the-human-link-and-flywheel-of-physical-ai-1c5b82ba1c80)：数据飞轮与遥操作基础概念博客
     - [PATO](https://arxiv.org/abs/2212.04708)：提出“策略辅助遥操作”框架，使人机协作更高效，助力可扩展数据采集
     - [Open-TeleVision](https://arxiv.org/html/2407.01512v2)：沉浸式视觉遥操作系统，用于高质量示教数据采集
 - **实践**：
@@ -680,12 +680,9 @@
   - **最小目标**：使用 ALOHA 系统采集单任务（如物体抓取）数据 → 训练一个 BC 策略 → 使用同样系统部署策略并采集新演示数据
   - **进阶目标**：构建完整数据飞轮管线：通过 Teleop 采集数据 → 进行自动清洗与标准化 → 使用 Diffusion Policy / OpenVLA 训练模型 → 策略部署到实机 → 新数据自动回流、增强数据集
 - **延伸**：
-  - **项目**：
-    - [SharedAssembly](https://arxiv.org/abs/2503.12287)：通过双操作员共享遥操作系统，提升装配任务数据采集规模与质量
-    - [Super-Linear Scaling](https://arxiv.org/html/2412.01770v3)：通过众包真实场景数字孪生并在仿真中采集数据，实现“人力投入与性能超线性增长”的机器人学习飞轮
-    - [DexFlyWheel](https://arxiv.org/html/2509.23829v1)：提出双臂灵巧操作的数据飞轮机制，从少量人类示范出发，通过 IL + residual RL 实现自增强数据生成。  
-  - **工具**：
-    - [MLflow](https://mlflow.org/)：用于监控训练与数据更新过程
+  - [SharedAssembly](https://arxiv.org/abs/2503.12287)：通过双操作员共享遥操作系统，提升装配任务数据采集规模与质量
+  - [Super-Linear Scaling](https://arxiv.org/html/2412.01770v3)：通过众包真实场景数字孪生并在仿真中采集数据，实现“人力投入与性能超线性增长”的机器人学习飞轮
+  - [DexFlyWheel](https://arxiv.org/html/2509.23829v1)：提出双臂灵巧操作的数据飞轮机制，从少量人类示范出发，通过 IL + residual RL 实现自增强数据生成。  
 
 ---
 
