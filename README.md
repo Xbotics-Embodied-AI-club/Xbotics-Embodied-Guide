@@ -805,37 +805,39 @@ v = J(q) · q̇  （速度正运动学）
 
 ![Transformer整体架构](files/images/第三节/transformer%20structure.png)
 
-#### [Transformer：从黑盒到掌握全貌](files/foundations/3.2-Transformer.md#transformer从黑盒到掌握全貌)
+> 💡 **导航提示**：点击标题右侧的 [🔗] 可跳转到对应的详细内容。
+
+#### Transformer：从黑盒到掌握全貌[🔗](files/foundations/3.2-Transformer.md#transformer从黑盒到掌握全貌)
 - **第一层理解**：Transformer 是一个黑盒子，输入法语，输出英语，显著提升机器翻译质量。
 - **第二层理解**：Transformer 由编码器（Encoder）和解码器（Decoder）组成，原论文各用 6 层，但层数可变（如 BERT 用 12 层，GPT-3 用 96 层）。
 - **第三层理解**：每一层编码器包含 Self-Attention 和 Feed Forward 操作，均配备残差连接和 Layer Norm。
 
-#### [Self-Attention：核心中的核心](files/foundations/3.2-Transformer.md#self-attention核心中的核心)
+#### Self-Attention：核心中的核心[🔗](files/foundations/3.2-Transformer.md#self-attention核心中的核心)
 - **为啥需要 Self-Attention**：让序列中任意两个位置能直接“对话”，解决传统 RNN 信息丢失和 CNN 窗口固定的问题。
 - **Query-Key-Value 机制**：通过 QKV 计算注意力分数，公式为 `scores = Q @ K.T / sqrt(d_k)`，除以 `sqrt(d_k)` 防止梯度消失。
 - **注意力可视化**：通过可视化注意力权重，模型能正确学习指代关系。
 
-#### [多头注意力：团队协作](files/foundations/3.2-Transformer.md#多头注意力团队协作)
+#### 多头注意力：团队协作[🔗](files/foundations/3.2-Transformer.md#多头注意力团队协作)
 - 多头注意力是多个专家团队，每个头负责不同维度，学习不同类型的关系（如局部语法、长距离依赖等）。
 - 代码示例展示了如何实现多头注意力，包括 QKV 的计算和多头的合并。
 
-#### [位置编码：告诉模型词序](files/foundations/3.2-Transformer.md#位置编码告诉模型词序)
+#### 位置编码：告诉模型词序[🔗](files/foundations/3.2-Transformer.md#位置编码告诉模型词序)
 - Self-Attention 无法感知词序，位置编码通过 sin/cos 函数解决，能表示相对位置关系。
 - 代码示例展示了位置编码的实现。
 
-#### [残差连接与Layer Norm](files/foundations/3.2-Transformer.md#残差连接与layer-norm)
+#### 残差连接与Layer Norm[🔗](files/foundations/3.2-Transformer.md#残差连接与layer-norm)
 - 每个子层使用残差连接（防止梯度消失）和 Layer Norm（稳定输入分布），加速训练。
 - 代码示例展示了残差连接和 Layer Norm 的实现。
 
-#### [Encoder完整实现](files/foundations/3.2-Transformer.md#encoder完整实现)
+#### Encoder完整实现[🔗](files/foundations/3.2-Transformer.md#encoder完整实现)
 - 编码器由多层 EncoderLayer 组成，每层包含多头注意力、前馈网络和残差连接。
 - 代码示例展示了编码器的完整实现。
 
-#### [Decoder：带Mask的生成器](files/foundations/3.2-Transformer.md#decoder带mask的生成器)
+#### Decoder：带Mask的生成器[🔗](files/foundations/3.2-Transformer.md#decoder带mask的生成器)
 - 解码器比编码器多了 Masked Self-Attention（防止看到未来）和 Encoder-Decoder Attention（接收编码器输出）。
 - 代码示例展示了如何创建下三角掩码。
 
-#### [实战踩坑经验](files/foundations/3.2-Transformer.md#实战踩坑经验)
+#### 实战踩坑经验[🔗](files/foundations/3.2-Transformer.md#实战踩坑经验)
 - 常见错误包括维度对不上、忘记缩放、位置编码当参数训练、Layer Norm 位置错误。
 - 提供了正确的代码示例和调试建议。
 
@@ -971,28 +973,30 @@ DDIM 的优势在于：
 
 ### 3.4 深度学习打底：优化/正则化/训练技巧
 
-#### [让模型真正学起来：优化器的选择](files/foundations/3.4-优化.md#让模型真正学起来优化器的选择)
+> 💡 **导航提示**：点击标题右侧的 [🔗] 可跳转到对应的详细内容。
+
+#### 让模型真正学起来：优化器的选择[🔗](files/foundations/3.4-优化.md#让模型真正学起来优化器的选择)
 训练神经网络就像爬山找最低点，优化器决定了你怎么走。
 
 - **最简单的 SGD（随机梯度下降）**：简单但收敛慢。
 - **带动量的 SGD**：像滚雪球，能冲过小坑加速收敛。
 - **Adam**：自适应学习率，几乎不用调参，适合懒人。
 
-#### [学习率调度：训练的节奏感](files/foundations/3.4-优化.md#学习率调度训练的节奏感)
+#### 学习率调度：训练的节奏感[🔗](files/foundations/3.4-优化.md#学习率调度训练的节奏感)
 学习率不能一成不变，像学车一样需要调整节奏。
 
 - **阶梯式下降**：每固定步数降低学习率。
 - **余弦退火**：学习率像余弦函数一样平滑下降。
 - **Warmup**：先小学习率热身，适合 Transformer。
 
-#### [防止过拟合：正则化技术](files/foundations/3.4-优化.md#防止过拟合正则化技术)
+#### 防止过拟合：正则化技术[🔗](files/foundations/3.4-优化.md#防止过拟合正则化技术)
 模型太强会过拟合，需要正则化技术来控制。
 
 - **Dropout**：随机关闭神经元，防止过拟合。
 - **BatchNorm vs LayerNorm**：归一化技术，LayerNorm 更适合 Transformer。
 - **Label Smoothing**：让模型别太自信，泛化性更好。
 
-#### [混合精度训练：又快又省显存](files/foundations/3.4-优化.md#混合精度训练又快又省显存)
+#### 混合精度训练：又快又省显存[🔗](files/foundations/3.4-优化.md#混合精度训练又快又省显存)
 混合精度训练用float16，显存省一半，速度快2-3倍。
 
 - **使用`autocast`和`GradScaler`**：防止梯度下溢，加速训练。
@@ -1003,7 +1007,9 @@ DDIM 的优势在于：
 
 ### 3.5 工程环境：Conda/Docker/日志与可视化/复现实验规范
 
-#### [环境管理：让代码在任何地方都能跑](files/foundations/3.5-工程环境.md#环境管理：让代码在任何地方都能跑)
+> 💡 **导航提示**：点击标题右侧的 [🔗] 可跳转到对应的详细内容。
+
+#### 环境管理：让代码在任何地方都能跑[🔗](files/foundations/3.5-工程环境.md#环境管理：让代码在任何地方都能跑)
 
 **Conda**
 - Conda 的基本操作：创建、激活环境，安装 PyTorch，导出和复现环境。
@@ -1013,14 +1019,14 @@ DDIM 的优势在于：
 - Dockerfile 示例：构建和运行容器，挂载本地目录。
 - Docker 的坑：Windows 路径问题、GPU 支持、镜像大小。
 
-#### [实验追踪：WandB让你知道哪次实验效果好](files/foundations/3.5-工程环境.md#实验追踪：wandb让你知道哪次实验效果好)
+#### 实验追踪：WandB让你知道哪次实验效果好[🔗](files/foundations/3.5-工程环境.md#实验追踪：wandb让你知道哪次实验效果好)
 
 **WandB（Weights & Biases）入门**
 - 初始化、记录日志、可视化界面。
 - 超参数搜索：贝叶斯优化。
 - TensorBoard（备选）：本地可视化方案。
 
-#### [实验可重复性：让结果能复现](files/foundations/3.5-工程环境.md#实验可重复性：让结果能复现)
+#### 实验可重复性：让结果能复现[🔗](files/foundations/3.5-工程环境.md#实验可重复性：让结果能复现)
 
 **固定随机种子**
 - 完全固定随机性（`torch.backends.cudnn.deterministic` 和 `benchmark`）。
@@ -1029,13 +1035,13 @@ DDIM 的优势在于：
 **配置文件管理**
 - 使用 YAML 配置文件，命令行参数覆盖配置。
 
-#### [代码组织：专业的项目结构](files/foundations/3.5-工程环境.md#代码组织专业的项目结构)
+#### 代码组织：专业的项目结构[🔗](files/foundations/3.5-工程环境.md#代码组织专业的项目结构)
 
 **标准项目结构**
 - 分层目录结构：`configs`、`data`、`models`、`utils`、`scripts` 等。
 - 使用 `setup.py` 让代码可安装。
 
-#### [调试技巧：快速定位问题](files/foundations/3.5-工程环境.md#调试技巧快速定位问题)
+#### 调试技巧：快速定位问题[🔗](files/foundations/3.5-工程环境.md#调试技巧快速定位问题)
 
 **打印shape是第一步**
 - 在每个模块打印输入输出 shape。
@@ -2229,7 +2235,7 @@ Diffusion Policy 的演进标志着机器人策略学习从确定性控制向 **
 
 
 #### 📚 资源与引用  
-- 🔗 主仓库：[HITSZ-Robotics/DiffusionPolicy-Robotics](https://github.com/HITSZ-Robotics/DiffusionPolicy-Robotics)  
+-🔗 主仓库：[HITSZ-Robotics/DiffusionPolicy-Robotics](https://github.com/HITSZ-Robotics/DiffusionPolicy-Robotics)  
 - 📁 论文与报告合集：[docs/](https://github.com/HITSZ-Robotics/DiffusionPolicy-Robotics/tree/main/docs)  
 - 📄 关键参考论文：  
   - [Diffusion Policy (RSS 2023)](https://arxiv.org/abs/2303.04137)  
