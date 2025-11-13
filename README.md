@@ -356,7 +356,18 @@
 
 **小标题**
 
-* [2.1 模仿学习（BC/DAgger）](#21-模仿学习bcdagger路线)
+* [2.1 强化学习](#21-强化学习)
+* [2.2 模仿学习](#22-模仿学习)
+* [2.3 3D 视觉](#23-3d-视觉)
+* [2.4 规划与控制](#24-规划与控制)
+* [2.5 定位与导航](#25-定位与导航)
+* [2.6 触觉与力控](#26-力控与触觉)
+* [2.7 VLA](#27-vla)
+* [2.8 Sim2Real](#28-sim2real)
+* [2.9 世界模型](#29-世界模型)
+* [2.10 数据飞轮与遥操作](#210-数据飞轮与遥操作)
+
+<!-- * [2.1 模仿学习（BC/DAgger）](#21-模仿学习bcdagger路线)
 * [2.2 强化学习（PPO/SAC+iLQR/MPPI）](#22-强化学习pposacilqrmpii路线)
 * [2.3 视觉与多模态（2D/3D/CLIP/SigLIP）](#23-视觉与多模态2d3dclipsiglip路线)
 * [2.4 规划与控制（RRT*/TrajOpt/MPC）](#24-规划与控制rrttrajoptmpc路线)
@@ -366,8 +377,7 @@
 * [2.8 世界模型（Dreamer/潜在动力学）](#28-世界模型dreamer潜在动力学路线)
 * [2.9 数据飞轮与遥操作（Teleop→清洗→训练→回流）](#29-数据飞轮与遥操作teleop清洗训练回流路线)
 * [2.10 Sim2Real（域随机化/对齐/自适应）](#210-sim2real域随机化对齐自适应路线)
-* [2.11 评测与 Benchmark（标准化日志与指标）](#211-评测与-benchmark标准化日志与指标路线)
-
+* [2.11 评测与 Benchmark（标准化日志与指标）](#211-评测与-benchmark标准化日志与指标路线) -->
 
 **通用路线模板**
 
@@ -382,121 +392,6 @@
 - 延伸：<论文/代码/数据集 3–6 条>
 - 贡献者：@yourname
 ```
-
-#### 2.1 模仿学习（BC/DAgger）路线
-- 前置要求：MDP、监督学习基础
-- 周程：
-  - 第 1–2 周：运行 [Imitation 库](https://github.com/HumanCompatibleAI/imitation?tab=readme-ov-file) Behavioral Cloning 脚本
-  - 第 3–4 周：把策略网络换成 1D-CNN 并在 PyBullet 机械臂上对比 BC 成功率；在 DAgger 里用“专家模型再标注”代替人工标注并画策略漂移曲线
-  - 第 5–8 周：PyBullet Kuka 拾取方块：采集 500 条专家轨迹→BC→DAgger 两阶段训练，成功率≥75%，输出轨迹可视化+误差热力图+消融表
-- 里程碑：单任务成功率≥75%，BC/DAgger success-rate vs. epoch 单图对比
-- 常见坑：动作未归一化损失爆炸；专家轨迹长度不齐 RNN 打包 pad 错；DAgger 迭代间隔长策略漂移；观测含冗余 RGB 训练慢 5×；PyBullet 时间步与采集频率不一致动作重放失败
-- 延伸：GAIL/AggreVaTe/[HumanPlus](https://humanoid-ai.github.io/)；[RoboMimic](https://github.com/ARISE-Initiative/robomimic)/[LeRobot](https://github.com/huggingface/lerobot)
-
-#### 2.2 强化学习（PPO/SAC+iLQR/MPPI）路线
-- 前置要求：MDP、策略梯度基础
-- 周程：
-  - 第 1–2 周：运行 [Stable-Baselines3](https://github.com/DLR-RM/stable-baselines3) PPO demo
-  - 第 3–4 周：把算法换成 SAC 并在 PyBullet 连续控制任务里对比回报；用 RLlib 并行跑 4 种子画学习曲线
-  - 第 5–8 周：Meta-World 单臂三任务（reach→pick→place）：SAC 预训练 2M 步→iLQR/MPPI 精调，平均成功率≥85%，输出收敛曲线+消融表
-- 里程碑：连续控制平均回报≥-120，三任务成功率≥85%，SAC/iLQR 对比单图
-- 常见坑：动作未 clip 致 NaN；奖励尺度 1e-3 太小 SAC 熵崩；iLQR 线性化步长太大发散；MPPI 采样不足噪声淹没梯度；PyBullet 240 Hz 与控制器 30 Hz 不匹配
-- 延伸：DDPG/TD3；[RLlib](https://github.com/ray-project/ray)/[Diffusion Policy](https://github.com/real-stanford/diffusion_policy)
-
-#### 2.3 视觉与多模态（2D/3D/CLIP/SigLIP）路线
-- 前置要求：CNN/点云基础、OpenCV/Open3D 环境、机器人学基础
-- 周程：
-  - 第 1–2 周：[Detectron2](https://github.com/facebookresearch/detectron2) Mask R-CNN 在自定义 2D 数据集跑通
-  - 第 3–4 周：Open3D-ML PointNet 语义分割替换 backbone 并对比 mIoU；在 YCB-Video 上复现 PoseCNN-PyTorch 6D 姿态
-  - 第 5–8 周：PyBullet 机械臂抓取闭环：Mask R-CNN 实例分割→PoseCNN 位姿→Dex-Net 评分→执行，成功率≥75%，输出可视化+误差表
-- 里程碑：单物体抓取成功率≥75%，2D/3D 掩码与 6D 姿态误差单图对比
-- 常见坑：点云缺失深度补零致分割空洞；PoseCNN 关键点 heatmap 阈值敏感；Dex-Net 评分高但碰撞仍失败；PyBullet 相机内参未标定偏移；ROS 时间戳不一致致手眼标定漂移
-- 延伸：Mask R-CNN/PointNet/PoseCNN/Dex-Net；Detectron2/Open3D-ML/PoseCNN-PyTorch/dex-net
-
-#### 2.4 规划与控制（RRT*/TrajOpt/MPC）路线
-- 前置要求：正逆运动学/Jacobian、ROS基础
-- 周程：
-  - 第1–2周：运行[正逆运动学例程](https://github.com/fan-ziqi/ModernRoboticsCpp_CN)；在PyBullet中搭建6-DOF机械臂可视化
-  - 第3–4周：用[PSO-LQR本地规划器插件](https://github.com/mirzaim/Path-Tracking-PID?utm_source=chatgpt.com)生成关节空间轨迹；对比三次B样条平滑与RRT*路径曲率
-  - 第5–8周：Meta-World单臂「pick-place」任务：TrajOpt生成任务空间轨迹→MPC跟踪，位置误差≤1 cm，输出轨迹/误差/力矩三图
-- 里程碑：轨迹位置误差≤1 cm，MPC与PID对比误差曲线单图
-- 常见坑：RRT*碰撞检测网格分辨率大漏检；TrajOpt约束Jacobian维度错；MPC采样周期>20 ms控制发散；PyBullet关节力矩传感器未使能；PSO初值范围过大收敛慢
-- 延伸：RRT*/TrajOpt/MPC/Impedance Control；psolqr_local_planner/TrajOpt/mppi_examples
-
-#### 2.5 触觉与力控（阻抗/导纳/传感融合）路线
-- 前置要求：逆动力学/ROS、Gazebo基础
-- 周程：
-  - 第1–2周：ros_control加载Gazebo FT传感器插件，跑通MIT6.141力位混合示例；PyBullet调试ImpedanceControl刚度0.1/1/10对比
-  - 第3–4周：Tacto仿真GelSight图像→CNN特征，融合MaskR-CNN视觉分割，训练软/硬二分类，准确率≥90%
-  - 第5–8周：Digit+MPC瓶盖旋开：触觉图像输入→MPC力矩输出，旋开成功率≥80%，输出力曲线+触觉视频
-- 里程碑：软/硬分类≥90%，旋开成功率≥80%，力-位移相平面图单图
-- 常见坑：FT漂移未实时校零；GelSight反光致图像过曝；MPC权重矩阵对角线过大振荡；Digit无GPU延迟>50ms；URDF柔性关节参数缺失
-- 延伸：Impedance/Admittance/HybridPositionForce；Tacto/DigitTactile/TactileMPC
-
-#### 2.6 VLA（OpenVLA/RT-2/π0）路线
-- 前置要求：Transformer/CLIP/SigLIP基础
-- 周程：
-  - 第1–2周：pip install openvla，在Bridge-v2离线推理“pick the blue cube”指令，成功率≥70%
-  - 第3–4周：替换SigLIP视觉编码器→对比CLIP编码器，微调LoRA秩16/64两档，Bridge-v2成功率提升≥5%
-  - 第5–8周：π0单臂+双臂桌面整理：语言指令→多步策略，10步指令成功率≥80%，输出语言-动作对齐热图+视频
-- 里程碑：单步指令≥70%，10步指令≥80%，语言-动作注意力可视化单图
-- 常见坑：序列长度>2048显存溢出；语言提示歧义致动作偏移；双臂动作token混叠；RT-2量化后精度下降；Bridge相机内参未标定重投影误差大
-- 延伸：OpenVLA/RT-2/π0；Hydra/Accelerate/LoRA；Bridge/Libero/Open-X
-
-#### 2.7 Diffusion Policy（条件扩散策略）路线
-- 前置：Python/PyTorch；理解轨迹/动作参数化
-- 周程：
-  - 第1–2周：跑通 `train_dp.py`
-  - 第3-4周：更换视觉编码器（SigLIP）/动作表示
-  - 第5-8周：加入遥操作数据，完成桌面抓取
-- 里程碑：成功率≥80%，采样/去噪可视化
-- 坑：时间对齐、动作尺度、采样步数引入时延
-- 延伸：DP/ACT/LEAP；Bridge/RT-*；W&B/TensorBoard
-
-
-#### 2.8 世界模型（Dreamer/潜在动力学）路线
-- 前置要求：概率图模型、变分自编码器（VAE）、RL 基础
-- 周程：
-  - 第1–2周：安装并运行 DreamerV2 (danijar/dreamerv2)，在 DeepMind Control Suite "walker-walk" 任务上复现训练曲线（reward ≥ 500）
-  - 第3–4周：将 encoder 从 CNN 替换为 ResNet18 backbone，比较重构误差与 reward；测试 latent dimension 对性能的影响
-  - 第5–8周：在 Meta-World “reach-v2” 上自建 latent-dynamics 模型（RSSM/latent transition），以 learned world model rollout 进行 imagination-based policy learning，目标成功率≥75%，输出 imagination trajectory 可视化+reconstruction video
-- 里程碑：latent rollout 成功预测≥10 steps；imagination policy 成功率≥75%；reconstruction loss ≤0.02
-- 常见坑：VAE 重构损失未加权 KL collapse；RSSM 隐变量未 detach 导致梯度爆炸；imagination rollout 步长过长误差累积；actor critic 未共享 latent encoder；观测归一化不一致
-- 延伸：DreamerV3/Planet/Dyna；danijar/dreamerv2/dreamerv3；DeepMind Control Suite/Meta-World
-
-
-#### 2.9 数据飞轮与遥操作（Teleop→清洗→训练→回流）路线
-- 前置要求：ROS2/MoveIt、PyBullet 或 RealSense SDK、PyTorch 基础
-- 周程：
-  - 第1–2周：使用 LeRobot 或 Bridge Teleop 采集 1000 条机械臂 teleop 轨迹（obs/action/reward）并保存为 HDF5
-  - 第3–4周：robomimic.data 清洗与对齐轨迹，过滤异常帧、统一时间步，t-SNE 可视化数据分布
-  - 第5–6周：用清洗后数据训练 BC 或 Diffusion Policy，在 Bridge-v2 场景测试成功率≥70%
-  - 第7–8周：搭建数据飞轮闭环（Teleop→Clean→Train→Deploy→Collect）自动回流系统
-- 里程碑：清洗后性能提升≥10%；飞轮循环一次成功；输出成功率曲线与数据分布图  
-- 常见坑：Teleop 频率与采样不同步；HDF5 读写慢；异常帧过滤过严；归一化不一致；随机种子未固定  
-- 延伸：robomimic/LeRobot/Bridge/act-data-tools；DataFlywheel/Offline-to-Online；Bridge/Libero/RT-1/Open-X
-
-
-#### 2.10 Sim2Real（域随机化/对齐/自适应）路线
-- 前置要求：PyBullet基础
-- 周程：
-  - 第1–2周：克隆ammar-n-abbas/sim2real-ur-gym-gazebo→Gazebo训练UR5抓取策略，Sim成功率≥95%
-  - 第3–4周：按项目README配置真实UR5+RealSense→记录Sim与Real成功率差，下降≤10%
-  - 第5–8周：插入域随机化（光照/摩擦随机采样）再训练→Real成功率≥80%，输出对比视频
-- 里程碑：Sim≥95%，Real≥80%，差距≤10%，对比视频
-- 常见坑：Gazebo关节力矩限界未设；真实相机内参未标定；随机光照过曝；URDF质量与真实不符；增量训练学习率过大
-- 延伸：DomainRandomization/ProgressiveNets/InverseDynamics；sim2real-ur-gym-gazebo/spot-sim2real/lang4sim2real
-
-#### 2.11 评测与 Benchmark（标准化日志与指标）路线
-- 前置要求：熟悉 W&B / TensorBoard、Pandas/Numpy 数据处理
-- 周程：
-  - 第1–2周：统一 RL 训练日志格式（episode_reward、success_rate、loss）→ 转换为 CSV 并用 pandas 绘制 reward 曲线
-  - 第3–4周：基于 robometrics/robobench 运行三类基准任务（push/pick/place），记录成功率与耗时，生成标准化 report.json
-  - 第5–8周：集成 W&B 项目 pipeline，实现多实验自动汇总；生成包含 success-rate、efficiency、energy、smoothness 的雷达图；输出 PDF 报告模板
-- 里程碑：log schema 标准化；3 任务可对比指标一致；可一键生成 report 图表
-- 常见坑：不同 env 日志字段名不统一；采样周期不匹配导致曲线错位；success-rate 未加权平均误差；CSV 精度过低导致统计波动；matplotlib 中文字体错误
-- 延伸：RoboBench / RoboMimic Metrics / W&B Sweeps；robometrics / wandb / tensorboardX / matplotlib / pandas
-
 
 **样板 A｜Diffusion Policy 路线（可直接用）**
 
@@ -514,26 +409,306 @@
 * 坑：动作对齐、长序列退化、指令歧义
 * 延伸：OpenVLA/RT-2/π0；Hydra/Accelerate/LoRA；Bridge/Libero/Open-X
 
+```md
+#### <方向名>
+- **前置要求**：<工具/数学>
+- **理论**：
+    - **基础**：<方法发展路线> 
+    - **课程**：<课程名（链接）> | <课程简介>
+- **实践**：
+    - **工具**：<资料库（链接）> | <资料库简介>
+    - **最小目标**：
+    - **进阶目标**：
+- **延伸**：
+    - **论文/项目**：<论文链接> （可选）
+    - **工具**：<代码库链接>（可选）
+```
+
+---
+
+#### 2.1 强化学习
+- **前置要求**：Pytorch / 马尔可夫决策过程（MDP）
+- **理论**：
+  - **基础**：Q-learning → DQN → REINFORCE → Actor-Critic → PPO
+  - **课程**：
+    - [OpenAI Spinning Up in Deep RL](https://spinningup.openai.com/)：提供 REINFORCE、TRPO、PPO、DDPG、TD3、SAC 等算法的理论讲解与实现
+- **实践**：
+  - **工具**：
+    - [Stable-Baselines3](https://github.com/DLR-RM/stable-baselines3) ：实现 DQN、PPO、A2C、TD3、SAC 等算法，广泛用于 RL 实验，兼容 Gym
+    - [Gymnasium](https://github.com/Farama-Foundation/Gymnasium)：提供 CartPole、MountainCar、LunarLander 等经典任务，用于入门测试
+  - **最小目标**：使用 PPO 训练智能体，完成 CartPole 平衡杆任务
+  - **进阶目标**：探索稀疏奖励情境下的 MountainCar 爬坡车任务
+- **延伸**：
+  - **项目**：
+    - [RDT-1B](https://rdt-robotics.github.io/rdt-robotics/)：12 亿参数的扩散基础模型，支持语言、图像和动作输入，适用于单臂、双臂和移动机器人等多种平台
+    - [RTX](https://robotics-transformer-x.github.io/)：结合视觉、语言和动作信息，实现端到端的机器人控制
+  - **工具**：
+    - [RLlib](https://github.com/ray-project/ray)：分布式强化学习库，支持并行训练，部署简单，适合大规模强化学习实验
+
+---
+
+#### 2.2 模仿学习
+- **前置要求**：PyBullet / 强化学习
+- **理论**：
+  - **基础**：BC → DAgger → GAIL
+  - **课程**：
+    - [CS285 深度强化学习课程（UC Berkeley）](https://rail.eecs.berkeley.edu/deeprlcourse/   )：包含 DQN、REINFORCE、PPO、DDPG、SAC、BC、DAgger 等算法的完整作业和实现
+- **实践**：
+  -  **工具**：
+     -  [Imitation](https://github.com/HumanCompatibleAI/imitation?tab=readme-ov-file ) ：提供 Behavior Cloning、DAgger、GAIL 等算法的实现，适配 Stable Baselines3，广泛用于仿人任务研究
+     -  [PyBullet](https://github.com/bulletphysics/bullet3)：支持机器人、强化学习和虚拟现实的物理仿真，提供 Python 接口
+  -  **最小目标**：在 PyBullet 中采集机械臂轨迹，使用 Behavior Cloning 拟合策略，验证成功率
+  -  **进阶目标**：先用少量专家演示预训练（BC），再微调（PPO）实现迁移学习效果
+- **延伸**：
+  - **项目**：
+    - [Diffusion Policy](https://github.com/real-stanford/diffusion_policy)：基于扩散模型的策略学习方法，适用于高维动作空间的机器人控制任务
+    - [DP3](https://3d-diffusion-policy.github.io/) ：将 3D 视觉表示与扩散策略相结合
+    - [HumanPlus](https://humanoid-ai.github.io/)：人形机器人系统，融合了模仿学习、强化学习和影子学习技术
+  - **工具**：
+    - [RoboMimic](https://github.com/ARISE-Initiative/robomimic)：集成多个 IL 算法，支持多机器人数据集，适合多任务与多模态策略研究
+    - [LeRobot](https://github.com/huggingface/lerobot)：支持 Diffusion Policy 等多种策略，适合多任务机器人操作研究
+
+
+---
+
+#### 2.3 3D 视觉
+
+- **前置要求**：OpenCV / PyTorch / 基础线性代数与几何
+- **理论**：
+  - **基础**：2D/3D 视觉分割（Mask R-CNN/PointNet） → 6D 姿态估计（PoseCNN/CosyPose） → 手眼标定 → 抓取策略 (2D/6D)
+  - **课程**：
+    - [《动手学深度学习》中文版](https://github.com/d2l-ai/d2l-zh)：提供PyTorch实现的CNN等深度学习基础
+    - [OpenCV-Python 中文教程](https://github.com/makelove/OpenCV-Python-Tutorial)：涵盖图像处理、特征提取等CV基础
+- **实践**：
+  - **工具**：
+    - [Detectron2](https://github.com/facebookresearch/detectron2)：支持Mask R-CNN等先进检测与分割算法
+    - [Open3D-ML](https://github.com/isl-org/Open3D-ML)：专注于3D机器学习任务，如语义点云分割
+    - [PyBullet](https://github.com/bulletphysics/bullet3)：轻量级物理仿真平台，用于搭建机械臂抓取实验环境
+  - **最小目标**：使用 Detectron2 在自定义数据集上训练一个实例分割模型
+  - **进阶目标**：在 YCB-Video 数据集上复现 PoseCNN，完成物体 6D 姿态估计
+- **延伸**：
+  - **项目**：
+    - [GraspNet-1Billion](https://github.com/graspnet/graspnet-baseline)：大规模抓取数据集与基线模型
+    - [Dex-Net 2.0](https://github.com/BerkeleyAutomation/dex-net)：基于物理的抓取评分与规划框架
+    - [Tac2Pose](https://github.com/harvard-visionlab/tac2pose)：视觉与触觉融合的姿态回归方法
+  - **工具**：
+    - [MuJoCo](https://github.com/google-deepmind/mujoco)：高性能物理引擎，适合研究和开发
+    - [Gazebo](https://github.com/osrf/gazebo)：功能强大的机器人仿真平台
+
+---
+
+#### 2.4 规划与控制
+
+- **前置要求**：ROS / 线性代数 / 基础微积分
+- **理论**：
+  - **基础**：正运动学（DH参数） → 逆运动学（解析/数值解法） → 动力学建模（Lagrangian/Newton-Euler） → 采样法规划（PRM/RRT） → 轨迹生成与平滑（B样条） → 经典控制器（PID） → 阻抗控制 → 模型预测控制（MPC）
+  - **课程**：
+    - [《机器人学：规划、控制及应用》](https://github.com/qqfly/how-to-learn-robotics)：开源中文学习指南，涵盖运动学、动力学、控制等核心内容
+    - [《Modern Robotics》配套代码库 (C++)](https://github.com/fan-ziqi/ModernRoboticsCpp_CN)：提供《Modern Robotics》一书的C++实现，注释为中文，便于理解
+    - [ROSBOT](https://github.com/Githubcxy666/ROSBOT)：汇总了ROS机器人开发的相关资料，包含运动学模型、路径规划算法（Dijkstra, A*, RRT）、ROS常用命令等内容
+- **实践**：
+  - **工具**：
+    - [Gazebo](https://gazebosim.org/home)：真实物理模拟环境，用于验证控制器效果
+    - [nobleo/path_tracking_pid](https://github.com/nobleo/path_tracking_pid)：基于 ROS 的 PID 路径追踪控制器，支持平滑路径追踪与多种测试用例
+  - **最小目标**：使用 DH 参数描述一个 2-DOF 或 6-DOF 机械臂，并实现其正/逆运动学模拟器
+  - **进阶目标**：在 Gazebo 中仿真 UR5 机械臂，实现基于 PID 的轨迹跟踪控制，并可视化运动路径
+- **延伸**：
+  - **项目**：
+    - [modulabs/arm-control](https://github.com/modulabs/arm-control)：支持 Elfin 6 机械臂的 ROS 轨迹一体化控制框架，包含多种控制器和 Gazebo 仿真
+    - [ferasboulala/five-dof-robot-arm](https://github.com/ferasboulala/five-dof-robot-arm)：使用 ROS + MoveIt! 驱动 5 DOF 机械臂，支持 Gazebo 仿真与 Arduino 物理执行
+    - [JZX-MY/psolqr_local_planner](https://github.com/JZX-MY/psolqr_local_planner)：ROS 本地路径规划插件，实现 PSO 优化 + LQR 控制一体设计
+    - [itsahmedkhali/MobileRobotEKF-LQR](https://github.com/itsahmedkhali/MobileRobotEKF-LQR)：差分驱动机器人项目，使用EKF 做状态估计，LQR 做控制，并在 Gazebo & ROS 中仿真
+  - **工具**：
+    - [MATLAB Simulink](https://uk.mathworks.com/products/simulink.html)：用于MPC等复杂控制器的快速原型验证
+
+---
+
+#### 2.5 定位与导航
+
+- **前置要求**：ROS / 基础概率论与线性代数
+- **理论**：
+  - **基础**：状态估计理论（贝叶斯滤波、卡尔曼滤波、粒子滤波） → 位姿图优化（Pose Graph / Factor Graph） → 图搜索算法（Dijkstra, A*, D* Lite） → 随机采样法（RRT, PRM） → 优化方法（MPC, CHOMP, TEB）
+  - **课程**：
+    - [MIT 6.141 / UZH V-SLAM 公开课](https://www.youtube.com/playlist?list=PLUl4u3cNGP63EdVPNLG3ToM6LaEUuStEY)：提供SLAM的系统性理论讲解
+    - [Stanford CS237A (Autonomous Driving)](https://bulletin.stanford.edu/courses/2185453)：涵盖路径规划的基础理论与应用
+- **实践**：
+  - **工具**：
+    - [Cartographer ROS](https://github.com/cartographer-project/cartographer_ros)：Google 出品的 2D/3D 激光 SLAM 框架，支持 TurtleBot2 等平台
+    - [MoveIt + OMPL](https://github.com/ros-planning/moveit_tutorials)：用于机械臂高维空间路径规划
+    - [LVI-SAM](https://github.com/TixiaoShan/LVI-SAM)：激光+视觉+IMU 的 SLAM 系统
+    - [teb_local_planner](https://github.com/rst-tu-dortmund/teb_local_planner)：基于最优控制的局部路径规划器，常用于 ROS 导航
+  - **最小目标**：使用 Cartographer 搭建 TurtleBot 2D 激光 SLAM 导航系统；使用 OMPL 创建高维路径规划任务
+  - **进阶目标**：用 LVI-SAM +TEB 在非结构化环境中实现实时导航
+- **延伸**：
+  - **项目**：
+    - [VINS-Fusion](https://github.com/HKUST-Aerial-Robotics/VINS-Fusion)：清华出品的多传感器融合SLAM系统，支持双目、IMU、GPS
+    - [DSO (Direct Sparse Odometry)](https://github.com/JakobEngel/dso)：直接法视觉里程计，适用于特征点稀疏场景
+    - [VINS-Mono](https://github.com/HKUST-Aerial-Robotics/VINS-Mono)：单目+IMU的滑动窗口优化实现
+    - [Multi-Robot Exploration](https://github.com/hrnr/m-explore)：多机器人协作探索与地图共享系统
+  - **工具**：
+    - [OMPL](https://ompl.kavrakilab.org/)：开源运动规划库，提供多种采样规划算法
+
+---
+
+#### 2.6 力控与触觉
+
+- **前置要求**：ROS / 基础力学与控制理论
+- **理论**：
+  - **基础**：刚体动力学与逆动力学 → 力-位置控制（Hybrid Control） → 阻抗控制（Impedance Control） → 导纳控制（Admittance Control） → 优化控制 + MPC → 触觉传感器类型 → 触觉信号处理
+  - **课程**：
+    - 《现代机器人学》：强烈推荐第6章“力/力矩传感”，涵盖力控核心理论
+    - MIT 6.141 Robotics：包含力控基础，适合系统性学习
+- **实践**：
+  - **工具**：
+    - [Gazebo](https://gazebosim.org/home)：真实物理模拟环境
+    - [Isaac Sim](https://developer.nvidia.com/isaac/sim)：NVIDIA 基于其 Omniverse 平台构建的开源机器人仿真工具
+  - **最小目标**：在 Gazebo 中安装 `ros_control` 并配置一个六维力/力矩传感器插件（ForceTorqueSensor），实现简单的阻抗控制
+  - **进阶目标**：使用 Isaac Sim 搭建一个触觉反馈环境，训练一个基于触觉信号的抓取策略
+- **延伸**：
+  - [Feel the Force (FTF)](https://feel-the-force-ftf.github.io)：从人类示范中学习力敏感操作的开源项目，结合力控与学习算法，可用于研究机器人在接触任务中的策略生成
+  - [HATPIC](https://arxiv.org/abs/2502.17362)：开源单轴触觉操纵杆，用于远程操作与力反馈实验，适合自建低成本触觉装置
+    - [“Dexterous Manipulation through Imitation Learning: A Survey”](https://arxiv.org/html/2504.03515v3)：关于灵巧操作的综述论文
+
+---
+
+#### 2.7 VLA
+
+- **前置要求**：Transformer / CLIP / SigLIP / 模仿学习
+- **理论**：
+  - **基础**：Isaac 与 RoboMimic 使用 → Diffusion / Flow Matching 生成策略 → OpenVLA
+  - **材料**：
+    - [Isaac Lab 中文文档](https://docs.omniverse.nvidia.com/isaacsim/latest/)：学习任务定义、环境创建与操作演示
+    - [Diffusion Policy](https://github.com/real-stanford/diffusion_policy)：基于扩散模型的策略学习方法，适用于高维动作空间。
+    - [3D Diffusion Policy (DP3)](https://github.com/YanjieZe/3D-Diffusion-Policy)：将3D视觉表示与扩散策略相结合，提升泛化能力。
+    - [OpenVLA](https://github.com/OpenVLA/OpenVLA)：开源通用 VLA 模型，基于 SigLIP+DINOV2 视觉编码器和 Llama 2-7B 语言模型
+- **实践**：
+  - **工具**：
+    - [Isaac Sim](https://developer.nvidia.com/isaac-sim)：机器人三维仿真平台，用于搭建“厨房”等复杂任务环境。
+    - [Isaac Lab](https://github.com/NVIDIA-Omniverse/IsaacLab.git)：用于任务定义和训练的框架，支持示例脚本运行。
+  - **最小目标**：使用 OpenVLA 为基础构建多任务环境（pick-place、开关抽屉、积木等），融合多模态输入（语言 + 图像 + 状态），分析模型的泛化能力
+  - **进阶目标**：搭建 ROS2 + Isaac Sim/Real Franka 桥接环境，实现 camera calibration + 实时 image embedding，随后用 PC 上的语言指令控制真实机器人完成复杂任务
+- **延伸**：
+  - **项目**：
+    - [ALOHA / ACT](https://github.com/tonyzhaozh/aloha)：低成本双臂机器人系统与配套的动作分块策略，支持长时序任务执行。
+    - [RT-1](https://github.com/google-research/robotics_transformer)：Google 提出的 Transformer 模型，用于多任务机器人控制
+    - [RDT-1B](https://github.com/thu-ml/RoboticsDiffusionTransformer)：清华大学发布的 12 亿参数扩散基础模型，支持多机器人操作
+    - [n0 (Pi-0)](https://github.com/Physical-Intelligence/openpi)：由 Physical Intelligence 提出的 VLA 流匹配模型，支持连续动作块输出
+    - [DexVLA](https://github.com/juruobenruo/DexVLA)：Cornell 大学提出的 VLA模型，通过插入可插拔扩散动作专家提升效率
+  - **工具**：
+    - [Hugging Face Transformers](https://huggingface.co/)：用于加载和微调大型视觉-语言模型（如SigLIP, Llama）
+    - [RoboMimic](https://github.com/ARISE-Initiative/robomimic.git)：模仿学习库，支持行为克隆（BC）等策略，用于模型训练
+
+---
+
+#### 2.8 Sim2Real
+
+- **前置要求**：ROS / 强化学习
+- **理论**：
+  - **基础**：主流仿真环境（MuJoCo, Isaac Gym, Isaac Sim, PyBullet） → Sim2Sim → 域适应（Domain Adaptation） → 域随机化（Domain Randomization） → 增量网络（Progressive Network） → 逆动力学模型（Inverse Dynamics Model）
+  - **材料**：
+    - [MuJoCo](https://github.com/google-deepmind/mujoco)：高性能物理引擎，适合研究和开发
+    - [Isaac Gym](https://developer.nvidia.com/isaac-gym)：用于大规模并行强化学习训练的 GPU 加速平台
+    - [PyBullet](https://github.com/bulletphysics/bullet3)：轻量级物理仿真平台，用于搭建机械臂抓取实验环境
+    - [Tzeng等人 (2015) - Domain Adaptation + 对比学习](https://arxiv.org/abs/1505.07683)：通过联合训练实现仿真与现实图像的隐空间对齐
+    - [Gupta等人 (2017) - Invariant Representation with Dynamic Time Warping](https://arxiv.org/abs/1703.06891)：使用 DTW 对齐模拟与现实状态序列，以迁移 RL 策略
+    - [Rusu等人 (2016) - Progressive Nets for Pixels→现实](https://arxiv.org/abs/1608.07243)：采用增量网络结构，连接仿真与现实任务
+    - [Peng等人 (2018) - Dynamics Randomization](https://arxiv.org/abs/1803.07070)：对关键物理参数进行随机采样，训练鲁棒性策略
+    - [Tobin等人 (2017) - 视觉领域随机化](https://arxiv.org/abs/1703.06891)：对仿真环境中的纹理、光照等进行随机混合，增强视觉模型泛化能力
+- **实践**：
+  - **工具**：
+    - [SplitNet](https://grail.cs.washington.edu/projects/splitnet/)：模块化视觉输入与策略结构，适用于 Sim2Sim 视觉迁移
+    - [DRL-PPO-sim2sim-imitationlearning](https://github.com/basverkennis/DRL-PPO-sim2sim-imitationlearning)：悬臂机器人 Sim2Sim 项目，测试模型在不同环境参数下的迁移能力。
+    - [NVlabs/handover-sim2real](https://github.com/NVlabs/handover-sim2real)：实现从仿真到现实的点云驱动机器人交接动作学习
+    - [facebookresearch/spot-sim2real](https://github.com/facebookresearch/spot-sim2real)：Boston Dynamics Spot 机器人 Sim2Real 框架，支持视觉导航与复杂任务调用
+    - [UT-Austin-RobIn/lang4sim2real](https://github.com/UT-Austin-RobIn/lang4sim2real)：结合自然语言提示提升 Sim2Real 迁移效果
+    - [anmarr-nabbas/sim2real-ur-gym-gazebo](https://github.com/anmarr-nabbas/sim2real-ur-gym-gazebo)：将 UR5 机械臂在 Gazebo 中训练的 RL 抓取策略迁移到真实环境
+    - [mehrab-abrar/Sim2Real (Quadruped)](https://github.com/mehrab-abrar/Sim2Real)：在“Frozen Lake”环境中训练四足机器人策略并迁移到真实实验
+  - **最小目标**：安装 Habitat + SplitNet，测试 sim-to-sim performance
+  - **进阶目标**：运行任意 Sim2Real demo，记录仿真与实机的差别；插入增强方法，如 Domain Randomization、逆动力模型或语言提示，比较性能变化
+- **延伸**：
+  - [Unitree RL GYM](https://github.com/unitreerobotics/unitree_rl_gym)：四足机器人跨仿真迁移平台，支持从 Isaac Gym 到 MuJoCo 再到实机的完整流程
+  - [Humanoid-Gym](https://github.com/roboterax/humanoid-gym)：Isaac Gym 上 humanoid locomotion，支持 zero-shot Sim2Real,并提供 Sim2Sim 测试
+  - [DRL-PPO-sim2sim-imitationlearning](https://github.com/basverkennis/DRL-PPO-sim2sim-imitationlearning)：悬臂机器人 Sim2Sim 项目，测试模型在不同环境参数下的迁移能力
+  - [NVlabs/handover-sim2real](https://github.com/NVlabs/handover-sim2real)：实现从仿真到现实的点云驱动机器人交接动作学习
+
+---
+
+#### 2.9 世界模型
+
+- **前置要求**：强化学习 / 概率建模 / 变分自编码器（VAE）
+- **理论**：
+  - **基础**：
+    - 潜在动力学建模（Latent Dynamics Modeling）
+    - 世界模型（World Model） → Dreamer → DreamerV2 → DreamerV3
+    - 模拟器替代学习（Model-Based RL, MBRL）
+  - **材料**：
+    - [World Models (Ha & Schmidhuber, 2018)](https://arxiv.org/abs/1803.10122)：提出以 VAE+MDN-RNN 结构学习环境动力学
+    - [DreamerV2 (Hafner et al., 2021)](https://arxiv.org/abs/2010.02193)：基于潜在动力学的 MBRL 算法，能在潜空间中进行长序列规划
+    - [DreamerV3 (Hafner et al., 2023)](https://arxiv.org/abs/2301.04104)：实现跨任务通用性与高样本效率
+    - [PlaNet (Hafner et al., 2019)](https://arxiv.org/abs/1811.04551)：基于潜在空间预测与规划的开创性算法
+- **实践**：
+  - **工具**：
+    - [DreamerV3 Official Implementation](https://github.com/danijar/dreamerv3)：作者官方 PyTorch 实现
+    - [Planet / Dreamer Reimplementation (PyTorch)](https://github.com/facebookresearch/torchbeast)：支持可并行训练和多环境实验
+    - [gymnax](https://github.com/RobertTLange/gymnax)：JAX 强化学习环境库，常用于 Dreamer 训练
+  - **最小目标**：使用 Dreamer 复现 CartPole / Cheetah 环境中的潜在动力学预测；在潜空间进行“虚拟环境”训练
+  - **进阶目标**：结合 PyBullet 或 Isaac Gym 训练机械臂模型的世界模型，实现从视觉输入预测未来状态，并基于潜在动力学进行规划
+- **延伸**：
+  - **项目**：
+    - [DreamerV3 Robotics](https://github.com/DreamerV3Robotics)：将 Dreamer 应用于真实机械臂与移动机器人控制
+    - [World Model Policy Gradient (WM-PG)](https://github.com/icoz69/WM-PG)：使用潜在空间规划指导 RL 策略学习
+    - [MIRAGE](https://github.com/robustrobotics/MIRAGE)：结合世界模型与规划的多模态机器人控制系统
+  - **工具**：
+    - [BraX](https://github.com/google/brax)：GPU/TPU 加速的物理仿真平台，可快速验证 Dreamer 类算法
+    - [Isaac Gym](https://developer.nvidia.com/isaac-gym)：用于多任务并行的世界模型训练与验证
+
+---
+
+#### 2.10 数据飞轮与遥操作
+
+- **前置要求**：强化学习 / 模仿学习 / 数据工程基础（数据清洗、标注、版本控制）
+- **理论**：
+  - **基础**：数据飞轮与遥操作概念 → 力反馈遥操作 → AR/VR 远程控制 → 模型辅助示教（e.g. Diffusion Policy Warm-start）
+  - **材料**：
+    - [Tele-operation & Flywheel](https://medium.com/@chaseyvy/teleoperation-the-human-link-and-flywheel-of-physical-ai-1c5b82ba1c80)：数据飞轮与遥操作基础概念博客
+    - [PATO](https://arxiv.org/abs/2212.04708)：提出“策略辅助遥操作”框架，使人机协作更高效，助力可扩展数据采集
+    - [Open-TeleVision](https://arxiv.org/html/2407.01512v2)：沉浸式视觉遥操作系统，用于高质量示教数据采集
+- **实践**：
+  - **工具**：
+    - [ALOHA](https://github.com/tonyzhaozh/aloha)：低成本双臂遥操作系统，提供数据采集与回放脚本
+    - [Open-TeleVision](https://github.com/OpenTeleVision/TeleVision)：沉浸式远程控制与反馈系统
+  - **最小目标**：使用 ALOHA 系统采集单任务（如物体抓取）数据 → 训练一个 BC 策略 → 使用同样系统部署策略并采集新演示数据
+  - **进阶目标**：构建完整数据飞轮管线：通过 Teleop 采集数据 → 进行自动清洗与标准化 → 使用 Diffusion Policy / OpenVLA 训练模型 → 策略部署到实机 → 新数据自动回流、增强数据集
+- **延伸**：
+  - [SharedAssembly](https://arxiv.org/abs/2503.12287)：通过双操作员共享遥操作系统，提升装配任务数据采集规模与质量
+  - [Super-Linear Scaling](https://arxiv.org/html/2412.01770v3)：通过众包真实场景数字孪生并在仿真中采集数据，实现“人力投入与性能超线性增长”的机器人学习飞轮
+  - [DexFlyWheel](https://arxiv.org/html/2509.23829v1)：提出双臂灵巧操作的数据飞轮机制，从少量人类示范出发，通过 IL + residual RL 实现自增强数据生成。  
+
 ---
 
 ## 3. 基础学习（机器人基础｜深度学习基础）
 
-**贡献者**：@mumu-jushen，@alice
+**贡献者**：@mumu-jushen，@KandS
 **你将获得**：机器人学数学基础、深度学习核心机制、工程实践能力；从"坐标变换→运动规划→神经网络→多模态融合"构建知识体系。
 
 ### 目录（Table of Contents）
 - [3.1 机器人学打底：坐标系/运动学/动力学/控制](#31-机器人学打底坐标系运动学动力学控制)
-- [3.2 深度学习打底：Self-Attention与Transformer](#32-深度学习打底self-attention与transformer)
-- [3.3 深度学习打底：优化/正则化/训练技巧](#33-深度学习打底优化正则化训练技巧)
-- [3.4 工程环境：Conda/Docker、日志与可视化、复现实验规范](#34-工程环境condadocker日志与可视化复现实验规范)
+- [3.2 深度学习打底：Self-Attention 与 Transformer](#32-深度学习打底self-attention与transformer)
+- [3.3 深度学习打底：Diffusion (DDIM)](#33-深度学习打底diffusion-ddim)
+- [3.4 深度学习打底：优化/正则化/训练技巧](#34-深度学习打底优化正则化训练技巧)
+- [3.5 工程环境：Conda/Docker、日志与可视化、复现实验规范](#35-工程环境condadocker日志与可视化复现实验规范)
+- [3.6 实战与应用：机器人中的多模态/GAT](#36-实战与应用机器人中的多模态gat)
 
 ---
 
 ### 3.1 机器人学打底：坐标系/运动学/动力学/控制
 
 #### 起步三件事
+
 ⭐ **必看**：[Modern Robotics](http://hades.mech.northwestern.edu/index.php/Modern_Robotics) 第2-4章（坐标系、正逆运动学）
+
 🧪 **实作**：用Python实现平面二连杆的正逆运动学求解
+
 📦 **代码**：[Robotics Toolbox for Python](https://github.com/petercorke/robotics-toolbox-python) - Peter Corke的经典工具箱
 
 #### 核心知识点
@@ -561,11 +736,11 @@
 
 **DH参数法**
 
-用4个参数$(θ_i, d_i, a_i, α_i)$标准化描述连杆关系：
-- 连杆长度 $a_i$：沿$x_i$轴距离
-- 连杆扭角 $α_i$：绕$x_i$轴角度
-- 连杆偏距 $d_i$：沿$z_{i-1}$轴距离
-- 关节角 $θ_i$：绕$z_{i-1}$轴角度
+用4个参数 $(θ_i, d_i, a_i, α_i)$ 标准化描述连杆关系：
+- 连杆长度 $a_i$：沿 $x_i$ 轴距离
+- 连杆扭角 $α_i$：绕 $x_i$ 轴角度
+- 连杆偏距 $d_i$：沿 $z_{i-1}$ 轴距离
+- 关节角 $θ_i$：绕 $z_{i-1}$ 轴角度
 
 **轨迹规划对比**
 
@@ -588,10 +763,10 @@
 
 #### 实践要点
 
-- **坐标变换**：$T_A^B$表示从A到B，连续变换从右往左读
+- **坐标变换**： $T_A^B$ 表示从 A 到 B，连续变换从右往左读
 - **逆运动学**：优先解析解（快），数值解做后备
 - **轨迹规划**：简单任务用梯形速度，复杂用五次多项式
-- **MoveIt调试**：碰撞太严调`padding`，规划失败查起点碰撞
+- **MoveIt调试**：碰撞太严调 `padding`，规划失败查起点碰撞
 
 ---
 
@@ -702,19 +877,22 @@ Self-Attention有个问题——它不知道词的顺序！所以需要位置编
 
 见【图3-11】(详见 files/formulas/第三节/第三章-图片.md)
 
-把所有组件拼起来：
+🧪 **实作**：手撕一个mini Transformer（<500行代码）
 
 见【代码3-9】(详见 files/formulas/第三节/第三章-代码.md)
 
-#### Decoder：带Mask的生成器
+![Transformer整体架构](files/images/第三节/transformer%20structure.png)
 
-解码器比编码器多了两个东西：
-1. **Masked Self-Attention**：生成时不能看到未来的词
-2. **Encoder-Decoder Attention**：接收编码器的输出作为K和V
+#### [Transformer：从黑盒到掌握全貌](files/foundations/3.2-Transformer.md#transformer从黑盒到掌握全貌)
+- **第一层理解**：Transformer 是一个黑盒子，输入法语，输出英语，显著提升机器翻译质量。
+- **第二层理解**：Transformer 由编码器（Encoder）和解码器（Decoder）组成，原论文各用 6 层，但层数可变（如 BERT 用 12 层，GPT-3 用 96 层）。
+- **第三层理解**：每一层编码器包含 Self-Attention 和 Feed Forward 操作，均配备残差连接和 Layer Norm。
 
 见【代码3-10】(详见 files/formulas/第三节/第三章-代码.md)
 
-#### 实战踩坑经验
+#### [多头注意力：团队协作](files/foundations/3.2-Transformer.md#多头注意力团队协作)
+- 多头注意力是多个专家团队，每个头负责不同维度，学习不同类型的关系（如局部语法、长距离依赖等）。
+- 代码示例展示了如何实现多头注意力，包括 QKV 的计算和多头的合并。
 
 **坑1：维度对不上**
 见【代码3-11】(详见 files/formulas/第三节/第三章-代码.md)
@@ -731,12 +909,12 @@ Self-Attention有个问题——它不知道词的顺序！所以需要位置编
 #### 为什么Transformer这么强？
 
 **并行性**
-- RNN必须串行处理，第t步依赖第t-1步
-- Transformer可以并行处理整个序列，训练速度飞快
+- RNN 必须串行处理，第 t 步依赖第 t-1 步
+- Transformer 可以并行处理整个序列，训练速度飞快
 
 **长距离依赖**
-- RNN信息传递路径长，容易遗忘
-- Transformer任意两个位置都能直接交互
+- RNN 信息传递路径长，容易遗忘
+- Transformer 任意两个位置都能直接交互
 
 **表达能力**
 - 多头注意力 = 多个特征提取器并行工作
@@ -749,15 +927,15 @@ Self-Attention有个问题——它不知道词的顺序！所以需要位置编
 | CNN | O(k·n·d²) | O(1) | O(log_k(n)) |
 | Transformer | O(n²·d) | O(1) | O(1) |
 
-虽然是O(n²)，但对于常见长度（<512），这不是瓶颈。瓶颈通常在d（模型维度）上。
+虽然是 O(n²)，但对于常见长度（<512），这不是瓶颈。瓶颈通常在d（模型维度）上。
 
 #### 调试技巧总结
 
-1. **先跑通小模型**：2层、128维度、4个头，确保流程正确
+1. **先跑通小模型**：2 层、128 维度、4 个头，确保流程正确
 2. **可视化注意力权重**：检查模型是否学到合理的模式
 3. **梯度裁剪**：`torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)`
-4. **学习率warmup必须有**：前4000步线性增长很重要
-5. **检查mask是否正确**：打印出来看看，很多bug在这
+4. **学习率warmup必须有**：前 4000 步线性增长很重要
+5. **检查mask是否正确**：打印出来看看，很多 bug 在这
 
 ---
 
@@ -825,41 +1003,34 @@ Adam聪明在哪？
 实际使用时，可以用transformers库：
 见【代码3-26】(详见 files/formulas/第三节/第三章-代码.md)
 
-#### 防止过拟合：正则化技术
+4. **样本生成的灵活性**
+   - **DDPM**：由于每一步都添加了随机性，DDPM 的采样过程是不可控的，即使是同样的初始噪声，每次采样的结果也可能不同。
+   - **DDIM**：通过去掉采样过程中的随机性，DDIM 提供了一种确定性生成机制，即同样的初始条件会生成同样的样本。这对于某些任务非常有用，尤其是需要生成相同的图像或在多次采样中保持一致性时。
 
-模型太强也不好，会把训练集的噪声都记住。就像考试，死记硬背每道题答案，换个题就不会了。
+#### DDIM的工作原理
 
-**Dropout：随机关闭神经元**
+DDIM 的主要目的是在加速采样的同时保留高质量的图像生成。它通过修改扩散模型中的逆扩散过程，从而实现这一目标。
 
 ```python
 见【代码3-27】(详见 files/formulas/第三节/第三章-代码.md)
 
-不同场景dropout设多少？
-- 全连接层：0.5是经典值（Hinton论文）
-- CNN卷积层：0.1-0.2（卷积层本身就有正则化效果）
-- Transformer：0.1（位置都差不多）
-- 太大会欠拟合，太小没效果
+$$
+q(x_t|x_{t-1}) = \mathcal{N}(x_t; \sqrt{\alpha_t}x_{t-1}, (1 - \alpha_t)I)
+$$
 
-**BatchNorm vs LayerNorm**
+这里， $x_t$ 是在第 t 个时间步的噪声数据， $\alpha_t$ 是时间步的系数。这个公式描述了如何通过将噪声逐步加到数据上来生成噪声样本。
 
-这俩都是归一化，但归一化的维度不同：
+**去噪过程**
+在 DDPM 中，去噪过程反向执行，即从 $x_T$ （完全噪声的样本）开始逐步去除噪声，生成 $x_0$ （即数据样本）。这个去噪过程是逐步的，并且是随机的。
 
 见【代码3-28】(详见 files/formulas/第三节/第三章-代码.md)
 
-为啥Transformer用LayerNorm不用BatchNorm？
-1. BatchNorm依赖batch size，batch小了不稳定
-2. 序列长度不固定时BatchNorm很麻烦
-3. LayerNorm对每个样本独立计算，更稳定
+#### 如何使用DDIM
 
-**Label Smoothing：让模型别太自信**
+DDIM 的实现一般依赖于已有的扩散模型（如 DDPM）。只需要调整采样部分的代码即可将 DDPM 的随机采样替换为 DDIM 的确定性采样。
 
-正常的分类标签是one-hot：
-```python
-# 假设3分类，真实标签是类别1
-label = [0, 1, 0]  # 100%确信是类别1
-```
+下面是一个简化的伪代码，展示如何在生成过程中使用 DDIM 进行加速采样：
 
-Label smoothing把它变成：
 ```python
 # smooth_factor = 0.1
 label = [0.05, 0.9, 0.05]  # 90%确信是类别1，各留5%可能
@@ -875,19 +1046,18 @@ label = [0.05, 0.9, 0.05]  # 90%确信是类别1，各留5%可能
 
 见【代码3-30】(详见 files/formulas/第三节/第三章-代码.md)
 
-什么时候用混合精度？
-- 模型很大，显存不够：必须用
-- 想加速训练：推荐用
-- 做实验调参：可以不用（先保证正确性）
+- **阶梯式下降**：每固定步数降低学习率。
+- **余弦退火**：学习率像余弦函数一样平滑下降。
+- **Warmup**：先小学习率热身，适合 Transformer。
 
 混合精度的坑：
 见【代码3-31】(详见 files/formulas/第三节/第三章-代码.md)
 
 ---
 
-### 3.4 工程环境：Conda/Docker、日志与可视化
+### 3.5 工程环境：Conda/Docker/日志与可视化/复现实验规范
 
-#### 环境管理：让代码在任何地方都能跑
+#### [环境管理：让代码在任何地方都能跑](files/foundations/3.5-工程环境.md#环境管理：让代码在任何地方都能跑)
 
 **Conda**
 
@@ -904,6 +1074,8 @@ Conda和pip混用的技巧：
 见【代码3-35】(详见 files/formulas/第三节/第三章-代码.md)
 
 **Docker：终极解决方案**
+- Dockerfile 示例：构建和运行容器，挂载本地目录。
+- Docker 的坑：Windows 路径问题、GPU 支持、镜像大小。
 
 Conda还是可能出问题（比如系统库不同），Docker是真正的"带环境运行"。
 
@@ -923,6 +1095,9 @@ Docker的坑：
 训练模型最怕的：跑了100次实验，不记得哪次参数效果最好...
 
 **WandB（Weights & Biases）入门**
+- 初始化、记录日志、可视化界面。
+- 超参数搜索：贝叶斯优化。
+- TensorBoard（备选）：本地可视化方案。
 
 见【代码3-38】(详见 files/formulas/第三节/第三章-代码.md)
 
@@ -953,6 +1128,7 @@ WandB会自动生成漂亮的可视化界面，能看到：
 见【代码3-42】(详见 files/formulas/第三节/第三章-代码.md)
 
 **配置文件管理**
+- 使用 YAML 配置文件，命令行参数覆盖配置。
 
 别把超参数硬编码在代码里：
 ```yaml
@@ -1007,7 +1183,7 @@ WandB会自动生成漂亮的可视化界面，能看到：
 
 见【代码3-53】(详见 files/formulas/第三节/第三章-代码.md)
 
-然后扔给Transformer处理，它会自动学习跨模态关系！
+然后扔给 Transformer 处理，它会自动学习跨模态关系！
 
 **跨模态注意力的实际效果**
 
@@ -1067,7 +1243,7 @@ GAT让每个节点通过注意力机制聚合邻居信息：
 
 关键优势：
 - 自动学习"什么关系重要"（注意力权重）
-- 处理不规则结构（不像CNN需要网格）
+- 处理不规则结构（不像 CNN 需要网格）
 - 可解释性好（能可视化注意力）
 
 ---
