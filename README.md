@@ -2415,7 +2415,7 @@ Meta在《LIMA: Less Is More for Alignment》中证实：​**1万份高质量�
 
 ### 6.1 Isaac Lab
 
-#### 1、 Isaac Sim 入门
+#### 1、Isaac Sim 入门
 
 ##### 1.1 安装
 
@@ -2537,13 +2537,9 @@ UI Component Library 仪表等需要人看着操作的
 
 <img width="554" height="438" alt="image" src="https://github.com/user-attachments/assets/af0f30af-dfec-4a4e-b4fb-56f05f9ddc79" />
 
-打开
+打开扩展编辑页面。
 
-<img width="554" height="388" alt="image" src="https://github.com/user-attachments/assets/da5668b3-2062-481c-b510-fbb1b5a1050f" />
-
-<img width="553" height="344" alt="image" src="https://github.com/user-attachments/assets/241a7ca0-6f77-448d-8506-7794e34c3538" />
-
-<img width="554" height="344" alt="image" src="https://github.com/user-attachments/assets/081cb215-e01b-4e53-9688-9fa20df93d9c" />
+见【图6-1，6-2，6-3】(详见 files/images/第六节.md)
 
 添加你自己创建的 extensions，添加完成之后点击自己的 extensions，可以查看信息
 <img width="554" height="342" alt="image" src="https://github.com/user-attachments/assets/8cae57c8-7f2b-4bde-8fee-171fcd2bc528" />
@@ -2555,7 +2551,7 @@ UI Component Library 仪表等需要人看着操作的
 意思就是用 python 脚本来启动 isaac sim，不是用 gui。好处是不占用资源，因为界面渲染会占据大量资源。这个方式适合强化学习。
 先关闭 isaac sim
 
-**强化学习**
+###### 强化学习
 
 <img width="553" height="48" alt="image" src="https://github.com/user-attachments/assets/848dc061-0fa5-4b3c-9c2b-291fb01dec7e" />
 
@@ -2563,7 +2559,7 @@ UI Component Library 仪表等需要人看着操作的
 
 这个案例是让小车靠近小球。
 
-**普通应用**
+###### 普通应用
 
 ```Shell
 cd /home/yab/.local/share/ov/pkg/isaac-sim-2023.1.1
@@ -2584,25 +2580,25 @@ cd /home/yab/.local/share/ov/pkg/isaac-sim-2023.1.1
 ```
 
 
-**stage 配置**
+###### stage 配置
 
-设置全局场景属性及物理属性
+设置全局场景属性及物理属性：
 
 <img width="554" height="391" alt="image" src="https://github.com/user-attachments/assets/8ca19faf-716b-4dd9-b711-a04960bab965" />
 <img width="554" height="970" alt="image" src="https://github.com/user-attachments/assets/8450ba7d-a188-43da-a07d-98707595f345" />
 
-添加地面
+添加地面：
 
 <img width="554" height="970" alt="image" src="https://github.com/user-attachments/assets/96eadb61-6df5-463c-a4fe-87e6bad6b050" />
 <img width="553" height="422" alt="image" src="https://github.com/user-attachments/assets/b0d86ea9-f59b-4805-affb-31c2013e6b5c" />
 
-添加灯光
+添加灯光：
 
 <img width="553" height="397" alt="image" src="https://github.com/user-attachments/assets/0e63dd55-883d-4cb9-96a2-81d5816e81ef" />
 
-**制作一个简易小车入门**
+###### 制作一个简易小车入门
 
-添加和抓取形状，并给物体添加物理属性(刚体，碰撞体，预设属性)
+添加和抓取形状，并给物体添加物理属性：(刚体，碰撞体，预设属性)
 
 <img width="554" height="305" alt="image" src="https://github.com/user-attachments/assets/fec64f34-5e15-4aa2-b7fd-765b79ab296b" />
 
@@ -2611,10 +2607,9 @@ cd /home/yab/.local/share/ov/pkg/isaac-sim-2023.1.1
 
 <img width="554" height="446" alt="image" src="https://github.com/user-attachments/assets/4c715f73-5ca4-4aaf-b503-3df69bd2ff4c" />
 
-如果 enable 取消勾选，物体就不会倒地（测试碰撞属性同上）
+如果 enable 取消勾选，物体就不会倒地。（测试碰撞属性同上）
 
 <img width="554" height="353" alt="image" src="https://github.com/user-attachments/assets/77c49919-f17d-4431-80d9-1762cdc9d11e" />
-
 
 
 编辑物理属性比如摩擦力：
@@ -2655,25 +2650,25 @@ cd /home/yab/.local/share/ov/pkg/isaac-sim-2023.1.1
 - 速度控制：对于速度控制器关节，设置高阻尼和零刚度。
 对于车轮上的关节，速度控制更有意义，因此将两个车轮的阻尼设置为1e4*，并将目标速度设置为200。如果您使用的关节范围有限，则可以在“属性”选项卡的“原始 USD 属性”>“下限（上限）”下进行设置。按下“播放”即可看到模拟移动机器人启动。
 
-添加关节根 articulation：
+添加关节根：
 
 <img width="525" height="806" alt="image" src="https://github.com/user-attachments/assets/18050bfb-ca3b-41bc-93c0-dbd0db892c5f" />
 
-添加相机和传感器
+添加相机和传感器:
 
 <img width="553" height="348" alt="image" src="https://github.com/user-attachments/assets/d596f142-e013-4be2-ace8-64812a981d39" />
 
-添加激光雷达
+添加激光雷达:
 
 [https://docs.omniverse.nvidia.com/isaacsim/latest/advanced_tutorials/tutorial_advanced_range_sensor_lidar.html#isaac-sim-app-tutorial-advanced-range-sensor-lidar](https://docs.omniverse.nvidia.com/isaacsim/latest/advanced_tutorials/tutorial_advanced_range_sensor_lidar.html#isaac-sim-app-tutorial-advanced-range-sensor-lidar)
 
-更复杂的机器人
+更复杂的机器人:
 
 [https://docs.omniverse.nvidia.com/isaacsim/latest/advanced_tutorials/tutorial_advanced_rigging_robot.html#isaac-sim-app-tutorial-advanced-rigging-robot](https://docs.omniverse.nvidia.com/isaacsim/latest/advanced_tutorials/tutorial_advanced_rigging_robot.html#isaac-sim-app-tutorial-advanced-rigging-robot)
 
 <img width="554" height="223" alt="image" src="https://github.com/user-attachments/assets/37ef5874-df69-453a-b0ec-c2f6be8269ec" />
 
-**调用外部 python 编译器**
+###### 调用外部 python 编译器
 
 通过调用外部的编辑器来操作 isaac sim，或者通过 WINDOW EXTENSIONS
 
@@ -2699,7 +2694,7 @@ DynamicCuboid(prim_path="/World/cube",
     color=np.array([.2,.3,0.]))
 ```
 
-**编辑器使用**
+###### 编辑器使用
 
 Isaac Sim VS Code Edition：
 
@@ -2884,7 +2879,7 @@ debug 在 isaac sim 中跑的应用和 vscode 交互
 ```
 - 点击 isaac sim 中的 Break，那么断点就会在 vscode 中出现
 
-**核心 API**
+###### 核心 API
 
 
 工具栏选择 hello world，点击 containning folder，你就可以看到这个例子包含的代码文件
@@ -2894,8 +2889,7 @@ debug 在 isaac sim 中跑的应用和 vscode 交互
 <img width="554" height="335" alt="image" src="https://github.com/user-attachments/assets/aa8d049c-1c8a-475d-9d66-8540abe85b92" />
 
 
-打开 hello_world.py
-重写代码
+打开 hello_world.py,重写代码
 
 ```python
 Copyright (c) 2020-2023, NVIDIA CORPORATION. All rights reserved.
@@ -2984,9 +2978,9 @@ __init__
 
 [https://docs.omniverse.nvidia.com/isaacsim/latest/core_api_tutorials/tutorial_core_hello_world.html](https://docs.omniverse.nvidia.com/isaacsim/latest/core_api_tutorials/tutorial_core_hello_world.html)
 
-**ROS 和 ROS2**
+##### 1.3 ROS和ROS2
 
-**ROS1**
+###### ROS1
 参考文档：[https://docs.omniverse.nvidia.com/isaacsim/latest/ros_tutorials/tutorial_ros_turtlebot.html
 turtlebot3](https://docs.omniverse.nvidia.com/isaacsim/latest/ros_tutorials/tutorial_ros_turtlebot.html
 turtlebot3) 链接：[https://emanual.robotis.com/docs/en/platform/turtlebot3/overview/](https://emanual.robotis.com/docs/en/platform/turtlebot3/overview/)
@@ -3043,7 +3037,7 @@ rosrun teleop_twist_keyboard teleop_twist_keyboard.py
 <img width="531" height="346" alt="image" src="https://github.com/user-attachments/assets/a62fa1fe-5432-4724-9f67-865ff59d55cc" />
 <img width="539" height="272" alt="image" src="https://github.com/user-attachments/assets/c7e862db-1a3d-4b9c-a25e-b44f91f0438c" />
 
-**导航--以 carter_warehouse 为例**
+###### 导航--以 carter_warehouse 为例
 [https://github.com/isaac-sim/IsaacSim-ros_workspaces](https://github.com/isaac-sim/IsaacSim-ros_workspaces)
 
 - 单线激光雷达
@@ -3054,7 +3048,7 @@ rosrun teleop_twist_keyboard teleop_twist_keyboard.py
 
 <img width="554" height="291" alt="image" src="https://github.com/user-attachments/assets/fbd4e1d2-88c3-4a5d-806b-9d01d237a781" />
 
-0.1-0.62 占据栅格的高度范围
+占据栅格的高度范围为0.1-0.62
 
 ```Plain Text
 roslaunch carter_2dnav carter_navigation.launch
@@ -3070,7 +3064,7 @@ Isaac/Samples/ROS/Scenario/rtx_lidar_carter_warehouse_navigation.usd
 roslaunch carter_2dnav carter_navigation_rtx.launch
 ```
 
-**ROS2**
+###### ROS2
 
 [https://docs.omniverse.nvidia.com/isaacsim/latest/ros_ros2_tutorials.html ](https://docs.omniverse.nvidia.com/isaacsim/latest/ros_ros2_tutorials.html )
 
@@ -3251,10 +3245,11 @@ ros2 launch carter_navigation carter_navigation.launch.py
 先启动 isaac sim，再启动 launch 文件
 一般重定位是没有的，所以需要自己手动发一个 2d pose
 
-#### 6.1.2 Isaac Lab入门
-**系统要求**
+#### 2、Isaac Lab入门
+##### 2.1 安装
+###### 系统要求
 
-一般要求：
+**一般要求**
 有关详细要求，请参阅 Isaac Sim 系统要求 。基本要求包括：
 
 OS: Ubuntu 22.04 (Linux x64) 或 Windows 11 (x64)
@@ -3269,7 +3264,7 @@ Isaac Sim 是针对特定的 Python 版本构建的 ，在安装 Isaac Lab 时�
 
 对于 Isaac Sim 4.X，所需的 Python 版本是 3.10。
 
-驱动要求：
+**驱动要求**
 除了在 Omniverse技术要求 中推荐的驱动程序之外，其他驱动程序可能可用，但尚未经过所有Omniverse测试的验证。
 
 使用 最新的NVIDIA生产分支驱动程序。
@@ -3282,7 +3277,7 @@ Isaac Sim 是针对特定的 Python 版本构建的 ，在安装 Isaac Lab 时�
 
 如果您在使用新的GPU或遇到驱动程序问题，请从 Unix Driver Archive <https://www.nvidia.com/en-us/drivers/unix/> 中安装最新的生产分支驱动程序，使用 .run 安装程序。
 
-**DGX Spark: 详细信息和限制**
+###### DGX Spark: 详细信息和限制
 
 DGX Spark 是一款采用 aarch64 架构的独立机器学习设备。因此，Isaac Lab 的某些功能目前在 DGX Spark 上不受支持。最值得注意的是，该架构 需要 CUDA ≥ 13，因此需要 PyTorch 的 cu13 构建或更新版本。关于 Isaac Lab 的其他值得注意的限制包括…
 
@@ -3305,14 +3300,14 @@ Running Cosmos Transfer1 is not currently supported on the DGX Spark.
 
 您可以使用 Isaac Sim兼容性检查器 来自动检查您的系统是否满足运行Isaac Sim所需的要求。
 
-**选择安装方法**
+###### 选择安装方法
 
 不同的工作流程需要不同的安装方法。使用此表格进行决定：
 
 <img width="819" height="259" alt="image" src="https://github.com/user-attachments/assets/8efc368a-b524-42a4-a480-319836d442a4" />
 
 
-**后续步骤**
+###### 后续步骤
 
 一旦您查看了安装方法，请继续阅读与您工作流程相匹配的指南：
 
@@ -3354,9 +3349,10 @@ Running Cosmos Transfer1 is not currently supported on the DGX Spark.
 
 各安装方式具体安装方法细则见官方文档[https://docs.robotsfan.com/isaaclab/source/setup/installation/index.html](https://docs.robotsfan.com/isaaclab/source/setup/installation/index.html)
 
-**快速入门 (推荐)**
+##### 2.2 快速入门 (推荐)
+###### 环境创建
 
-对于大多数用户来说，安装 Isaac Lab 最简单最快的方法是按照 使用 Isaac Sim Pip 包安装 指南操作。
+对于大多数用户来说，安装 Isaac Lab 最简单最快的方法是按照 使用 Isaac Sim Pip 包安装指南操作。
 
 这种方法将通过pip安装Isaac Sim，并通过其源代码安装Isaac Lab。如果您是Isaac Lab的新手，请从这里开始。
 
@@ -3399,7 +3395,7 @@ git clone git@github.com:isaac-sim/IsaacLab.git
 ./isaaclab.sh --install # or "./isaaclab.sh -i"
 ```
 
-**启动训练**
+###### 启动训练
 
 通过位于 isaaclab/scripts/reinforcement_learning 目录中的相应 train.py 和 play.py 脚本访问 Isaac Lab 的各个后端。调用这些脚本将需要一个 任务名称 和对应的 入口点 到 gymnasium API。例如
 
@@ -3432,7 +3428,7 @@ $> python scripts/environments/list_envs.py
 
 请注意，有两种不同的 Ant 任务，一种是用于 Direct 环境，另一种是用于 ManagerBased 环境。这是您可以在 Isaac Lab 立即使用的 两个主要工作流程 。Direct 工作流程将为您提供最快速通往用于强化学习的工作自定义环境的路径，但 Manager based 工作流程将为您的项目提供更广泛开发所需的模块化。出于本快速入门指南的目的，我们只会专注于 Direct 工作流程。
 
-**生成您自己的项目**
+###### 生成您自己的项目
 
 使用 Isaac Lab 开始新项目起初可能会让人望而生畏，但这就是为什么我们提供 模板生成器 ，通过命令行快速生成新项目的原因。
 
@@ -3472,7 +3468,7 @@ gym.register(
 
 这是实际为将来使用注册环境的函数。请注意， entry_point 实际上只是环境定义的 python 模块路径。这就是为什么我们需要将项目安装为包: 模块路径 就是 gymnasium API 的入口点。
 
-**配置**
+###### 配置
 
 无论您在 Isaac Lab 中要做什么，您都需要处理**配置** 。所有配置类都可以通过它们的类定义上方的 @configclass 装饰器和缺少 __init__ 函数来识别。例如，考虑下面这个关于 cartpole 环境 的配置类。
 
@@ -3514,7 +3510,7 @@ class CartpoleEnvCfg(DirectRLEnvCfg):
 
 在这种情况下，该类定义了整个训练环境的配置！请注意 InteractiveSceneCfg 中的 num_envs 变量。这实际上会被 train.py 脚本内部的 CLI 参数所覆盖。配置提供了一条通往配置层次结构中的任何变量的直接路径，从而轻松修改在启动时由环境“配置”的任何内容。
 
-**机器人**
+###### 机器人
 
 在 Isaac Lab 中，机器人完全被定义为配置的实例。如果您检查 source/isaaclab_assets/isaaclab_assets/robots ，您将看到许多文件，每个文件都包含了有关所讨论机器人的配置。这些单独的文件的目的是更好地定义所有不同机器人的范围，但没有任何阻止您 向您的项目添加新的机器人 ，甚至添加到 isaaclab 存储库中！例如，考虑以下配置中的 Dofbot
 
@@ -3572,7 +3568,7 @@ DOFBOT_CONFIG = ArticulationCfg(
 
 这完全定义了 dofbot！您可以将此内容复制到一个 .py 文件中并将其作为模块导入，以便在自己的 lab sims 中使用 dofbot。您将在定义带有状态的事物的任何配置中看到的一个常见特征是 InitialStateCfg 的存在。请记住，配置是指明向量化的信息， InitialStateCfg 描述了机器人在每个环境中创建时的关节状态。 ImplicitActuatorCfg 使用由关节时间决定的默认执行模型来定义机器人的关节。并不是所有关节都需要被执行，但如果您不打算使用这些未定义的关节，您将会收到警告。如果您不打算使用这些未定义的关节，您通常可以忽略它们。
 
-**Apps 和 Sims**
+###### Apps 和 Sims
 
 使用仿真意味着启动 Isaac Sim 应用程序以提供仿真上下文。如果您没有运行由标准工作流程定义的任务，则需要负责创建应用程序、管理上下文并通过时间推进仿真。 这是 “第三个工作流程” : 一个 独立 应用程序，这是我们为框架、演示、基准测试等编写的脚本所谓的事情…
 
@@ -3600,7 +3596,7 @@ simulation_app = app_launcher.app
 AppLauncher 是任何 Isaac Sim 应用程序的入口点，如 Isaac Lab！ 许多 Isaac Lab 和 Isaac Sim 模块直到应用程序启动之后才能导入！ 这是在上面的代码的倒数第二行执行的，当构造 AppLauncher 时。 app_launcher.app 是我们访问套件应用程序框架的接口；广泛的中介代码将仿真与扩展管理系统、GUI 等等绑定在一起。在独立工作流程中，这个界面，通常被称为 simulation_app 主要用于检查仿真是否正在运行，并在仿真结束后清理。
 
 
-**资产缓存**
+###### 资产缓存
 
 Isaac Lab 资产托管在 AWS S3 云存储 上。 加载时间可能会因您的 网络连接 和 地理位置 而异，在某些情况下，每次运行可能需要几分钟才能加载资产。 为了提高性能或支持 离线工作流 ，我们建议启用 资产缓存 。
 
@@ -3608,9 +3604,442 @@ Isaac Lab 资产托管在 AWS S3 云存储 上。 加载时间可能会因您的
 
 如果您的网络连接速度慢或不稳定，或者部署环境处于脱机状态，则这将特别有用。
 
-#### 6.1.3 Isaac资料汇总
+#### 3、IsaacLab 任务基准
+以下列表包含在 Isaac Lab 中可用的所有 RL 和 IL 任务实现。尽管我们尽量保持此列表最新，您仍可以通过运行以下命令获取最新的环境列表:
 
-**文档**
+```shell
+./isaaclab.sh -p scripts/environments/list_envs.py
+```
+
+##### 3.1 单一智能体
+
+###### 经典
+
+基于 IsaacGymEnvs 实现的 MuJoCo 风格环境的经典环境。
+<img width="819" height="572" alt="image" src="https://github.com/user-attachments/assets/ceb5b2c9-edef-4a22-8e30-45b65840ca7b" />
+<img width="819" height="524" alt="image" src="https://github.com/user-attachments/assets/bf50f301-0c46-4502-ab4d-f1f23754a3b1" />
+
+
+###### 操作臂
+
+基于固定机械臂操作任务的环境。
+
+对于许多这些任务，我们包括具有不同手臂动作空间的配置。例如，对于 lift-cube 环境:
+
+Isaac-Lift-Cube-Franka-v0: Franka机械臂关节位置控制
+
+Isaac-Lift-Cube-Franka-IK-Abs-v0: Franka机械臂绝对IK控制
+
+Isaac-Lift-Cube-Franka-IK-Rel-v0: Franka机械臂相对IK控制
+
+<img width="785" height="703" alt="image" src="https://github.com/user-attachments/assets/96d2c64d-9192-40bb-bd51-33c433ef4ee9" />
+<img width="792" height="478" alt="image" src="https://github.com/user-attachments/assets/5e8b1723-e46e-4c37-aef6-ad02ad686b53" />
+<img width="875" height="542" alt="image" src="https://github.com/user-attachments/assets/0c2e2116-19e1-41b2-a9b4-eecd112c7c28" />
+<img width="878" height="601" alt="image" src="https://github.com/user-attachments/assets/409fc01c-1490-4340-a370-0f11d8896ffd" />
+<img width="872" height="767" alt="image" src="https://github.com/user-attachments/assets/304d50e4-7386-416c-8b85-fbcae4ad14b5" />
+<img width="875" height="565" alt="image" src="https://github.com/user-attachments/assets/165a27f6-4e8e-4538-863a-0bd169d555f6" />
+<img width="875" height="338" alt="image" src="https://github.com/user-attachments/assets/075e7193-3e1b-4642-a419-b9e9a4589702" />
+
+
+###### 富接触操控
+
+基于富接触操控的环境，例如销钉插入、齿轮啮合和螺母螺栓紧固。
+
+这些任务共享相同的任务配置和控制选项。您可以通过指定任务名称在它们之间切换。例如:
+
+Isaac-Factory-PegInsert-Direct-v0: 使用Franka机械臂进行销钉插入
+
+Isaac-Factory-GearMesh-Direct-v0: 与Franka机械臂啮合的齿轮
+
+Isaac-Factory-NutThread-Direct-v0: 用Franka机械臂进行螺母螺栓紧固
+
+<img width="875" height="743" alt="image" src="https://github.com/user-attachments/assets/c294b29c-f5b7-4b6c-8b89-02edd1e880e9" />
+
+
+###### 自动装配
+
+基于100种不同装配任务的环境，每个任务都涉及将插头插入插座的操作。这些任务共享相同的配置框架，但通过零部件的几何形状和物理属性实现差异化。
+
+可通过指定对应的资产ID切换不同任务，可用资产ID包括:
+
+‘00004’, ‘00007’, ‘00014’, ‘00015’, ‘00016’, ‘00021’, ‘00028’, ‘00030’, ‘00032’, ‘00042’, ‘00062’, ‘00074’, ‘00077’, ‘00078’, ‘00081’, ‘00083’, ‘00103’, ‘00110’, ‘00117’, ‘00133’, ‘00138’, ‘00141’, ‘00143’, ‘00163’, ‘00175’, ‘00186’, ‘00187’, ‘00190’, ‘00192’, ‘00210’, ‘00211’, ‘00213’, ‘00255’, ‘00256’, ‘00271’, ‘00293’, ‘00296’, ‘00301’, ‘00308’, ‘00318’, ‘00319’, ‘00320’, ‘00329’, ‘00340’, ‘00345’, ‘00346’, ‘00360’, ‘00388’, ‘00410’, ‘00417’, ‘00422’, ‘00426’, ‘00437’, ‘00444’, ‘00446’, ‘00470’, ‘00471’, ‘00480’, ‘00486’, ‘00499’, ‘00506’, ‘00514’, ‘00537’, ‘00553’, ‘00559’, ‘00581’, ‘00597’, ‘00614’, ‘00615’, ‘00638’, ‘00648’, ‘00649’, ‘00652’, ‘00659’, ‘00681’, ‘00686’, ‘00700’, ‘00703’, ‘00726’, ‘00731’, ‘00741’, ‘00755’, ‘00768’, ‘00783’, ‘00831’, ‘00855’, ‘00860’, ‘00863’, ‘01026’, ‘01029’, ‘01036’, ‘01041’, ‘01053’, ‘01079’, ‘01092’, ‘01102’, ‘01125’, ‘01129’, ‘01132’, ‘01136’.
+
+我们同时提供拆卸与装配两种任务环境。
+
+###### 注意
+
+建议使用 CUDA 与 570 驱动程序运行 AutoMate 环境。如果在架构为 x86_64 的 Linux 上使用 Nvidia 驱动程序 570 运行，我们按照以下步骤安装 CUDA 12.8。这允许在 AutoMate 环境中使用 CUDA 计算奖励。如果您有不同的操作系统或架构，请参阅 CUDA installation page 获取其他说明。
+
+```shell
+wget https://developer.download.nvidia.com/compute/cuda/12.8.0/local_installers/cuda_12.8.0_570.86.10_linux.run
+sudo sh cuda_12.8.0_570.86.10_linux.run --toolkit
+```
+使用 conda 时，可以通过以下命令安装 CUDA 工具包:
+
+```shell
+conda install cudatoolkit
+```
+使用 580 驱动程序和 CUDA 13，我们目前无法启用 CUDA 来计算奖励。代码会自动回退到 CPU，导致性能略慢。
+
+
+Isaac-AutoMate-Disassembly-Direct-v0: 初始状态下插头已插入插座，底层控制器会将插头拔出并移至随机位置。这个过程完全由脚本控制，不涉及任何学习策略，因此不需要进行策略训练或评估。这些结果轨迹可作为逆向学习（即装配学习）的示范数据。运行指定任务的拆卸模式: ```python source/isaaclab_tasks/isaaclab_tasks/direct/automate/run_disassembly_w_id.py --assembly_id=ASSEMBLY_ID --disassembly_dir=DISASSEMBLY_DIR```. 所有生成的轨迹存储在本地文件夹 DISASSEMBLY_DIR 中。
+
+Isaac-AutoMate-Assembly-Direct-v0: 目标是将插头插入插座。你可以使用这个环境通过强化学习训练策略，或评估预训练模型。
+
+要训练装配策略，我们运行命令 ```python source/isaaclab_tasks/isaaclab_tasks/direct/automate/run_w_id.py --assembly_id=ASSEMBLY_ID --train ```。我们可以通过可选参数自定义训练流程: 使用 --headless 以无界面模式运行（不打开GUI窗口）， --max_iterations=MAX_ITERATIONS 设置训练迭代次数， --num_envs=NUM_ENVS 设置训练时的并行环境数量， --seed=SEED 指定随机种子。训练过程中，策略检查点会自动保存在 logs/rl_games/Assembly/test 目录下。
+
+要评估一个装配策略，我们运行命令 ```python source/isaaclab_tasks/isaaclab_tasks/direct/automate/run_w_id.py --assembly_id=ASSEMBLY_ID --checkpoint=CHECKPOINT --log_eval ```。评估结果存储在 evaluation_{ASSEMBLY_ID}.h5 。
+
+<img width="872" height="500" alt="image" src="https://github.com/user-attachments/assets/556970ff-dba3-4da1-84b5-bfba6989851f" />
+
+###### FORGE
+
+FORGE 环境通过以下方式扩展了 Factory 环境:
+
+力传感: 添加末端执行器所受力的观测值。
+
+过度力惩罚: 添加一个选项来惩罚智能体超出接触力限制的行为。
+
+动力学随机化: 随机化控制器增益、资产属性（摩擦、质量）和死区。
+
+成功预测: 添加一个额外的动作来预测任务成功。
+
+这些任务共享相同的任务配置和控制选项。您可以通过指定任务名称在它们之间切换。
+
+Isaac-Forge-PegInsert-Direct-v0: 使用Franka机械臂进行销钉插入
+
+Isaac-Forge-GearMesh-Direct-v0: 与Franka机械臂啮合的齿轮
+
+Isaac-Forge-NutThread-Direct-v0: 用Franka机械臂进行螺母螺栓紧固
+
+<img width="876" height="742" alt="image" src="https://github.com/user-attachments/assets/91ac4a06-863c-4756-b5f9-2cf45aa35fcc" />
+
+###### 运动
+
+基于四足运动任务的环境
+
+<img width="875" height="608" alt="image" src="https://github.com/user-attachments/assets/e0e30d43-52f5-485a-a133-785b6501409c" />
+<img width="877" height="561" alt="image" src="https://github.com/user-attachments/assets/8e994e60-c203-47bc-8351-7c6ef2ddbd50" />
+<img width="874" height="559" alt="image" src="https://github.com/user-attachments/assets/ff5eb580-dbd5-4066-aa83-0f7439bb0c58" />
+<img width="873" height="557" alt="image" src="https://github.com/user-attachments/assets/cc1b91d6-cbe1-4868-b2be-a784b90a28ee" />
+<img width="870" height="559" alt="image" src="https://github.com/user-attachments/assets/11a3dc4b-fb75-4280-be68-4a042b8ef149" />
+<img width="875" height="560" alt="image" src="https://github.com/user-attachments/assets/67396204-eeb1-44a7-893c-5dd5b6790036" />
+<img width="879" height="376" alt="image" src="https://github.com/user-attachments/assets/eee9efc4-b6f4-484b-86a1-9960d167a29b" />
+
+###### 导航
+
+<img width="878" height="232" alt="image" src="https://github.com/user-attachments/assets/b19c2bd9-9f94-43aa-9900-83ecf88c670a" />
+
+
+###### Others
+
+备注：对抗运动先验 (AMP) 训练仅在 skrl 库中可用，因为它是当前集成的库中唯一一个开箱即用支持该功能的库（对于其他库，需要实现该算法和架构）。有关更多信息，请参见 skrl’s AMP Documentation 。可以通过向训练/播放脚本添加命令行输入 --algorithm AMP 来激活 AMP 算法。
+
+为了评估，脚本的命令行输入 --real-time 允许环境和智能体之间的交互循环在可能的情况下实时运行。
+
+<img width="877" height="439" alt="image" src="https://github.com/user-attachments/assets/e4fa59d3-93ab-466f-aa07-221331aba4f9" />
+
+
+###### 空间展示
+
+cartpole_showcase 文件夹包含示例任务（基于 Cartpole 和 Cartpole-Camera Direct 任务），用于定义/使用 Isaac Lab 支持的各种 Gymnasium 观测空间和动作空间。
+
+备注：目前，仅 Isaac Lab 的 Direct 工作流支持定义除 Box 之外的观测空间和动作空间。请参阅 Direct 工作流的 observation_space / action_space 文档以获取更多详细信息。
+
+下表总结了 Cartpole 和 Cartpole-Camera 任务中展示的不同观测空间与动作空间的组合。在训练和评估的任务名称中，用 <OBSERVATION> 和 <ACTION> 替换相应的观测空间和动作空间。
+
+<img width="783" height="600" alt="image" src="https://github.com/user-attachments/assets/db025a0a-627a-4c5a-ab24-890a12259780" />
+
+##### 3.2 多智能体
+
+备注：真正的多智能体训练仅在 skrl 库中可用，更多信息请参见 多智能体文档 。它支持 IPPO 和 MAPPO 算法，可以通过在训练/回放脚本中添加命令行输入 --algorithm IPPO 或 --algorithm MAPPO 来激活。如果这些环境与其他库一起运行或没有 IPPO 或 MAPPO 标志，它们将在后台转换为单智能体环境。
+
+###### 经典
+<img width="874" height="232" alt="image" src="https://github.com/user-attachments/assets/b61a141e-2aa4-4c5d-bd75-547c23716ac0" />
+
+
+###### 操作臂
+
+基于固定机械臂操作任务的环境。
+
+<img width="874" height="233" alt="image" src="https://github.com/user-attachments/assets/34f08534-6e5e-4070-8190-610f4f63fc01" />
+
+
+
+###### 综合环境列表
+
+对于在 推理任务名称 下列出不同任务名称的环境，请在运行 play.py 或任何推理工作流时使用提供的推理任务名称。这些任务提供了更适合推理的配置，包括从已训练好的检查点读取数据，并禁用训练时使用的运行时扰动。
+
+<img width="877" height="729" alt="image" src="https://github.com/user-attachments/assets/08574079-d3da-4c6f-8cb7-60219aa02639" />
+<img width="874" height="712" alt="image" src="https://github.com/user-attachments/assets/11f6182d-87ad-4d9d-9d2e-f4171082f232" />
+<img width="872" height="764" alt="image" src="https://github.com/user-attachments/assets/83b91138-a7b5-4352-bd13-58fe94092b03" />
+<img width="873" height="801" alt="image" src="https://github.com/user-attachments/assets/e3c81740-15cc-4775-b18c-6e1d247ae3f4" />
+<img width="874" height="821" alt="image" src="https://github.com/user-attachments/assets/4ac1d9c2-7346-4979-bbdf-ab77b2560a16" />
+<img width="871" height="728" alt="image" src="https://github.com/user-attachments/assets/e48d6ebf-b0f5-4b35-8a15-7a7b1f2df3e4" />
+<img width="874" height="767" alt="image" src="https://github.com/user-attachments/assets/02ef9230-8afb-4ad6-a679-2f5b9d08b3ca" />
+<img width="875" height="838" alt="image" src="https://github.com/user-attachments/assets/b1f30522-0267-46c4-95f1-91a13743aae8" />
+<img width="875" height="792" alt="image" src="https://github.com/user-attachments/assets/544cff94-5f06-4d97-bb21-b9cf54f5c55e" />
+<img width="873" height="768" alt="image" src="https://github.com/user-attachments/assets/53a84670-9af8-4d11-938d-7ccf2c516f0d" />
+<img width="873" height="280" alt="image" src="https://github.com/user-attachments/assets/49a4c774-1f66-4e4b-9b14-f0cfacc811ab" />
+
+
+#### 4、资产与场景：USD/URDF 导入、相机布局、光照与碰撞
+##### 4.1 USD/URDF 导入
+###### URDF文件数据集
+
+转自：知乎huyoust
+
+里面收集的资料也比较多，都分类整理了，有机械臂，双足，双臂，飞行器，执行器，仿人，四足，轮式等。实际上github上有很多awesome类型的项目，这些作者都有着极大的专注与热情，能省去自己找资料的麻烦，推荐感兴趣的去给他们点个免费的star。
+
+<img width="1138" height="991" alt="image" src="https://github.com/user-attachments/assets/99ae23a8-af87-4a00-a3f0-cade61d33391" />
+<img width="1260" height="1153" alt="image" src="https://github.com/user-attachments/assets/83ef113a-fc4e-42f9-b672-19e50b9e84d6" />
+<img width="961" height="1065" alt="image" src="https://github.com/user-attachments/assets/c6c20490-e4ff-41a9-805d-a0411f0d9831" />
+<img width="961" height="1065" alt="image" src="https://github.com/user-attachments/assets/1700a71c-f80d-41eb-84b6-ff88556a77df" />
+
+最近在Github上找一个机械臂的URDF文件时，发现一个很好的仓库。这应该是目前整理的最好最全的关于工业机械臂的URDF文件的仓库了，地址如下：
+
+[GitHub - Daniella1/urdf_files_dataset
+github.com/Daniella1/urdf_files_dataset](https://github.com/Daniella1/urdf_files_dataset)
+本来以为这也只是一个awesome xxx这样的资源收集型Git仓库，但是在README文件中看到，这个仓库还是一篇论文中的公开数据库：Understanding URDF: A Dataset and Analysis。点进去看一下全文，发现作者中居然有Peter Corke大佬，因此特意整理记录一下。
+
+**（1）不同机器人仿真软件/工具**
+
+机器人仿真软件/工具很多，通产每个仿真软件中的机器人模型都有自己原生的文件格式，下面表格所示为几种不同仿真软件原生模型的文件格式以及它们对URDF文件描述的机器人模型的支持性。可以看到，绝大部分的仿真软件都是支持导入URDF格式描述的机器人模型的。
+
+<img width="775" height="459" alt="image" src="https://github.com/user-attachments/assets/def5a6a8-281a-49d1-a1a9-7097d1be6abf" />
+
+不同机器人仿真工具对URDF文件的支持
+
+**（2）为什么是URDF格式**
+
+URDF，全称是Unified Robot Description Format，统一机器人描述格式。URDF文件格式用于描述机器人最早是由机器人操作系统（ROS）的开发人员在2009年引入，是一种描述机器人的运动学、动力学和几何形状的通用格式文件，独立于软件程序，方便不同的软件工具以及开发人员共享机器人数据模型。URDF文件重要的一点是其可读性，因为它是XML类型的文本文件。URDF文件中可以描述机器人的运动学结构、动力学参数、视觉外观（通过引用其它文件）和几何碰撞边界（通过引用其它文件）。
+
+关于URDF的更对细节可以参考：
+
+[urdf/XML - ROS Wiki](https://wiki.ros.org/urdf/XML)
+
+[urdf/Tutorials - ROS Wiki](https://wiki.ros.org/urdf/Tutorials)
+
+**（3）URDF文件解析**
+
+**模型（model）**
+创建一个URDF文件的最小要求是机器人的名称和一个连杆。如下所示的URDF文件示例，它表示了一个2自由度的平面连杆机构，外观使用简单的几何形状：方块和圆柱，这个示例文件中有3个连杆和2个关节：
+
+<img width="1135" height="540" alt="image" src="https://github.com/user-attachments/assets/8c95c4c2-38c7-4264-8eb6-9e5d6baff963" />
+
+简单的平面3连杆机构
+
+可以看到URDF文件中有一些关键的元素：
+
+**连杆（link）**
+
+连杆是可以使用关节进行连接的刚体，连杆有惯量（inertial）、视觉（visual）和碰撞（collision）等属性。惯性特性描述了连杆的质量、质心位置以及惯性矩。可视化特性和碰撞特性稍后再说。URDF中连杆只能是刚体，而不能是可形变的物体（在这一定程度上限制了URDF的应用范围，像涉及柔性体的机器人就不能用URDF文件直接表示）。
+
+<img width="1505" height="698" alt="image" src="https://github.com/user-attachments/assets/a2f666ad-4683-4e26-aee4-08e9c823baeb" />
+
+更通用的连杆属性
+
+前面的示例模型中，3个连杆的名称分别为“base link”、“link 1”和“link 2”。我们查看“基本链接”来说明如何指定链接，参见第3-10行的清单1。“base link”表示机器人的固定底座，其中它的视觉属性由一个原点和一个由一个方块组成的几何体来定义，方块的大小由其三个边的长度指定。一个连杆唯一的必需属性的是它的名称，在一个URDF文件中，连杆名称必须是唯一的，不同连杆的名称必须不同。
+
+**关节（joint）**
+
+关节用于连接两个连杆，一个父连杆和一个子连杆。父连杆是更靠近基座的连杆，子连杆是更靠近末端工具的连杆。关节的主要参数是关节类型（运动学）、动力学参数，以及活动范围。关节类型包括：
+
+旋转关节（revolute）：特指关节运动范围有明确的上限和下限的转动关节。
+连续关节（continuous）：关节运动范围无限的转动关节，即可以连续旋转的转动关节。
+平移关节（prismatic）：沿轴滑动的滑动关节，运动范围有明确的上限和下限。
+固定关节（fixed）：类似于焊接，不是真正的关节，因为它无法移动，所有自由度都被锁定。这种类型的关节不需要<Axis>，<calibration>，<dynamics>，<limits>或<seafe_controller>等参数。
+浮动关节（floating）：允许所有6个自由度的运动。
+平面关节（planar）：允许在垂直于轴的平面中运动。
+关节也有很多可以编辑的属性：
+
+<img width="887" height="798" alt="image" src="https://github.com/user-attachments/assets/4bdb9c40-4aac-452b-8b36-6e5dd57250c1" />
+
+**关节属性**
+
+前面的示例模型中，关节的名称是“joint 1”和“joint 2”。关节类型是连续关节，这意味着它们是没有运动限制的旋转关节。“axis”属性指定关节轴的方向，在本例中，关节轴沿着Y轴。关节的必需属性是它的父连杆和子连杆的名称、关节类型和关节名称。
+
+可视化与碰撞几何形状（Visual and Collision Geometries）
+几何对象用于表示机器人连杆的形状，用于可视化或碰撞的目的，统称为网格对象（mesh），它们由一组构成对象表面的三角面组成。网格中的多边形越多，形状的细节级别就越高，但会以牺牲渲染和计算时间为代价。
+
+网格对象可以用不同的CAD文件类型，每种文件类型都有不同的内部格式，并有其自身的好处和限制，因此应该根据使用的应用程序进行选择。URDF中可视化和碰撞网格的一种常用格式是STL（文件扩展名为.stl），它只使用三角形而不使用颜色或纹理信息来表示三维表面几何图形。另一种通常用于可视化的文件格式为collada（文件扩展名为.dae），它同时支持颜色和纹理信息。OBJ格式（文件扩展名为.obj）支持颜色、纹理和自由形式的曲线，允许更高级的细节可视化，但是，颜色和纹理数据存储在一个单独的（.mtl）文件中。
+
+在URDF的一些应用中，碰撞检测是必需的，而在其他应用中，URDF模型仅用于可视化目的。根据应用程序的不同，URDF Bundle中可以包含不同类型的网格对象。例如，通常同时使用STL和COLLADA网格，因为STL网格不包含颜色与纹理，可以减少计算和渲染时间，同时STL可以进行凸包运算简化形状，因此常用于表示连杆的碰撞几何形状（碰撞检测通常需要大量运算，但是不需要关注结构细节，例如螺丝、螺帽、细孔这些），而COLLADA网格由于可以设置颜色、纹理等属性，因此通常作为连杆的可视化对象，提供高质量的可视化效果。
+
+**URDF文件包（URDF Bundle/package）**
+
+一个URDF机器人模型通常包含描述机器人拓扑结构的URDF文件以及描述机器人物理外观网格文件组成。URDF文件本身（具有.urdf文件扩展名）和URDF文件中所引用的网格对象（作为link的属性）所组成的文件集，通常称为URDF包。如下所示的URDF文件包，包含了名为myrobot.urdf的URDF文件，以及mesh文件夹中网格对象。URDF文件是指使用相对路径生成的不同链接的几何网格文件。
+
+<img width="753" height="249" alt="image" src="https://github.com/user-attachments/assets/123e8480-fed5-430c-bdc7-8be4b0d6f6e7" />
+
+**Xacro文件**
+
+从前面可以看到，URDF文件适合定义静态的、完整的机器人模型，但对于复杂的机器人，URDF 可能会显得冗长且难以维护。Xacro是一种基于 XML 的宏扩展语言，主要用于简化和生成 URDF。Xacro 允许使用宏（macros）、变量、数学运算和参数化的方式来定义机器人模型，以提高可重用性和可读性。例如：
+
+减少重复代码：可以定义一个通用的部件并多次使用
+参数化设计：允许调整不同参数来生成不同的 URDF 结构
+数学计算：可在 XML 内部执行计算，避免手动计算坐标或尺寸
+Xacro 文件最终会被解析成标准 URDF 文件，例如在ROS中可以使用如下命令将 Xacro 转换为 URDF：
+
+rosrun xacro xacro my_robot.xacro > my_robot.urdf
+关于Xacro的具体内容这里暂不展开，感兴趣的可以参考：
+
+Using Xacro to Clean Up a URDF File
+
+**（4）URDF数据库**
+
+对于大多数工业机械臂，由于其结构参数与特征都是固定的，因此在使用不同的软件工具进行算法仿真的时候，除非是初期的学习，通常都没必要自己再手动建模一遍，都是找现成的URDF文件，因为绝大多数机器人仿真软件都支持URDF格式文件的导入。前面提到的Understanding URDF: A Dataset and Analysis这篇文章中，作者规范地整理了超过300个不同来源的公开的URDF模型。
+<img width="781" height="263" alt="image" src="https://github.com/user-attachments/assets/e560d938-e36f-4922-9804-5f791ba1ca70" />
+<img width="648" height="828" alt="image" src="https://github.com/user-attachments/assets/db6329a8-2554-4523-8274-a7205ad25914" />
+
+补充数据库资源：
+[https://github.com/robot-descriptions/awesome-robot-descriptions
+github.com/robot-descriptions/awesome-robot-descriptions](https://github.com/robot-descriptions/awesome-robot-descriptions
+github.com/robot-descriptions/awesome-robot-descriptions)
+
+[GitHub - robot-descriptions/awesome-robot-descriptions: A curated list of awesome robot descriptions (URDF, MJCF)](https://github.com/robot-descriptions/awesome-robot-descriptions)
+
+[https://github.com/robot-descriptions/awesome-robot-descriptions
+github.com/robot-descriptions/awesome-robot-descriptions
+](https://github.com/robot-descriptions/awesome-robot-descriptions
+github.com/robot-descriptions/awesome-robot-descriptions
+)
+
+##### 3.2 相机布局
+
+###### 配置仿真上下文
+
+当从独立脚本启动仿真器时，用户可以完全控制播放、暂停和步进仿真器。所有这些操作都通过 仿真上下文 处理。它负责各种时间轴事件，并为仿真器配置 物理场景 。
+
+在 Isaac Lab 中 , sim.SimulationContext 类继承了 Isaac Sim 的 isaacsim.core.api.simulation_context.SimulationContext ，以允许通过 Python 的 dataclass 对象配置仿真器，并处理仿真步进的某些复杂性。
+
+对于本教程，我们将将物理和渲染时间步长设置为0.01秒。通过将这些数量传递给 sim.SimulationCfg ，然后用它创建仿真上下文的实例。
+```python
+    # Initialize the simulation context
+    sim_cfg = SimulationCfg(dt=0.01)
+    sim = SimulationContext(sim_cfg)
+    # Set main camera
+    sim.set_camera_view([2.5, 2.5, 2.5], [0.0, 0.0, 0.0])
+```
+创建仿真上下文后，我们只配置了作用于仿真场景的物理。这包括用于仿真的设备、重力矢量和其他高级求解器参数。现在还有两个主要步骤剩下来运行仿真:
+
+设计仿真场景: 添加传感器、机器人和其他仿真对象
+
+运行仿真循环: 使仿真器进行步进，并从仿真器中设置和获取数据
+
+##### 3.3 光照与碰撞
+
+###### 生成地面平面
+
+GroundPlaneCfg 配置了一个类似网格的地面平面，其外观和大小等属性可修改。
+```python
+    # Ground-plane
+    cfg_ground = sim_utils.GroundPlaneCfg()
+    cfg_ground.func("/World/defaultGroundPlane", cfg_ground)
+```
+
+###### 生成灯光
+
+可以将 不同类型的灯光基本体 生成到场景中。这些包括远光灯、球形灯、圆盘灯和圆柱灯。在本教程中，我们生成一个远光灯，这是一种远离场景无限远的灯，只朝一个方向发光。
+```python
+    # spawn distant light
+    cfg_light_distant = sim_utils.DistantLightCfg(
+        intensity=3000.0,
+        color=(0.75, 0.75, 0.75),
+    )
+    cfg_light_distant.func("/World/lightDistant", cfg_light_distant, translation=(1, 0, 10))
+```
+###### 生成基本形状
+
+在生成基本形状之前，我们介绍了一个变换基本体或Xform的概念。变换基本体是一个仅包含变换属性的基本体。它用于将其他基本体分组，并作为一个组对其进行变换。在这里，我们创建一个Xform基本体，将所有的基本形状分组在其中。
+```python
+    # create a new xform prim for all objects to be spawned under
+    prim_utils.create_prim("/World/Objects", "Xform")
+```
+###### 实例
+接下来，我们使用 ConeCfg 类生成一个圆锥体。可以指定圆锥体的半径、高度、物理属性和材质属性。默认情况下，物理和材质属性是禁用的。
+
+我们生成的前两个圆锥 Cone1 和 Cone2 是视觉元素，不启用物理属性。
+```python
+    # spawn a red cone
+    cfg_cone = sim_utils.ConeCfg(
+        radius=0.15,
+        height=0.5,
+        visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(1.0, 0.0, 0.0)),
+    )
+    cfg_cone.func("/World/Objects/Cone1", cfg_cone, translation=(-1.0, 1.0, 1.0))
+    cfg_cone.func("/World/Objects/Cone2", cfg_cone, translation=(-1.0, -1.0, 1.0))
+```
+对于第三个圆锥 ConeRigid ，我们在配置类中设置刚体物理属性。通过这些属性，我们可以指定圆锥体的质量、摩擦力和弹性。如果未指定，它们将默认为USD Physics设置的默认值。
+```python
+    # spawn a green cone with colliders and rigid body
+    cfg_cone_rigid = sim_utils.ConeCfg(
+        radius=0.15,
+        height=0.5,
+        rigid_props=sim_utils.RigidBodyPropertiesCfg(),
+        mass_props=sim_utils.MassPropertiesCfg(mass=1.0),
+        collision_props=sim_utils.CollisionPropertiesCfg(),
+        visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(0.0, 1.0, 0.0)),
+    )
+    cfg_cone_rigid.func(
+        "/World/Objects/ConeRigid", cfg_cone_rigid, translation=(-0.2, 0.0, 2.0), orientation=(0.5, 0.0, 0.5, 0.0)
+    )
+```
+最后，我们生成一个长方体 CuboidDeformable ，其中包含可变形体物理属性。与刚体仿真不同，可变形体可以在其顶点之间具有相对运动。这对于仿真软体如布料、橡胶或果冻非常有用。需要注意的是，可变形体仅在GPU仿真中受支持，并且需要生成一个带有可变形体物理属性的网格对象。
+```python
+    # spawn a blue cuboid with deformable body
+    cfg_cuboid_deformable = sim_utils.MeshCuboidCfg(
+        size=(0.2, 0.5, 0.2),
+        deformable_props=sim_utils.DeformableBodyPropertiesCfg(),
+        visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(0.0, 0.0, 1.0)),
+        physics_material=sim_utils.DeformableBodyMaterialCfg(),
+    )
+    cfg_cuboid_deformable.func("/World/Objects/CuboidDeformable", cfg_cuboid_deformable, translation=(0.15, 0.0, 2.0))
+```
+从另一个文件生成
+最后，可以从其他文件格式生成基本体，例如其他USD、URDF或OBJ文件。在本教程中，我们将一个表的USD文件生成到场景中。这个表是一个网格基本体，并且有一个与之关联的材质基本体。所有这些信息都存储在其USD文件中。
+```python
+    # spawn a usd file of a table into the scene
+    cfg = sim_utils.UsdFileCfg(usd_path=f"{ISAAC_NUCLEUS_DIR}/Props/Mounts/SeattleLabTable/table_instanceable.usd")
+    cfg.func("/World/Objects/Table", cfg, translation=(0.0, 0.0, 1.05))
+```
+上面的表被添加为场景的一个引用。简单来说，这意味着表实际上并没有添加到场景中，而是添加了一个指向表资产的 指针 。这允许我们修改表资产，并使更改以非破坏性的方式反映在场景中。例如，我们可以更改表的材质，而不实际修改表资产的底层文件。只有更改存储在USD场景中。
+
+### 4、日志与回放：录制、重放、评测
+#### 4.1 查看日志
+
+在单独的终端中，您可以通过执行以下命令监视训练进度:
+```python
+# execute from the root directory of the repository
+./isaaclab.sh -p -m tensorboard.main --logdir logs/sb3/Isaac-Cartpole-v0
+```
+播放经过训练的 agent
+一旦训练完成，您可以通过执行以下命令来可视化经过训练的 agent:
+```python
+# execute from the root directory of the repository
+./isaaclab.sh -p scripts/reinforcement_learning/sb3/play.py --task Isaac-Cartpole-v0 --num_envs 32 --use_last_checkpoint
+```
+上述命令将从 logs/sb3/Isaac-Cartpole-v0 目录加载最新的检查点。您也可以通过传递 --checkpoint 标志指定特定的检查点。
+
+
+#### 5、**样板：Isaac Lab 最小上手（可复制运行）**
+
+见代码6-1，6-2，6-3 分别为train.py, play.py 及 isaaclab.sh。
+
+  ```bash
+  # 环境（示例）
+  conda create -n isaaclab python=3.10 -y
+  conda activate isaaclab
+  # 安装依赖（按官方指引）
+  # ...
+  # 运行最小任务（如 Isaac-Ant-v0）
+  ./isaaclab.sh -p scripts/reinforcement_learning/rsl_rl/train.py --task=Isaac-Ant-v0 --headless
+  ./isaaclab.sh -p scripts/reinforcement_learning/rsl_rl/play.py --task Isaac-Isaac-Ant-v0 --checkpoint model_999.pt
+  ```
+
+#### 6、IsaacLab资料汇总
+
+##### 6.1 文档
 
 [https://docs.omniverse.nvidia.com/](https://docs.omniverse.nvidia.com/)
 [https://developer.nvidia.com/isaac/sim ](https://developer.nvidia.com/isaac/sim )
@@ -3631,7 +4060,7 @@ isaac lab 官方文档 [https://docs.robotsfan.com/isaaclab/source/setup/quickst
 ](https://docs.robotsfan.com/isaaclab/source/setup/quickstart.html
 )
 
-**视频教程**
+##### 4.2 视频教程
 
 [https://player.bilibili.com/player.html?bvid=BV1B24y1s7Hc&autoplay=0](https://player.bilibili.com/player.html?bvid=BV1B24y1s7Hc&autoplay=0)
 讲义在百度网盘
@@ -3640,7 +4069,7 @@ isaac lab 官方文档 [https://docs.robotsfan.com/isaaclab/source/setup/quickst
 [https://player.bilibili.com/player.html?bvid=BV1a44y1N79U&autoplay=0](https://player.bilibili.com/player.html?bvid=BV1a44y1N79U&autoplay=0)
 AI 仓库：使用 Isaac Sim 和 Isaac ROS 实现视觉导航
 
-**github 教程**
+##### 4.3 github 教程
 
 [https://github.com/isaac-sim/IsaacSim-ros_workspaces](https://github.com/isaac-sim/IsaacSim-ros_workspaces)
 
@@ -3653,7 +4082,7 @@ AI 仓库：使用 Isaac Sim 和 Isaac ROS 实现视觉导航
 )
 
 ### 6.2 MuJoCo
-#### 6.2.1 MuJoCo 简介
+#### 1、MuJoCo 简介
 
 MuJoCo 是 Multi-Joint dynamics with Contact（多关节动力学与接触）的缩写。它是一个通用物理引擎，旨在促进机器人学、生物力学、图形和动画、机器学习以及其他需要对与环境互动的铰接结构进行快速准确仿真的领域的研究和开发。它最初由 Roboti LLC 开发，于 2021 年 10 月被 DeepMind 收购并免费提供，并于 2022 年 5 月开源。MuJoCo 代码库可在 GitHub 上的 google-deepmind/mujoco 仓库中获取。
 
@@ -3661,7 +4090,7 @@ MuJoCo 是一个带有 C API 的 C/C++ 库，面向研究人员和开发者。�
 
 MuJoCo 可用于实现基于模型的计算，例如控制合成、状态估计、系统辨识、机构设计、通过逆动力学进行数据分析以及用于机器学习应用的并行采样。它也可以作为更传统的仿真器使用，包括用于游戏和交互式虚拟环境。
 
-**主要特性**
+##### 1.1 主要特性
 
 MuJoCo 具有许多特性。在此我们概述最显著的几个。
 
@@ -3729,7 +4158,7 @@ MuJoCo 的软约束可用于模拟绳索、布料和可变形 3D 对象。这需
 
 MJB 文件 → (模型加载器) → mjModel
 
-**示例**
+##### 1.2 示例
 
 这是一个 MuJoCo MJCF 格式的简单模型。它定义了一个固定在世界上的平面、一个用于更好地照明物体并投射阴影的光源，以及一个具有 6 个自由度的浮动盒子（这就是“自由”关节的作用）。
 
@@ -3841,7 +4270,7 @@ MJCF 文件包含指定模型所需的最小信息。胶囊体由空间中的线
 
 除了以二进制 MJB 格式保存编译后的模型外，我们还可以将其保存为 MJCF 或人类可读的文本格式；分别参见 example_saved.xml 和 example_saved.txt。XML 版本与原始版本相似，而文本版本包含 mjModel 中的所有信息。将文本版本与 XML 版本进行比较，可以发现模型编译器为我们做了多少工作。
 
-**模型元素**
+##### 1.3 模型元素
 
 本节简要描述了 MuJoCo 模型中可以包含的所有元素。稍后我们将更详细地解释底层计算、MJCF 中元素的指定方式以及它们在 mjModel 中的表示。
 
@@ -3996,7 +4425,7 @@ geom density（用于推断刚体质量和惯性）的默认值为 1000，这对
 
 角度：虽然在 MJCF 中可以使用度数指定角度（实际上度数是默认值），但所有角量在 mjModel 和 mjData 中都以弧度表示。因此，例如，如果我们使用 MKS，则由陀螺仪报告的角速度单位为 rad/s，而铰链关节的刚度单位为 Nm/rad。
 
-**令人惊讶的碰撞**
+**碰撞处理**
 
 MuJoCo 默认排除具有直接父子关系的刚体对所属 geoms 之间的碰撞。例如，考虑上面示例部分中的手臂模型：即使胶囊体 geoms 发生穿透，肘部也没有发生碰撞，因为前臂是上臂的直接子级。
 
@@ -4080,7 +4509,7 @@ Sites 是轻量级的 geoms。它们具有相同的外观属性，但不能参�
 
 MuJoCo 与游戏引擎的关键区别之一在于 MuJoCo 在广义坐标或关节坐标下运行，而大多数游戏引擎在笛卡尔坐标下运行。这两种方法的区别可以概括如下
 
-关节坐标：
+- 关节坐标
 
 最适合复杂的运动学结构，例如机器人；
 
@@ -4090,7 +4519,7 @@ MuJoCo 与游戏引擎的关键区别之一在于 MuJoCo 在广义坐标或关�
 
 仿真刚体的位置和姿态通过前向运动学从广义坐标获得，不能直接操纵（根刚体除外）。
 
-笛卡尔坐标：
+- 笛卡尔坐标
 
 最适合大量相互弹跳的刚体，例如分子动力学和盒子堆叠；
 
@@ -4102,7 +4531,7 @@ MuJoCo 与游戏引擎的关键区别之一在于 MuJoCo 在广义坐标或关�
 
 当处理属于包含运动学树的模型一部分的自由浮动刚体时，关节坐标可能会特别令人困惑。这将在下面澄清。
 
-浮动对象：
+**浮动对象**
 在使用关节坐标时，您无法简单地将任意刚体的位置和姿态设置为您想要的任何值。要实现这种效果，您需要实现某种形式的逆运动学，它会计算一组（不一定唯一）的关节坐标，使得前向运动学将刚体放置在您想要的位置。
 
 对于浮动物体（即通过自由关节与世界连接的物体）来说，情况则不同。这些物体的位置、方向以及线速度和角速度在 mjData.qpos 和 mjData.qvel 中明确表示，因此可以直接操作。
@@ -4111,8 +4540,10 @@ MuJoCo 与游戏引擎的关键区别之一在于 MuJoCo 在广义坐标或关�
 
 自由关节始终在物体坐标系中定义，但计算上更有利的做法是将此坐标系与物体的惯性对齐。在 freejoint/align 属性的文档中阅读更多关于此选项的信息。
 
-### 6.2.2 MuJoCo入门
-#### 6.2.3 MuJoCo资料汇总
+### 2、MuJoCo入门
+
+
+### 3、MuJoCo资料汇总
 
 MuJoCo官网 [https://mujoco.org/](https://mujoco.org/)
 robosuite [https://robosuite.ai/docs/overview.html](https://robosuite.ai/docs/overview.html)
@@ -4128,7 +4559,7 @@ RoboCasa [https://github.com/TianxingChen/Embodied-AI-Guide/blob/main/Docs.qq.co
 RoboHive [https://github.com/vikashplus/robohive](https://github.com/vikashplus/robohive)
 
 ### 6.3 PyBullet
-#### 6.3.1 PyBullet简介
+#### 1、PyBullet简介
 
 PyBullet 是一个快速且易于使用的用于机器人模拟和机器学习，专注于仿真到现实转换的 Python 模块. 使用 PyBullet，您可以从 URDF、SDF、MJCF 和其他文件格式加载关节体. PyBullet 提供正向动力学模拟、反向动力学计算、正向和反向运动学、碰撞检测和射线交叉查询功能。Bullet Physics SDK 中包括 PyBullet 机器人示例，例如模拟Minitaur 四足机器人、使用 TensorFlow 推理运行的类人机器人和抓取物体的 KUKA 机械臂。 简化坐标多体、刚体和可变形体由统一的 LCP 约束求解器处理，
 
@@ -4136,7 +4567,7 @@ PyBullet 是一个快速且易于使用的用于机器人模拟和机器学习�
 
 除了物理模拟之外，还有渲染绑定，具有 CPU 渲染器 (TinyRenderer) 和 OpenGL 3.x 渲染和可视化，并支持虚拟现实耳机，如 HTC Vive 和 Oculus Rift。 PyBullet 还具有执行碰撞检测查询（最近点、重叠对、光线交叉测试等）和添加调试渲染（调试行和文本）的功能。PyBullet 具有对共享内存、UDP 和 TCP 网络的跨平台内置客户端-服务器支持。 因此，您可以在连接到 Windows VR 服务器的 Linux 上运行 PyBullet。PyBullet 包装了新Bullet C-API，它被设计为独立于底层物理引擎和渲染引擎，因此我们可以轻松迁移到 Bullet 的更新版本，或者使用不同的物理引擎或渲染引擎。默认情况下，PyBullet 在 CPU 上使用 Bullet 2.x API。我们还将使用 OpenCL 公开在 GPU 上运行的 Bullet 3.x。还有一个类似于 PyBullet 的 C++ API，参见b3RobotSimulatorClientAPI。PyBullet 可以很容易地与 TensorFlow 和 OpenAI Gym 一起使用。 来自 Google Brain[1,2,3,4], X[1,2], Stanford AI Lab [1,2,3], OpenAI,INRIA [1] and many other labs 的研究人员都在使用 PyBullet. 如果您在研究中使用 PyBullet，请添加 引文.PyBullet 的安装就像 (sudo) pip install PyBullet (Python 2.x)、pip3 install PyBullet 一样简单。这将公开 PyBullet 模块以及 pybullet_envs Gym 环境。
 
-#### 6.3.2 PyBullet入门
+#### 2、PyBullet入门
 
 这是我们一步一步讨论的 PyBullet 介绍脚本：
 
@@ -4163,7 +4594,7 @@ print(cubePos,cubeOrn)
 p.disconnect()
 ```
 
-#### 6.3.3 Pybullet资料汇总
+#### 3、Pybullet资料汇总
 
 Pybullet官方文档 [https://pybullet.org/wordpress/](https://pybullet.org/wordpress/)
 
@@ -4174,22 +4605,22 @@ Pybullet快速入门手册（中文版） [PyBullet 快速入门手册（机翻�
 
 ### 6.4 Genesis
 
-#### 6.4.1 Genesis简介
+#### 1、Genesis简介
 
 <img width="553" height="338" alt="image" src="https://github.com/user-attachments/assets/d9f0338a-b88c-480e-ba4c-c0bb647216cd" />
 
-Genesis 是一个为通用机器人/具身智能/物理智能应用设计的物理平台。它同时具备以下多个功能：
+Genesis 基于一个重新设计并从零开始构建的通用物理引擎，整合了多种物理求解器及其耦合，形成一个统一的框架。这个核心物理引擎进一步通过一个生成性代理框架得到增强，后者旨在实现完全自动化的数据生成，适用于机器人学及其他领域。目前，我们正在开源底层物理引擎和仿真平台，生成性框架将在不久的将来发布。它是一个为通用机器人/具身智能/物理智能应用设计的物理平台。它同时具备以下多个功能：
 - 一个从零开始重新构建的通用物理引擎，能够模拟多种材料和物理现象。
 - 一个轻量级、超快速、Python化、用户友好的机器人仿真平台。
 - 一个强大且快速的真实感渲染系统。
 - 一个生成数据引擎，能够将用户输入的自然语言描述转化为各种数据形式。
-Genesis 基于一个重新设计并从零开始构建的通用物理引擎，整合了多种物理求解器及其耦合，形成一个统一的框架。这个核心物理引擎进一步通过一个生成性代理框架得到增强，后者旨在实现完全自动化的数据生成，适用于机器人学及其他领域。目前，我们正在开源底层物理引擎和仿真平台，生成性框架将在不久的将来发布。
+
 Genesis 的建设和发展将持续以以下长期目标为驱动力：
 - 降低使用物理仿真平台的门槛，让机器人研究对每个人都变得更容易访问。（参见我们的承诺）
 - 将一系列最先进的物理求解器统一到一个框架中，允许在虚拟世界中以最高的物理、视觉和感官保真度重新创建整个物理世界，采用最先进的仿真技术。
 - 最小化人类在收集和生成机器人及其他领域数据时的工作量，让数据飞轮自动运转。
 
-为什么需要一个新的物理仿真器?
+**为什么需要一个新的物理仿真器?**
 
 与以往的仿真平台相比，Genesis 在多个方面具有显著的优势，以下是一些关键特点：
 - 🐍 Python化且完全透明：Genesis 完全用 Python 开发并开源，使得代码理解和贡献变得更加容易。
@@ -4200,15 +4631,17 @@ Genesis 的建设和发展将持续以以下长期目标为驱动力：
 - 📐 可微分性：Genesis 被设计为完全兼容可微分仿真。目前，我们的 MPM 求解器和工具求解器已经支持可微分，未来将为更多求解器（包括刚体仿真）添加可微分性支持。
 - ☝🏻 物理精确且可微分的触觉传感器：Genesis 提供物理精确的触觉传感器，能够模拟真实世界的物理交互，并支持进一步的优化。
 - 🌌 原生支持生成性仿真：Genesis 允许通过自然语言提示生成各种形式的数据，包括互动场景、任务建议、奖励、资产、角色动作、策略、轨迹、相机运动、（物理精确的）视频等。
-Genesis的愿景与使命
+
+**Genesis的愿景与使命**
+
 仿真在机器人研究中发挥了至关重要的作用，为训练机器人策略和生成数据提供了坚实的基础，借助不断增强的计算能力。然而，机器人研究人员长期以来受限于现有仿真平台的可用性问题和缺乏透明度。现有的GPU加速仿真器通常因为涉及复杂的数据驱动概念、复杂的API和软件堆栈，具有陡峭的学习曲线——这使得掌握这些仿真器对于研究人员，尤其是新入门的研究人员而言，成为一项艰巨的任务。此外，部分仿真器是封闭源代码的，限制了透明度，研究人员无法基于实际观察和反馈理解、控制或逐步改进底层的物理求解器。
 Genesis 项目应运而生，旨在应对这些挑战。我们的愿景是打造一个完全透明、用户友好的生态系统，让来自物理仿真和机器人学背景的贡献者们能够聚集在一起，共同创建一个高效、逼真的虚拟世界，用于机器人研究及更多应用。我们还意识到，计算机图形学领域持续开发了大量创新的算法，这些算法能够应用于仿真和渲染领域；然而，迄今为止，还没有一个协作性强的项目将这些算法结合起来，创建一个真实且计算驱动的虚拟世界，让具身智能和物理智能得以蓬勃发展。
 
-#### 6.4.2 Genesis基础
+#### 2、Genesis基础
 
-**安装**
+##### 2.1 安装
 
-🛠️ 安装指南
+###### 安装指南
 先决条件
 - Python：3.9 或更高版本
 - 操作系统：Linux（推荐）/ MacOS / Windows
@@ -4226,32 +4659,57 @@ Genesis 设计为跨平台支持，包括 CPU、CUDA GPU 和非 CUDA GPU 后端�
 |  | Intel | ✅ | ✅ | ❌ | ❌ | 
 | MacOS | Apple Silicon | ✅ | ✅ | ✅ | ✅ |
 
-**安装步骤**
+###### 安装步骤
 
-1. 通过 PyPI 安装 Genesis：
+**（1）通过 PyPI 安装 Genesis**
+```Shell
 pip install genesis-world
-2. 安装 PyTorch，请根据官方说明进行安装。
-3. （可选）运动规划功能： Genesis 集成了 OMPL 的运动规划功能，并通过直观的 API 包装，使运动规划变得轻松。若需要内建的运动规划功能，请先下载预编译的 OMPL wheel，然后使用 pip 安装：
+```
+
+**（2）安装 PyTorch，请根据官方说明进行安装**
+
+**（3）（可选）运动规划功能**
+
+Genesis 集成了 OMPL 的运动规划功能，并通过直观的 API 包装，使运动规划变得轻松。若需要内建的运动规划功能，请先下载预编译的 OMPL wheel，然后使用 pip 安装
+
+```Shell
 pip install ompl
-4. （可选）表面重建： 若需要用于可视化粒子基础实体（流体、变形物体等）的精美视觉效果，通常需要使用内部的粒子基础表示重建网格表面。我们提供两种选择：
+```
+
+**（4）（可选）表面重建**
+
+若需要用于可视化粒子基础实体（流体、变形物体等）的精美视觉效果，通常需要使用内部的粒子基础表示重建网格表面。我们提供两种选择：
+
 - splashsurf：一种最先进的表面重建方法，效果较好：
+
 ```Shell
 cargo install splashsurf
 ```
+
 - ParticleMesher：我们自己的基于 openVDB 的表面重建工具（速度较快，但效果不如 splashsurf 平滑）：
+
 ```Shell
 echo "export LD_LIBRARY_PATH=
 ${PWD}/ext/ParticleMesher/ParticleMesherPy:$
 LD_LIBRARY_PATH" >> ~/.bashrc
 source ~/.bashrc
 ```
-5. （可选）光线追踪渲染器： 如果您需要照片级真实感视觉效果，Genesis 内置了基于光线追踪（路径追踪）的渲染器，使用了高性能的领域特定语言 LuisaCompute 开发。
+
+**（5）（可选）光线追踪渲染器**
+
+如果您需要照片级真实感视觉效果，Genesis 内置了基于光线追踪（路径追踪）的渲染器，使用了高性能的领域特定语言 LuisaCompute 开发。
 - 获取 LuisaRender： LuisaRender 的子模块位于 ext/LuisaRender 目录：
+
 ```Shell
 git submodule update --init --recursive
 ```
+
 - 依赖项：
-(1) 如果您有 sudo 权限（推荐）：
+如果您有 sudo 权限（推荐）：
+① 安装 CUDA（需要 CUDA 12.0 及以上版本）：
+② Y
+③ 下载 CUDA 11.7 并安装。
+
 ```Shell
 sudo apt install build-essential manpages-dev software-properties-common
 sudo add-apt-repository ppa:ubuntu-toolchain-r/test
@@ -4261,9 +4719,7 @@ sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-11 110
 g++ --version
 gcc --version
 ```
-- 安装 CUDA（需要 CUDA 12.0 及以上版本）：
-- Y
-- 下载 CUDA 11.7 并安装。
+
 ```Shell
 sudo apt install libvulkan-dev
 sudo apt-get install zlib1g-dev
@@ -4271,13 +4727,16 @@ sudo apt-get install xorg-dev libglu1-mesa-dev
 pip install "pybind11[global]"
 sudo apt-get install libsnappy-dev
 ```
-(2) 如果您没有 sudo 权限（使用 Conda）：
+
+如果您没有 sudo 权限（使用 Conda）：
+
 ```Shell
 conda install -c conda-forge gcc=11.4 gxx=11.4 cmake=3.26.1 minizip zlib libuuid patchelf vulkan-tools vulkan-headers
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 pip install "pybind11[global]"
 ```
-6. 编译： 编译 LuisaRender 和其 Python 绑定。
+**（6）编译： 编译 LuisaRender 和其 Python 绑定。**
+
 - 使用系统依赖（步骤 2.A）：
 ```Shell
 cd genesis/ext/LuisaRender
@@ -4292,7 +4751,8 @@ cmake -S . -B build -D CMAKE_BUILD_TYPE=Release -D PYTHON_VERSIONS=3.9 -D LUISA_
 cmake --build build -j $(nproc)
 ```
 
-7. 常见问题解答（FAQs）：   
+**（7） 常见问题解答（FAQs）**
+
 - Assertion ‘lerror’ failed：如果看到 “GLIBCXX_3.4.30 not found” 错误，请执行以下操作：
 ```Shell
 cd ~/anaconda3/envs/genesis/lib
@@ -4301,10 +4761,10 @@ ln -s /usr/lib/x86_64-linux-gnu/libstdc++.so.6 libstdc++.so.6
 ```
 这样，您就完成了 Genesis 的安装，接下来可以开始使用它进行仿真和开发了！
 
-**Genesis初探**
+##### 2.2 Genesis初探
 
-Genesis 教程：基础示例
-在这个教程中，我们将通过一个简单的例子来加载一个单独的 Franta 机械臂，然后让它自由地掉落到地面上。这个例子将用来演示在 Genesis 中创建仿真实验的核心步骤和一些基本概念。
+###### Genesis 教程：基础示例
+在这个教程中，我们将通过一个简单的例子来加载一个单独的 Franka 机械臂，然后让它自由地掉落到地面上。这个例子将用来演示在 Genesis 中创建仿真实验的核心步骤和一些基本概念。
 ```python
 import genesis as gs
 gs.init(backend=gs.cpu)
@@ -4321,7 +4781,7 @@ for i in range(1000):
 这就是完整的代码脚本！这样的示例只需要不到 10 行代码，并且已经封装了创建仿真实验所需的所有步骤。
 如果你想深入了解，可以继续往下看，我们将一步一步地进行讲解：
 
-**1. 初始化**
+**（1）初始化**
 
 第一步是导入 genesis 并初始化它：
 ```python
@@ -4347,7 +4807,7 @@ gs.init(
 )
 ```
 
-**2. 创建场景**
+**（2）创建场景**
 
 在 Genesis 中，所有的物体、机器人、相机等都放置在一个 Scene 中：
 scene = gs.Scene()
@@ -4369,7 +4829,7 @@ scene = gs.Scene(
 ```
 这个例子设置了每一步仿真时间为 0.01s，配置了重力，并设置了交互式查看器的初始相机位置。
 
-**3. 加载物体到场景中**
+**（3）加载物体到场景中**
 
 在这个示例中，我们加载了一个平面和一个 Franta 机械臂到场景中：
 ```Shell
@@ -4407,7 +4867,7 @@ franka = scene.add_entity(
 ```
 当加载外部文件时，需要通过 file 参数指定文件位置。在解析时，我们不仅会根据当前工作目录解析相对路径，还会在 genesis/assets 内部资产目录中查找。所以在这个例子中，我们会从 genesis/assets/xml/franka_emika_panda/panda.xml 路径加载 Franka 模型。
 
-**4. 构建场景并开始仿真**
+**（4）构建场景并开始仿真**
 完成以上步骤后，我们可以开始仿真。注意，在开始仿真前，我们需要先调用 scene.build() 来构建场景：
 ```Shell
 scene.build()
@@ -4416,11 +4876,11 @@ for i in range(1000):
 ```
 调用 scene.build() 后，Genesis 会进行 GPU 内核的即时编译，为仿真准备好数据。完成后，会弹出一个交互式查看器来可视化仿真场景。查看器提供了各种键盘快捷键来录制视频、截图、切换不同的可视化模式等。
 
-**5. 内核编译和缓存**
+**（5）内核编译和缓存**
 由于 Genesis 使用即时编译（JIT）技术，每次创建一个包含新配置的场景时（即不同的机器人类型、物体数量等），都会重新编译 GPU 内核。Genesis 支持自动缓存已编译的内核：第一次运行后（只要正常退出或使用 ctrl + c 终止），如果场景配置保持不变，后续运行会加载缓存的内核，以加速场景创建过程。
 我们正在积极优化这一编译步骤，未来版本将通过并行编译和更快的内核序列化技术，极大提高这一过程的速度。
 
-**可视化和渲染**
+###### 可视化和渲染
 
 Genesis的可视化系统由场景的visualizer管理（即scene.visualizer）。可以通过两种方式来可视化场景：
 
@@ -4472,7 +4932,7 @@ cam_pose = scene.viewer.camera_pose()
 scene.viewer.set_camera_pose(cam_pose)
 ```
 
-相机与离线渲染
+**相机与离线渲染**
 
 可以手动添加相机对象进行离线渲染:
 
@@ -4604,7 +5064,7 @@ cam.stop_recording(save_to_filename='video.mp4', fps=60)
 Genesis提供光线追踪渲染器用于真实感渲染。创建场景时设置renderer=gs.renderers.RayTracer()即可切换。支持调节spp、aperture、model等参数,
 ```
 
-**环境配置**
+###### 环境配置
 
 在以下环境中通过测试：
 
@@ -4669,7 +5129,7 @@ python demo.py
 
 
 
-**FAQ 疑难解答**
+###### FAQ 疑难解答
 
 - 执行
 ```shell
@@ -4767,7 +5227,8 @@ CMake Error: CMAKE_CXX_COMPILER not set, after EnableLanguage
     可能是gcc和g++版本不正确导致。请仔细检查
     （i）gcc/g++版本是否为 11
     （ii）二进制文件是否指向正确的路径
-    （iii）二进制文件路径的顺序，
+    （iii）二进制文件路径的顺序
+	
 ```shell
 gcc --version
 g++ --version
@@ -4785,7 +5246,8 @@ cd $CONDA_PREFIX/lib
 mv libstdc++.so.6 libstdc++.so.6.old
 ln -s /usr/lib/x86_64-linux-gnu/libstdc++.so.6 libstdc++.so.6
 ```
-**逆解和运动规划**
+
+###### 逆解和运动规划
 
 我们将通过几个示例来演示如何在Genesis中使用逆向运动学（IK）和运动规划，并执行一个简单的抓取任务。
   首先，我们创建一个场景，加载你喜欢的机器人臂和一个小方块，构建场景，然后设置控制增益：
@@ -4931,8 +5393,8 @@ pip install ompl-1.6.0-cp310-cp310-manylinux_2_28_x86_64.whl
 更多：
 [https://yv6uc1awtjc.feishu.cn/wiki/EEqAwFLo5iUdn5kD95OcAOtZnhf](https://yv6uc1awtjc.feishu.cn/wiki/EEqAwFLo5iUdn5kD95OcAOtZnhf)
 
-#### 6.4.3 仿真示例
-
+#### 3、仿真示例
+###### 构建仿真代码
 <img width="553" height="312" alt="image" src="https://github.com/user-attachments/assets/734a7d45-3c59-4ff8-87da-3393a85af27c" />
 
 
@@ -4990,7 +5452,7 @@ for i in range(1000):
 - n_envs：指定你想要创建的批量环境数量
 - env_spacing：生成的并行环境共享相同的状态。为了可视化目的，你可以指定此参数，要求可视化工具将所有环境以(x, y)米的距离分布在网格中。请注意，这只影响可视化行为，并不会改变每个环境中实体的实际位置。
 
-**控制批量环境中的机器人**
+###### 控制批量环境中的机器人
 
 回想一下我们在之前的教程中使用的API，例如franka.control_dofs_position()。现在你可以使用完全相同的API来控制批量机器人，只是输入变量需要一个额外的批量维度：
 ```python
@@ -5050,7 +5512,7 @@ for i in range(1000):
 小技巧
 FPS日志记录： 默认情况下，Genesis记录器将在终端显示实时仿真速度。你可以在创建场景时设置show_FPS=False来禁用此行为。
 
-#### 6.4.4 Genesis资料汇总
+#### 4、Genesis资料汇总
 
 今日刷屏的Genesis有效信源整合 - 强化学徒的文章 - 知乎
 [https://zhuanlan.zhihu.com/p/13603265800](https://zhuanlan.zhihu.com/p/13603265800)
@@ -5077,1497 +5539,6 @@ genesis中文文档[https://genesis-world.readthedocs.io/zh-cn](https://genesis-
 
 ### 6.5 Gazebo
 
-### 6.2 任务基准：单胳膊/双臂/移动操作/装配
-
-由于Isaac Lab内基本集成了目前常用的绝大多数任务基准，以下以Isaac Lab集成的任务基准为例进行阐述。其他仿真器下任务名及设置可能稍有不同，但基准任务本身基本一致，在其他仿真器下可通过官方文档找到类似的对应任务基准。以下列表包含在 Isaac Lab 中可用的所有 RL 和 IL 任务实现。尽管我们尽量保持此列表最新，您仍可以通过运行以下命令获取最新的环境列表:
-
-```shell
-./isaaclab.sh -p scripts/environments/list_envs.py
-```
-
-**单一智能体**
-
-**经典**
-
-基于 IsaacGymEnvs 实现的 MuJoCo 风格环境的经典环境。
-<img width="819" height="572" alt="image" src="https://github.com/user-attachments/assets/ceb5b2c9-edef-4a22-8e30-45b65840ca7b" />
-<img width="819" height="524" alt="image" src="https://github.com/user-attachments/assets/bf50f301-0c46-4502-ab4d-f1f23754a3b1" />
-
-
-**操作臂**
-
-基于固定机械臂操作任务的环境。
-
-对于许多这些任务，我们包括具有不同手臂动作空间的配置。例如，对于 lift-cube 环境:
-
-Isaac-Lift-Cube-Franka-v0: Franka机械臂关节位置控制
-
-Isaac-Lift-Cube-Franka-IK-Abs-v0: Franka机械臂绝对IK控制
-
-Isaac-Lift-Cube-Franka-IK-Rel-v0: Franka机械臂相对IK控制
-
-<img width="785" height="703" alt="image" src="https://github.com/user-attachments/assets/96d2c64d-9192-40bb-bd51-33c433ef4ee9" />
-<img width="792" height="478" alt="image" src="https://github.com/user-attachments/assets/5e8b1723-e46e-4c37-aef6-ad02ad686b53" />
-<img width="875" height="542" alt="image" src="https://github.com/user-attachments/assets/0c2e2116-19e1-41b2-a9b4-eecd112c7c28" />
-<img width="878" height="601" alt="image" src="https://github.com/user-attachments/assets/409fc01c-1490-4340-a370-0f11d8896ffd" />
-<img width="872" height="767" alt="image" src="https://github.com/user-attachments/assets/304d50e4-7386-416c-8b85-fbcae4ad14b5" />
-<img width="875" height="565" alt="image" src="https://github.com/user-attachments/assets/165a27f6-4e8e-4538-863a-0bd169d555f6" />
-<img width="875" height="338" alt="image" src="https://github.com/user-attachments/assets/075e7193-3e1b-4642-a419-b9e9a4589702" />
-
-
-**富接触操控**
-
-基于富接触操控的环境，例如销钉插入、齿轮啮合和螺母螺栓紧固。
-
-这些任务共享相同的任务配置和控制选项。您可以通过指定任务名称在它们之间切换。例如:
-
-Isaac-Factory-PegInsert-Direct-v0: 使用Franka机械臂进行销钉插入
-
-Isaac-Factory-GearMesh-Direct-v0: 与Franka机械臂啮合的齿轮
-
-Isaac-Factory-NutThread-Direct-v0: 用Franka机械臂进行螺母螺栓紧固
-
-<img width="875" height="743" alt="image" src="https://github.com/user-attachments/assets/c294b29c-f5b7-4b6c-8b89-02edd1e880e9" />
-
-
-**自动装配**
-
-基于100种不同装配任务的环境，每个任务都涉及将插头插入插座的操作。这些任务共享相同的配置框架，但通过零部件的几何形状和物理属性实现差异化。
-
-可通过指定对应的资产ID切换不同任务，可用资产ID包括:
-
-‘00004’, ‘00007’, ‘00014’, ‘00015’, ‘00016’, ‘00021’, ‘00028’, ‘00030’, ‘00032’, ‘00042’, ‘00062’, ‘00074’, ‘00077’, ‘00078’, ‘00081’, ‘00083’, ‘00103’, ‘00110’, ‘00117’, ‘00133’, ‘00138’, ‘00141’, ‘00143’, ‘00163’, ‘00175’, ‘00186’, ‘00187’, ‘00190’, ‘00192’, ‘00210’, ‘00211’, ‘00213’, ‘00255’, ‘00256’, ‘00271’, ‘00293’, ‘00296’, ‘00301’, ‘00308’, ‘00318’, ‘00319’, ‘00320’, ‘00329’, ‘00340’, ‘00345’, ‘00346’, ‘00360’, ‘00388’, ‘00410’, ‘00417’, ‘00422’, ‘00426’, ‘00437’, ‘00444’, ‘00446’, ‘00470’, ‘00471’, ‘00480’, ‘00486’, ‘00499’, ‘00506’, ‘00514’, ‘00537’, ‘00553’, ‘00559’, ‘00581’, ‘00597’, ‘00614’, ‘00615’, ‘00638’, ‘00648’, ‘00649’, ‘00652’, ‘00659’, ‘00681’, ‘00686’, ‘00700’, ‘00703’, ‘00726’, ‘00731’, ‘00741’, ‘00755’, ‘00768’, ‘00783’, ‘00831’, ‘00855’, ‘00860’, ‘00863’, ‘01026’, ‘01029’, ‘01036’, ‘01041’, ‘01053’, ‘01079’, ‘01092’, ‘01102’, ‘01125’, ‘01129’, ‘01132’, ‘01136’.
-
-我们同时提供拆卸与装配两种任务环境。
-
-**注意:**
-
-建议使用 CUDA 与 570 驱动程序运行 AutoMate 环境。如果在架构为 x86_64 的 Linux 上使用 Nvidia 驱动程序 570 运行，我们按照以下步骤安装 CUDA 12.8。这允许在 AutoMate 环境中使用 CUDA 计算奖励。如果您有不同的操作系统或架构，请参阅 CUDA installation page 获取其他说明。
-
-```shell
-wget https://developer.download.nvidia.com/compute/cuda/12.8.0/local_installers/cuda_12.8.0_570.86.10_linux.run
-sudo sh cuda_12.8.0_570.86.10_linux.run --toolkit
-```
-使用 conda 时，可以通过以下命令安装 CUDA 工具包:
-
-```shell
-conda install cudatoolkit
-```
-使用 580 驱动程序和 CUDA 13，我们目前无法启用 CUDA 来计算奖励。代码会自动回退到 CPU，导致性能略慢。
-
-
-Isaac-AutoMate-Disassembly-Direct-v0: 初始状态下插头已插入插座，底层控制器会将插头拔出并移至随机位置。这个过程完全由脚本控制，不涉及任何学习策略，因此不需要进行策略训练或评估。这些结果轨迹可作为逆向学习（即装配学习）的示范数据。运行指定任务的拆卸模式: ```python source/isaaclab_tasks/isaaclab_tasks/direct/automate/run_disassembly_w_id.py --assembly_id=ASSEMBLY_ID --disassembly_dir=DISASSEMBLY_DIR```. 所有生成的轨迹存储在本地文件夹 DISASSEMBLY_DIR 中。
-
-Isaac-AutoMate-Assembly-Direct-v0: 目标是将插头插入插座。你可以使用这个环境通过强化学习训练策略，或评估预训练模型。
-
-要训练装配策略，我们运行命令 ```python source/isaaclab_tasks/isaaclab_tasks/direct/automate/run_w_id.py --assembly_id=ASSEMBLY_ID --train ```。我们可以通过可选参数自定义训练流程: 使用 --headless 以无界面模式运行（不打开GUI窗口）， --max_iterations=MAX_ITERATIONS 设置训练迭代次数， --num_envs=NUM_ENVS 设置训练时的并行环境数量， --seed=SEED 指定随机种子。训练过程中，策略检查点会自动保存在 logs/rl_games/Assembly/test 目录下。
-
-要评估一个装配策略，我们运行命令 ```python source/isaaclab_tasks/isaaclab_tasks/direct/automate/run_w_id.py --assembly_id=ASSEMBLY_ID --checkpoint=CHECKPOINT --log_eval ```。评估结果存储在 evaluation_{ASSEMBLY_ID}.h5 。
-
-<img width="872" height="500" alt="image" src="https://github.com/user-attachments/assets/556970ff-dba3-4da1-84b5-bfba6989851f" />
-
-**FORGE**
-
-FORGE 环境通过以下方式扩展了 Factory 环境:
-
-力传感: 添加末端执行器所受力的观测值。
-
-过度力惩罚: 添加一个选项来惩罚智能体超出接触力限制的行为。
-
-动力学随机化: 随机化控制器增益、资产属性（摩擦、质量）和死区。
-
-成功预测: 添加一个额外的动作来预测任务成功。
-
-这些任务共享相同的任务配置和控制选项。您可以通过指定任务名称在它们之间切换。
-
-Isaac-Forge-PegInsert-Direct-v0: 使用Franka机械臂进行销钉插入
-
-Isaac-Forge-GearMesh-Direct-v0: 与Franka机械臂啮合的齿轮
-
-Isaac-Forge-NutThread-Direct-v0: 用Franka机械臂进行螺母螺栓紧固
-
-<img width="876" height="742" alt="image" src="https://github.com/user-attachments/assets/91ac4a06-863c-4756-b5f9-2cf45aa35fcc" />
-
-**运动**
-
-**基于四足运动任务的环境**
-
-<img width="875" height="608" alt="image" src="https://github.com/user-attachments/assets/e0e30d43-52f5-485a-a133-785b6501409c" />
-<img width="877" height="561" alt="image" src="https://github.com/user-attachments/assets/8e994e60-c203-47bc-8351-7c6ef2ddbd50" />
-<img width="874" height="559" alt="image" src="https://github.com/user-attachments/assets/ff5eb580-dbd5-4066-aa83-0f7439bb0c58" />
-<img width="873" height="557" alt="image" src="https://github.com/user-attachments/assets/cc1b91d6-cbe1-4868-b2be-a784b90a28ee" />
-<img width="870" height="559" alt="image" src="https://github.com/user-attachments/assets/11a3dc4b-fb75-4280-be68-4a042b8ef149" />
-<img width="875" height="560" alt="image" src="https://github.com/user-attachments/assets/67396204-eeb1-44a7-893c-5dd5b6790036" />
-<img width="879" height="376" alt="image" src="https://github.com/user-attachments/assets/eee9efc4-b6f4-484b-86a1-9960d167a29b" />
-
-**导航**
-
-<img width="878" height="232" alt="image" src="https://github.com/user-attachments/assets/b19c2bd9-9f94-43aa-9900-83ecf88c670a" />
-
-
-**Others**
-
-备注：对抗运动先验 (AMP) 训练仅在 skrl 库中可用，因为它是当前集成的库中唯一一个开箱即用支持该功能的库（对于其他库，需要实现该算法和架构）。有关更多信息，请参见 skrl’s AMP Documentation 。可以通过向训练/播放脚本添加命令行输入 --algorithm AMP 来激活 AMP 算法。
-
-为了评估，脚本的命令行输入 --real-time 允许环境和智能体之间的交互循环在可能的情况下实时运行。
-
-<img width="877" height="439" alt="image" src="https://github.com/user-attachments/assets/e4fa59d3-93ab-466f-aa07-221331aba4f9" />
-
-
-**空间展示**
-
-cartpole_showcase 文件夹包含示例任务（基于 Cartpole 和 Cartpole-Camera Direct 任务），用于定义/使用 Isaac Lab 支持的各种 Gymnasium 观测空间和动作空间。
-
-备注：目前，仅 Isaac Lab 的 Direct 工作流支持定义除 Box 之外的观测空间和动作空间。请参阅 Direct 工作流的 observation_space / action_space 文档以获取更多详细信息。
-
-下表总结了 Cartpole 和 Cartpole-Camera 任务中展示的不同观测空间与动作空间的组合。在训练和评估的任务名称中，用 <OBSERVATION> 和 <ACTION> 替换相应的观测空间和动作空间。
-
-<img width="783" height="600" alt="image" src="https://github.com/user-attachments/assets/db025a0a-627a-4c5a-ab24-890a12259780" />
-
-**多智能体**
-
-备注：真正的多智能体训练仅在 skrl 库中可用，更多信息请参见 多智能体文档 。它支持 IPPO 和 MAPPO 算法，可以通过在训练/回放脚本中添加命令行输入 --algorithm IPPO 或 --algorithm MAPPO 来激活。如果这些环境与其他库一起运行或没有 IPPO 或 MAPPO 标志，它们将在后台转换为单智能体环境。
-
-**经典**
-<img width="874" height="232" alt="image" src="https://github.com/user-attachments/assets/b61a141e-2aa4-4c5d-bd75-547c23716ac0" />
-
-
-**操作臂**
-
-基于固定机械臂操作任务的环境。
-
-<img width="874" height="233" alt="image" src="https://github.com/user-attachments/assets/34f08534-6e5e-4070-8190-610f4f63fc01" />
-
-
-
-**综合环境列表**
-
-对于在 推理任务名称 下列出不同任务名称的环境，请在运行 play.py 或任何推理工作流时使用提供的推理任务名称。这些任务提供了更适合推理的配置，包括从已训练好的检查点读取数据，并禁用训练时使用的运行时扰动。
-
-<img width="877" height="729" alt="image" src="https://github.com/user-attachments/assets/08574079-d3da-4c6f-8cb7-60219aa02639" />
-<img width="874" height="712" alt="image" src="https://github.com/user-attachments/assets/11f6182d-87ad-4d9d-9d2e-f4171082f232" />
-<img width="872" height="764" alt="image" src="https://github.com/user-attachments/assets/83b91138-a7b5-4352-bd13-58fe94092b03" />
-<img width="873" height="801" alt="image" src="https://github.com/user-attachments/assets/e3c81740-15cc-4775-b18c-6e1d247ae3f4" />
-<img width="874" height="821" alt="image" src="https://github.com/user-attachments/assets/4ac1d9c2-7346-4979-bbdf-ab77b2560a16" />
-<img width="871" height="728" alt="image" src="https://github.com/user-attachments/assets/e48d6ebf-b0f5-4b35-8a15-7a7b1f2df3e4" />
-<img width="874" height="767" alt="image" src="https://github.com/user-attachments/assets/02ef9230-8afb-4ad6-a679-2f5b9d08b3ca" />
-<img width="875" height="838" alt="image" src="https://github.com/user-attachments/assets/b1f30522-0267-46c4-95f1-91a13743aae8" />
-<img width="875" height="792" alt="image" src="https://github.com/user-attachments/assets/544cff94-5f06-4d97-bb21-b9cf54f5c55e" />
-<img width="873" height="768" alt="image" src="https://github.com/user-attachments/assets/53a84670-9af8-4d11-938d-7ccf2c516f0d" />
-<img width="873" height="280" alt="image" src="https://github.com/user-attachments/assets/49a4c774-1f66-4e4b-9b14-f0cfacc811ab" />
-
-
-
-### 6.3 资产与场景：USD/URDF 导入、相机布局、光照与碰撞
-#### 6.3.1 USD/URDF 导入
-##### 6.3.1.1 URDF文件数据集
-
-转自：知乎huyoust
-
-里面收集的资料也比较多，都分类整理了，有机械臂，双足，双臂，飞行器，执行器，仿人，四足，轮式等。实际上github上有很多awesome类型的项目，这些作者都有着极大的专注与热情，能省去自己找资料的麻烦，推荐感兴趣的去给他们点个免费的star。
-
-<img width="1138" height="991" alt="image" src="https://github.com/user-attachments/assets/99ae23a8-af87-4a00-a3f0-cade61d33391" />
-<img width="1260" height="1153" alt="image" src="https://github.com/user-attachments/assets/83ef113a-fc4e-42f9-b672-19e50b9e84d6" />
-<img width="961" height="1065" alt="image" src="https://github.com/user-attachments/assets/c6c20490-e4ff-41a9-805d-a0411f0d9831" />
-<img width="961" height="1065" alt="image" src="https://github.com/user-attachments/assets/1700a71c-f80d-41eb-84b6-ff88556a77df" />
-
-最近在Github上找一个机械臂的URDF文件时，发现一个很好的仓库。这应该是目前整理的最好最全的关于工业机械臂的URDF文件的仓库了，地址如下：
-
-[GitHub - Daniella1/urdf_files_dataset
-github.com/Daniella1/urdf_files_dataset](https://github.com/Daniella1/urdf_files_dataset)
-本来以为这也只是一个awesome xxx这样的资源收集型Git仓库，但是在README文件中看到，这个仓库还是一篇论文中的公开数据库：Understanding URDF: A Dataset and Analysis。点进去看一下全文，发现作者中居然有Peter Corke大佬，因此特意整理记录一下。
-
-**（1）不同机器人仿真软件/工具**
-
-机器人仿真软件/工具很多，通产每个仿真软件中的机器人模型都有自己原生的文件格式，下面表格所示为几种不同仿真软件原生模型的文件格式以及它们对URDF文件描述的机器人模型的支持性。可以看到，绝大部分的仿真软件都是支持导入URDF格式描述的机器人模型的。
-
-<img width="775" height="459" alt="image" src="https://github.com/user-attachments/assets/def5a6a8-281a-49d1-a1a9-7097d1be6abf" />
-
-不同机器人仿真工具对URDF文件的支持
-
-**（2）为什么是URDF格式**
-
-URDF，全称是Unified Robot Description Format，统一机器人描述格式。URDF文件格式用于描述机器人最早是由机器人操作系统（ROS）的开发人员在2009年引入，是一种描述机器人的运动学、动力学和几何形状的通用格式文件，独立于软件程序，方便不同的软件工具以及开发人员共享机器人数据模型。URDF文件重要的一点是其可读性，因为它是XML类型的文本文件。URDF文件中可以描述机器人的运动学结构、动力学参数、视觉外观（通过引用其它文件）和几何碰撞边界（通过引用其它文件）。
-
-关于URDF的更对细节可以参考：
-
-[urdf/XML - ROS Wiki](https://wiki.ros.org/urdf/XML)
-
-[urdf/Tutorials - ROS Wiki](https://wiki.ros.org/urdf/Tutorials)
-
-**（3）URDF文件解析**
-
-模型（model）
-创建一个URDF文件的最小要求是机器人的名称和一个连杆。如下所示的URDF文件示例，它表示了一个2自由度的平面连杆机构，外观使用简单的几何形状：方块和圆柱，这个示例文件中有3个连杆和2个关节：
-
-<img width="1135" height="540" alt="image" src="https://github.com/user-attachments/assets/8c95c4c2-38c7-4264-8eb6-9e5d6baff963" />
-
-简单的平面3连杆机构
-
-可以看到URDF文件中有一些关键的元素：
-
-**连杆（link）**
-
-连杆是可以使用关节进行连接的刚体，连杆有惯量（inertial）、视觉（visual）和碰撞（collision）等属性。惯性特性描述了连杆的质量、质心位置以及惯性矩。可视化特性和碰撞特性稍后再说。URDF中连杆只能是刚体，而不能是可形变的物体（在这一定程度上限制了URDF的应用范围，像涉及柔性体的机器人就不能用URDF文件直接表示）。
-
-<img width="1505" height="698" alt="image" src="https://github.com/user-attachments/assets/a2f666ad-4683-4e26-aee4-08e9c823baeb" />
-
-更通用的连杆属性
-
-前面的示例模型中，3个连杆的名称分别为“base link”、“link 1”和“link 2”。我们查看“基本链接”来说明如何指定链接，参见第3-10行的清单1。“base link”表示机器人的固定底座，其中它的视觉属性由一个原点和一个由一个方块组成的几何体来定义，方块的大小由其三个边的长度指定。一个连杆唯一的必需属性的是它的名称，在一个URDF文件中，连杆名称必须是唯一的，不同连杆的名称必须不同。
-
-**关节（joint）**
-
-关节用于连接两个连杆，一个父连杆和一个子连杆。父连杆是更靠近基座的连杆，子连杆是更靠近末端工具的连杆。关节的主要参数是关节类型（运动学）、动力学参数，以及活动范围。关节类型包括：
-
-旋转关节（revolute）：特指关节运动范围有明确的上限和下限的转动关节。
-连续关节（continuous）：关节运动范围无限的转动关节，即可以连续旋转的转动关节。
-平移关节（prismatic）：沿轴滑动的滑动关节，运动范围有明确的上限和下限。
-固定关节（fixed）：类似于焊接，不是真正的关节，因为它无法移动，所有自由度都被锁定。这种类型的关节不需要<Axis>，<calibration>，<dynamics>，<limits>或<seafe_controller>等参数。
-浮动关节（floating）：允许所有6个自由度的运动。
-平面关节（planar）：允许在垂直于轴的平面中运动。
-关节也有很多可以编辑的属性：
-
-<img width="887" height="798" alt="image" src="https://github.com/user-attachments/assets/4bdb9c40-4aac-452b-8b36-6e5dd57250c1" />
-
-**关节属性**
-
-前面的示例模型中，关节的名称是“joint 1”和“joint 2”。关节类型是连续关节，这意味着它们是没有运动限制的旋转关节。“axis”属性指定关节轴的方向，在本例中，关节轴沿着Y轴。关节的必需属性是它的父连杆和子连杆的名称、关节类型和关节名称。
-
-可视化与碰撞几何形状（Visual and Collision Geometries）
-几何对象用于表示机器人连杆的形状，用于可视化或碰撞的目的，统称为网格对象（mesh），它们由一组构成对象表面的三角面组成。网格中的多边形越多，形状的细节级别就越高，但会以牺牲渲染和计算时间为代价。
-
-网格对象可以用不同的CAD文件类型，每种文件类型都有不同的内部格式，并有其自身的好处和限制，因此应该根据使用的应用程序进行选择。URDF中可视化和碰撞网格的一种常用格式是STL（文件扩展名为.stl），它只使用三角形而不使用颜色或纹理信息来表示三维表面几何图形。另一种通常用于可视化的文件格式为collada（文件扩展名为.dae），它同时支持颜色和纹理信息。OBJ格式（文件扩展名为.obj）支持颜色、纹理和自由形式的曲线，允许更高级的细节可视化，但是，颜色和纹理数据存储在一个单独的（.mtl）文件中。
-
-在URDF的一些应用中，碰撞检测是必需的，而在其他应用中，URDF模型仅用于可视化目的。根据应用程序的不同，URDF Bundle中可以包含不同类型的网格对象。例如，通常同时使用STL和COLLADA网格，因为STL网格不包含颜色与纹理，可以减少计算和渲染时间，同时STL可以进行凸包运算简化形状，因此常用于表示连杆的碰撞几何形状（碰撞检测通常需要大量运算，但是不需要关注结构细节，例如螺丝、螺帽、细孔这些），而COLLADA网格由于可以设置颜色、纹理等属性，因此通常作为连杆的可视化对象，提供高质量的可视化效果。
-
-**URDF文件包（URDF Bundle/package）**
-
-一个URDF机器人模型通常包含描述机器人拓扑结构的URDF文件以及描述机器人物理外观网格文件组成。URDF文件本身（具有.urdf文件扩展名）和URDF文件中所引用的网格对象（作为link的属性）所组成的文件集，通常称为URDF包。如下所示的URDF文件包，包含了名为myrobot.urdf的URDF文件，以及mesh文件夹中网格对象。URDF文件是指使用相对路径生成的不同链接的几何网格文件。
-
-<img width="753" height="249" alt="image" src="https://github.com/user-attachments/assets/123e8480-fed5-430c-bdc7-8be4b0d6f6e7" />
-
-**Xacro文件**
-
-从前面可以看到，URDF文件适合定义静态的、完整的机器人模型，但对于复杂的机器人，URDF 可能会显得冗长且难以维护。Xacro是一种基于 XML 的宏扩展语言，主要用于简化和生成 URDF。Xacro 允许使用宏（macros）、变量、数学运算和参数化的方式来定义机器人模型，以提高可重用性和可读性。例如：
-
-减少重复代码：可以定义一个通用的部件并多次使用
-参数化设计：允许调整不同参数来生成不同的 URDF 结构
-数学计算：可在 XML 内部执行计算，避免手动计算坐标或尺寸
-Xacro 文件最终会被解析成标准 URDF 文件，例如在ROS中可以使用如下命令将 Xacro 转换为 URDF：
-
-rosrun xacro xacro my_robot.xacro > my_robot.urdf
-关于Xacro的具体内容这里暂不展开，感兴趣的可以参考：
-
-Using Xacro to Clean Up a URDF File
-
-**（4）URDF数据库**
-
-对于大多数工业机械臂，由于其结构参数与特征都是固定的，因此在使用不同的软件工具进行算法仿真的时候，除非是初期的学习，通常都没必要自己再手动建模一遍，都是找现成的URDF文件，因为绝大多数机器人仿真软件都支持URDF格式文件的导入。前面提到的Understanding URDF: A Dataset and Analysis这篇文章中，作者规范地整理了超过300个不同来源的公开的URDF模型。
-<img width="781" height="263" alt="image" src="https://github.com/user-attachments/assets/e560d938-e36f-4922-9804-5f791ba1ca70" />
-<img width="648" height="828" alt="image" src="https://github.com/user-attachments/assets/db6329a8-2554-4523-8274-a7205ad25914" />
-
-补充数据库资源：
-[https://github.com/robot-descriptions/awesome-robot-descriptions
-github.com/robot-descriptions/awesome-robot-descriptions](https://github.com/robot-descriptions/awesome-robot-descriptions
-github.com/robot-descriptions/awesome-robot-descriptions)
-
-[GitHub - robot-descriptions/awesome-robot-descriptions: A curated list of awesome robot descriptions (URDF, MJCF)](https://github.com/robot-descriptions/awesome-robot-descriptions)
-
-[https://github.com/robot-descriptions/awesome-robot-descriptions
-github.com/robot-descriptions/awesome-robot-descriptions
-](https://github.com/robot-descriptions/awesome-robot-descriptions
-github.com/robot-descriptions/awesome-robot-descriptions
-)
-
-#### 6.3.2 相机布局
-
-**配置仿真上下文**
-
-当从独立脚本启动仿真器时，用户可以完全控制播放、暂停和步进仿真器。所有这些操作都通过 仿真上下文 处理。它负责各种时间轴事件，并为仿真器配置 物理场景 。
-
-在 Isaac Lab 中 , sim.SimulationContext 类继承了 Isaac Sim 的 isaacsim.core.api.simulation_context.SimulationContext ，以允许通过 Python 的 dataclass 对象配置仿真器，并处理仿真步进的某些复杂性。
-
-对于本教程，我们将将物理和渲染时间步长设置为0.01秒。通过将这些数量传递给 sim.SimulationCfg ，然后用它创建仿真上下文的实例。
-```python
-    # Initialize the simulation context
-    sim_cfg = SimulationCfg(dt=0.01)
-    sim = SimulationContext(sim_cfg)
-    # Set main camera
-    sim.set_camera_view([2.5, 2.5, 2.5], [0.0, 0.0, 0.0])
-```
-创建仿真上下文后，我们只配置了作用于仿真场景的物理。这包括用于仿真的设备、重力矢量和其他高级求解器参数。现在还有两个主要步骤剩下来运行仿真:
-
-设计仿真场景: 添加传感器、机器人和其他仿真对象
-
-运行仿真循环: 使仿真器进行步进，并从仿真器中设置和获取数据
-
-#### 6.3.3 光照与碰撞
-
-**生成地面平面**
-
-GroundPlaneCfg 配置了一个类似网格的地面平面，其外观和大小等属性可修改。
-```python
-    # Ground-plane
-    cfg_ground = sim_utils.GroundPlaneCfg()
-    cfg_ground.func("/World/defaultGroundPlane", cfg_ground)
-```
-
-**生成灯光**
-
-可以将 不同类型的灯光基本体 生成到场景中。这些包括远光灯、球形灯、圆盘灯和圆柱灯。在本教程中，我们生成一个远光灯，这是一种远离场景无限远的灯，只朝一个方向发光。
-```python
-    # spawn distant light
-    cfg_light_distant = sim_utils.DistantLightCfg(
-        intensity=3000.0,
-        color=(0.75, 0.75, 0.75),
-    )
-    cfg_light_distant.func("/World/lightDistant", cfg_light_distant, translation=(1, 0, 10))
-```
-**生成基本形状**
-
-在生成基本形状之前，我们介绍了一个变换基本体或Xform的概念。变换基本体是一个仅包含变换属性的基本体。它用于将其他基本体分组，并作为一个组对其进行变换。在这里，我们创建一个Xform基本体，将所有的基本形状分组在其中。
-```python
-    # create a new xform prim for all objects to be spawned under
-    prim_utils.create_prim("/World/Objects", "Xform")
-```
-接下来，我们使用 ConeCfg 类生成一个圆锥体。可以指定圆锥体的半径、高度、物理属性和材质属性。默认情况下，物理和材质属性是禁用的。
-
-我们生成的前两个圆锥 Cone1 和 Cone2 是视觉元素，不启用物理属性。
-```python
-    # spawn a red cone
-    cfg_cone = sim_utils.ConeCfg(
-        radius=0.15,
-        height=0.5,
-        visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(1.0, 0.0, 0.0)),
-    )
-    cfg_cone.func("/World/Objects/Cone1", cfg_cone, translation=(-1.0, 1.0, 1.0))
-    cfg_cone.func("/World/Objects/Cone2", cfg_cone, translation=(-1.0, -1.0, 1.0))
-```
-对于第三个圆锥 ConeRigid ，我们在配置类中设置刚体物理属性。通过这些属性，我们可以指定圆锥体的质量、摩擦力和弹性。如果未指定，它们将默认为USD Physics设置的默认值。
-```python
-    # spawn a green cone with colliders and rigid body
-    cfg_cone_rigid = sim_utils.ConeCfg(
-        radius=0.15,
-        height=0.5,
-        rigid_props=sim_utils.RigidBodyPropertiesCfg(),
-        mass_props=sim_utils.MassPropertiesCfg(mass=1.0),
-        collision_props=sim_utils.CollisionPropertiesCfg(),
-        visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(0.0, 1.0, 0.0)),
-    )
-    cfg_cone_rigid.func(
-        "/World/Objects/ConeRigid", cfg_cone_rigid, translation=(-0.2, 0.0, 2.0), orientation=(0.5, 0.0, 0.5, 0.0)
-    )
-```
-最后，我们生成一个长方体 CuboidDeformable ，其中包含可变形体物理属性。与刚体仿真不同，可变形体可以在其顶点之间具有相对运动。这对于仿真软体如布料、橡胶或果冻非常有用。需要注意的是，可变形体仅在GPU仿真中受支持，并且需要生成一个带有可变形体物理属性的网格对象。
-```python
-    # spawn a blue cuboid with deformable body
-    cfg_cuboid_deformable = sim_utils.MeshCuboidCfg(
-        size=(0.2, 0.5, 0.2),
-        deformable_props=sim_utils.DeformableBodyPropertiesCfg(),
-        visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(0.0, 0.0, 1.0)),
-        physics_material=sim_utils.DeformableBodyMaterialCfg(),
-    )
-    cfg_cuboid_deformable.func("/World/Objects/CuboidDeformable", cfg_cuboid_deformable, translation=(0.15, 0.0, 2.0))
-```
-从另一个文件生成
-最后，可以从其他文件格式生成基本体，例如其他USD、URDF或OBJ文件。在本教程中，我们将一个表的USD文件生成到场景中。这个表是一个网格基本体，并且有一个与之关联的材质基本体。所有这些信息都存储在其USD文件中。
-```python
-    # spawn a usd file of a table into the scene
-    cfg = sim_utils.UsdFileCfg(usd_path=f"{ISAAC_NUCLEUS_DIR}/Props/Mounts/SeattleLabTable/table_instanceable.usd")
-    cfg.func("/World/Objects/Table", cfg, translation=(0.0, 0.0, 1.05))
-```
-上面的表被添加为场景的一个引用。简单来说，这意味着表实际上并没有添加到场景中，而是添加了一个指向表资产的 指针 。这允许我们修改表资产，并使更改以非破坏性的方式反映在场景中。例如，我们可以更改表的材质，而不实际修改表资产的底层文件。只有更改存储在USD场景中。
-
-### 6.4 日志与回放：录制、重放、评测
-**查看日志**
-
-在单独的终端中，您可以通过执行以下命令监视训练进度:
-```python
-# execute from the root directory of the repository
-./isaaclab.sh -p -m tensorboard.main --logdir logs/sb3/Isaac-Cartpole-v0
-```
-播放经过训练的 agent
-一旦训练完成，您可以通过执行以下命令来可视化经过训练的 agent:
-```python
-# execute from the root directory of the repository
-./isaaclab.sh -p scripts/reinforcement_learning/sb3/play.py --task Isaac-Cartpole-v0 --num_envs 32 --use_last_checkpoint
-```
-上述命令将从 logs/sb3/Isaac-Cartpole-v0 目录加载最新的检查点。您也可以通过传递 --checkpoint 标志指定特定的检查点。
-
-
-#### 6.5 **样板：Isaac Lab 最小上手（可复制运行）**
-
-**train.py**
-
-```python
-# Copyright (c) 2022-2025, The Isaac Lab Project Developers (https://github.com/isaac-sim/IsaacLab/blob/main/CONTRIBUTORS.md).
-# All rights reserved.
-#
-# SPDX-License-Identifier: BSD-3-Clause
-
-"""Script to train RL agent with RSL-RL."""
-
-"""Launch Isaac Sim Simulator first."""
-
-import argparse
-import sys
-
-from isaaclab.app import AppLauncher
-
-# local imports
-import cli_args  # isort: skip
-
-
-# add argparse arguments
-parser = argparse.ArgumentParser(description="Train an RL agent with RSL-RL.")
-parser.add_argument("--video", action="store_true", default=False, help="Record videos during training.")
-parser.add_argument("--video_length", type=int, default=200, help="Length of the recorded video (in steps).")
-parser.add_argument("--video_interval", type=int, default=2000, help="Interval between video recordings (in steps).")
-parser.add_argument("--num_envs", type=int, default=None, help="Number of environments to simulate.")
-parser.add_argument("--task", type=str, default=None, help="Name of the task.")
-parser.add_argument(
-    "--agent", type=str, default="rsl_rl_cfg_entry_point", help="Name of the RL agent configuration entry point."
-)
-parser.add_argument("--seed", type=int, default=None, help="Seed used for the environment")
-parser.add_argument("--max_iterations", type=int, default=None, help="RL Policy training iterations.")
-parser.add_argument(
-    "--distributed", action="store_true", default=False, help="Run training with multiple GPUs or nodes."
-)
-parser.add_argument("--export_io_descriptors", action="store_true", default=False, help="Export IO descriptors.")
-# append RSL-RL cli arguments
-cli_args.add_rsl_rl_args(parser)
-# append AppLauncher cli args
-AppLauncher.add_app_launcher_args(parser)
-args_cli, hydra_args = parser.parse_known_args()
-
-# always enable cameras to record video
-if args_cli.video:
-    args_cli.enable_cameras = True
-
-# clear out sys.argv for Hydra
-sys.argv = [sys.argv[0]] + hydra_args
-
-# launch omniverse app
-app_launcher = AppLauncher(args_cli)
-simulation_app = app_launcher.app
-
-"""Check for minimum supported RSL-RL version."""
-
-import importlib.metadata as metadata
-import platform
-
-from packaging import version
-
-# for distributed training, check minimum supported rsl-rl version
-RSL_RL_VERSION = "2.3.1"
-installed_version = metadata.version("rsl-rl-lib")
-if args_cli.distributed and version.parse(installed_version) < version.parse(RSL_RL_VERSION):
-    if platform.system() == "Windows":
-        cmd = [r".\isaaclab.bat", "-p", "-m", "pip", "install", f"rsl-rl-lib=={RSL_RL_VERSION}"]
-    else:
-        cmd = ["./isaaclab.sh", "-p", "-m", "pip", "install", f"rsl-rl-lib=={RSL_RL_VERSION}"]
-    print(
-        f"Please install the correct version of RSL-RL.\nExisting version is: '{installed_version}'"
-        f" and required version is: '{RSL_RL_VERSION}'.\nTo install the correct version, run:"
-        f"\n\n\t{' '.join(cmd)}\n"
-    )
-    exit(1)
-
-"""Rest everything follows."""
-
-import gymnasium as gym
-import os
-import torch
-from datetime import datetime
-
-import omni
-from rsl_rl.runners import OnPolicyRunner
-
-from isaaclab.envs import (
-    DirectMARLEnv,
-    DirectMARLEnvCfg,
-    DirectRLEnvCfg,
-    ManagerBasedRLEnvCfg,
-    multi_agent_to_single_agent,
-)
-from isaaclab.utils.dict import print_dict
-from isaaclab.utils.io import dump_pickle, dump_yaml
-
-from isaaclab_rl.rsl_rl import RslRlOnPolicyRunnerCfg, RslRlVecEnvWrapper
-
-import isaaclab_tasks  # noqa: F401
-from isaaclab_tasks.utils import get_checkpoint_path
-from isaaclab_tasks.utils.hydra import hydra_task_config
-
-# PLACEHOLDER: Extension template (do not remove this comment)
-
-torch.backends.cuda.matmul.allow_tf32 = True
-torch.backends.cudnn.allow_tf32 = True
-torch.backends.cudnn.deterministic = False
-torch.backends.cudnn.benchmark = False
-
-
-@hydra_task_config(args_cli.task, args_cli.agent)
-def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agent_cfg: RslRlOnPolicyRunnerCfg):
-    """Train with RSL-RL agent."""
-    # override configurations with non-hydra CLI arguments
-    agent_cfg = cli_args.update_rsl_rl_cfg(agent_cfg, args_cli)
-    env_cfg.scene.num_envs = args_cli.num_envs if args_cli.num_envs is not None else env_cfg.scene.num_envs
-    agent_cfg.max_iterations = (
-        args_cli.max_iterations if args_cli.max_iterations is not None else agent_cfg.max_iterations
-    )
-
-    # set the environment seed
-    # note: certain randomizations occur in the environment initialization so we set the seed here
-    env_cfg.seed = agent_cfg.seed
-    env_cfg.sim.device = args_cli.device if args_cli.device is not None else env_cfg.sim.device
-
-    # multi-gpu training configuration
-    if args_cli.distributed:
-        env_cfg.sim.device = f"cuda:{app_launcher.local_rank}"
-        agent_cfg.device = f"cuda:{app_launcher.local_rank}"
-
-        # set seed to have diversity in different threads
-        seed = agent_cfg.seed + app_launcher.local_rank
-        env_cfg.seed = seed
-        agent_cfg.seed = seed
-
-    # specify directory for logging experiments
-    log_root_path = os.path.join("logs", "rsl_rl", agent_cfg.experiment_name)
-    log_root_path = os.path.abspath(log_root_path)
-    print(f"[INFO] Logging experiment in directory: {log_root_path}")
-    # specify directory for logging runs: {time-stamp}_{run_name}
-    log_dir = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-    # The Ray Tune workflow extracts experiment name using the logging line below, hence, do not change it (see PR #2346, comment-2819298849)
-    print(f"Exact experiment name requested from command line: {log_dir}")
-    if agent_cfg.run_name:
-        log_dir += f"_{agent_cfg.run_name}"
-    log_dir = os.path.join(log_root_path, log_dir)
-
-    # set the IO descriptors output directory if requested
-    if isinstance(env_cfg, ManagerBasedRLEnvCfg):
-        env_cfg.export_io_descriptors = args_cli.export_io_descriptors
-        env_cfg.io_descriptors_output_dir = log_dir
-    else:
-        omni.log.warn(
-            "IO descriptors are only supported for manager based RL environments. No IO descriptors will be exported."
-        )
-
-    # create isaac environment
-    env = gym.make(args_cli.task, cfg=env_cfg, render_mode="rgb_array" if args_cli.video else None)
-
-    # convert to single-agent instance if required by the RL algorithm
-    if isinstance(env.unwrapped, DirectMARLEnv):
-        env = multi_agent_to_single_agent(env)
-
-    # save resume path before creating a new log_dir
-    if agent_cfg.resume or agent_cfg.algorithm.class_name == "Distillation":
-        resume_path = get_checkpoint_path(log_root_path, agent_cfg.load_run, agent_cfg.load_checkpoint)
-
-    # wrap for video recording
-    if args_cli.video:
-        video_kwargs = {
-            "video_folder": os.path.join(log_dir, "videos", "train"),
-            "step_trigger": lambda step: step % args_cli.video_interval == 0,
-            "video_length": args_cli.video_length,
-            "disable_logger": True,
-        }
-        print("[INFO] Recording videos during training.")
-        print_dict(video_kwargs, nesting=4)
-        env = gym.wrappers.RecordVideo(env, **video_kwargs)
-
-    # wrap around environment for rsl-rl
-    env = RslRlVecEnvWrapper(env, clip_actions=agent_cfg.clip_actions)
-
-    # create runner from rsl-rl
-    runner = OnPolicyRunner(env, agent_cfg.to_dict(), log_dir=log_dir, device=agent_cfg.device)
-    # write git state to logs
-    runner.add_git_repo_to_log(__file__)
-    # load the checkpoint
-    if agent_cfg.resume or agent_cfg.algorithm.class_name == "Distillation":
-        print(f"[INFO]: Loading model checkpoint from: {resume_path}")
-        # load previously trained model
-        runner.load(resume_path)
-
-    # dump the configuration into log-directory
-    dump_yaml(os.path.join(log_dir, "params", "env.yaml"), env_cfg)
-    dump_yaml(os.path.join(log_dir, "params", "agent.yaml"), agent_cfg)
-    dump_pickle(os.path.join(log_dir, "params", "env.pkl"), env_cfg)
-    dump_pickle(os.path.join(log_dir, "params", "agent.pkl"), agent_cfg)
-
-    # run training
-    runner.learn(num_learning_iterations=agent_cfg.max_iterations, init_at_random_ep_len=True)
-
-    # close the simulator
-    env.close()
-
-
-if __name__ == "__main__":
-    # run the main function
-    main()
-    # close sim app
-    simulation_app.close()
-```
-
-**play.py**
-
-```python
-# Copyright (c) 2022-2025, The Isaac Lab Project Developers (https://github.com/isaac-sim/IsaacLab/blob/main/CONTRIBUTORS.md).
-# All rights reserved.
-#
-# SPDX-License-Identifier: BSD-3-Clause
-
-"""Script to play a checkpoint if an RL agent from RSL-RL."""
-
-"""Launch Isaac Sim Simulator first."""
-
-import argparse
-import sys
-
-from isaaclab.app import AppLauncher
-
-# local imports
-import cli_args  # isort: skip
-
-# add argparse arguments
-parser = argparse.ArgumentParser(description="Train an RL agent with RSL-RL.")
-parser.add_argument("--video", action="store_true", default=False, help="Record videos during training.")
-parser.add_argument("--video_length", type=int, default=200, help="Length of the recorded video (in steps).")
-parser.add_argument(
-    "--disable_fabric", action="store_true", default=False, help="Disable fabric and use USD I/O operations."
-)
-parser.add_argument("--num_envs", type=int, default=None, help="Number of environments to simulate.")
-parser.add_argument("--task", type=str, default=None, help="Name of the task.")
-parser.add_argument(
-    "--agent", type=str, default="rsl_rl_cfg_entry_point", help="Name of the RL agent configuration entry point."
-)
-parser.add_argument("--seed", type=int, default=None, help="Seed used for the environment")
-parser.add_argument(
-    "--use_pretrained_checkpoint",
-    action="store_true",
-    help="Use the pre-trained checkpoint from Nucleus.",
-)
-parser.add_argument("--real-time", action="store_true", default=False, help="Run in real-time, if possible.")
-# append RSL-RL cli arguments
-cli_args.add_rsl_rl_args(parser)
-# append AppLauncher cli args
-AppLauncher.add_app_launcher_args(parser)
-# parse the arguments
-args_cli, hydra_args = parser.parse_known_args()
-# always enable cameras to record video
-if args_cli.video:
-    args_cli.enable_cameras = True
-
-# clear out sys.argv for Hydra
-sys.argv = [sys.argv[0]] + hydra_args
-
-# launch omniverse app
-app_launcher = AppLauncher(args_cli)
-simulation_app = app_launcher.app
-
-"""Rest everything follows."""
-
-import gymnasium as gym
-import os
-import time
-import torch
-
-from rsl_rl.runners import OnPolicyRunner
-
-from isaaclab.envs import (
-    DirectMARLEnv,
-    DirectMARLEnvCfg,
-    DirectRLEnvCfg,
-    ManagerBasedRLEnvCfg,
-    multi_agent_to_single_agent,
-)
-from isaaclab.utils.assets import retrieve_file_path
-from isaaclab.utils.dict import print_dict
-from isaaclab.utils.pretrained_checkpoint import get_published_pretrained_checkpoint
-
-from isaaclab_rl.rsl_rl import RslRlOnPolicyRunnerCfg, RslRlVecEnvWrapper, export_policy_as_jit, export_policy_as_onnx
-
-import isaaclab_tasks  # noqa: F401
-from isaaclab_tasks.utils import get_checkpoint_path
-from isaaclab_tasks.utils.hydra import hydra_task_config
-
-# PLACEHOLDER: Extension template (do not remove this comment)
-
-
-@hydra_task_config(args_cli.task, args_cli.agent)
-def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agent_cfg: RslRlOnPolicyRunnerCfg):
-    """Play with RSL-RL agent."""
-    # grab task name for checkpoint path
-    task_name = args_cli.task.split(":")[-1]
-    train_task_name = task_name.replace("-Play", "")
-
-    # override configurations with non-hydra CLI arguments
-    agent_cfg = cli_args.update_rsl_rl_cfg(agent_cfg, args_cli)
-    env_cfg.scene.num_envs = args_cli.num_envs if args_cli.num_envs is not None else env_cfg.scene.num_envs
-
-    # set the environment seed
-    # note: certain randomizations occur in the environment initialization so we set the seed here
-    env_cfg.seed = agent_cfg.seed
-    env_cfg.sim.device = args_cli.device if args_cli.device is not None else env_cfg.sim.device
-
-    # specify directory for logging experiments
-    log_root_path = os.path.join("logs", "rsl_rl", agent_cfg.experiment_name)
-    log_root_path = os.path.abspath(log_root_path)
-    print(f"[INFO] Loading experiment from directory: {log_root_path}")
-    if args_cli.use_pretrained_checkpoint:
-        resume_path = get_published_pretrained_checkpoint("rsl_rl", train_task_name)
-        if not resume_path:
-            print("[INFO] Unfortunately a pre-trained checkpoint is currently unavailable for this task.")
-            return
-    elif args_cli.checkpoint:
-        resume_path = retrieve_file_path(args_cli.checkpoint)
-    else:
-        resume_path = get_checkpoint_path(log_root_path, agent_cfg.load_run, agent_cfg.load_checkpoint)
-
-    log_dir = os.path.dirname(resume_path)
-
-    # create isaac environment
-    env = gym.make(args_cli.task, cfg=env_cfg, render_mode="rgb_array" if args_cli.video else None)
-
-    # convert to single-agent instance if required by the RL algorithm
-    if isinstance(env.unwrapped, DirectMARLEnv):
-        env = multi_agent_to_single_agent(env)
-
-    # wrap for video recording
-    if args_cli.video:
-        video_kwargs = {
-            "video_folder": os.path.join(log_dir, "videos", "play"),
-            "step_trigger": lambda step: step == 0,
-            "video_length": args_cli.video_length,
-            "disable_logger": True,
-        }
-        print("[INFO] Recording videos during training.")
-        print_dict(video_kwargs, nesting=4)
-        env = gym.wrappers.RecordVideo(env, **video_kwargs)
-
-    # wrap around environment for rsl-rl
-    env = RslRlVecEnvWrapper(env, clip_actions=agent_cfg.clip_actions)
-
-    print(f"[INFO]: Loading model checkpoint from: {resume_path}")
-    # load previously trained model
-    ppo_runner = OnPolicyRunner(env, agent_cfg.to_dict(), log_dir=None, device=agent_cfg.device)
-    ppo_runner.load(resume_path)
-
-    # obtain the trained policy for inference
-    policy = ppo_runner.get_inference_policy(device=env.unwrapped.device)
-
-    # extract the neural network module
-    # we do this in a try-except to maintain backwards compatibility.
-    try:
-        # version 2.3 onwards
-        policy_nn = ppo_runner.alg.policy
-    except AttributeError:
-        # version 2.2 and below
-        policy_nn = ppo_runner.alg.actor_critic
-
-    # export policy to onnx/jit
-    export_model_dir = os.path.join(os.path.dirname(resume_path), "exported")
-    export_policy_as_jit(policy_nn, ppo_runner.obs_normalizer, path=export_model_dir, filename="policy.pt")
-    export_policy_as_onnx(
-        policy_nn, normalizer=ppo_runner.obs_normalizer, path=export_model_dir, filename="policy.onnx"
-    )
-
-    dt = env.unwrapped.step_dt
-
-    # reset environment
-    obs, _ = env.get_observations()
-    timestep = 0
-    # simulate environment
-    while simulation_app.is_running():
-        start_time = time.time()
-        # run everything in inference mode
-        with torch.inference_mode():
-            # agent stepping
-            actions = policy(obs)
-            # env stepping
-            obs, _, _, _ = env.step(actions)
-        if args_cli.video:
-            timestep += 1
-            # Exit the play loop after recording one video
-            if timestep == args_cli.video_length:
-                break
-
-        # time delay for real-time evaluation
-        sleep_time = dt - (time.time() - start_time)
-        if args_cli.real_time and sleep_time > 0:
-            time.sleep(sleep_time)
-
-    # close the simulator
-    env.close()
-
-
-if __name__ == "__main__":
-    # run the main function
-    main()
-    # close sim app
-    simulation_app.close()
-```
-
-**cli_args.py**
-
-```python
-# Copyright (c) 2022-2025, The Isaac Lab Project Developers (https://github.com/isaac-sim/IsaacLab/blob/main/CONTRIBUTORS.md).
-# All rights reserved.
-#
-# SPDX-License-Identifier: BSD-3-Clause
-
-from __future__ import annotations
-
-import argparse
-import random
-from typing import TYPE_CHECKING
-
-if TYPE_CHECKING:
-    from isaaclab_rl.rsl_rl import RslRlOnPolicyRunnerCfg
-
-
-def add_rsl_rl_args(parser: argparse.ArgumentParser):
-    """Add RSL-RL arguments to the parser.
-
-    Args:
-        parser: The parser to add the arguments to.
-    """
-    # create a new argument group
-    arg_group = parser.add_argument_group("rsl_rl", description="Arguments for RSL-RL agent.")
-    # -- experiment arguments
-    arg_group.add_argument(
-        "--experiment_name", type=str, default=None, help="Name of the experiment folder where logs will be stored."
-    )
-    arg_group.add_argument("--run_name", type=str, default=None, help="Run name suffix to the log directory.")
-    # -- load arguments
-    arg_group.add_argument("--resume", action="store_true", default=False, help="Whether to resume from a checkpoint.")
-    arg_group.add_argument("--load_run", type=str, default=None, help="Name of the run folder to resume from.")
-    arg_group.add_argument("--checkpoint", type=str, default=None, help="Checkpoint file to resume from.")
-    # -- logger arguments
-    arg_group.add_argument(
-        "--logger", type=str, default=None, choices={"wandb", "tensorboard", "neptune"}, help="Logger module to use."
-    )
-    arg_group.add_argument(
-        "--log_project_name", type=str, default=None, help="Name of the logging project when using wandb or neptune."
-    )
-
-
-def parse_rsl_rl_cfg(task_name: str, args_cli: argparse.Namespace) -> RslRlOnPolicyRunnerCfg:
-    """Parse configuration for RSL-RL agent based on inputs.
-
-    Args:
-        task_name: The name of the environment.
-        args_cli: The command line arguments.
-
-    Returns:
-        The parsed configuration for RSL-RL agent based on inputs.
-    """
-    from isaaclab_tasks.utils.parse_cfg import load_cfg_from_registry
-
-    # load the default configuration
-    rslrl_cfg: RslRlOnPolicyRunnerCfg = load_cfg_from_registry(task_name, "rsl_rl_cfg_entry_point")
-    rslrl_cfg = update_rsl_rl_cfg(rslrl_cfg, args_cli)
-    return rslrl_cfg
-
-
-def update_rsl_rl_cfg(agent_cfg: RslRlOnPolicyRunnerCfg, args_cli: argparse.Namespace):
-    """Update configuration for RSL-RL agent based on inputs.
-
-    Args:
-        agent_cfg: The configuration for RSL-RL agent.
-        args_cli: The command line arguments.
-
-    Returns:
-        The updated configuration for RSL-RL agent based on inputs.
-    """
-    # override the default configuration with CLI arguments
-    if hasattr(args_cli, "seed") and args_cli.seed is not None:
-        # randomly sample a seed if seed = -1
-        if args_cli.seed == -1:
-            args_cli.seed = random.randint(0, 10000)
-        agent_cfg.seed = args_cli.seed
-    if args_cli.resume is not None:
-        agent_cfg.resume = args_cli.resume
-    if args_cli.load_run is not None:
-        agent_cfg.load_run = args_cli.load_run
-    if args_cli.checkpoint is not None:
-        agent_cfg.load_checkpoint = args_cli.checkpoint
-    if args_cli.run_name is not None:
-        agent_cfg.run_name = args_cli.run_name
-    if args_cli.logger is not None:
-        agent_cfg.logger = args_cli.logger
-    # set the project name for wandb and neptune
-    if agent_cfg.logger in {"wandb", "neptune"} and args_cli.log_project_name:
-        agent_cfg.wandb_project = args_cli.log_project_name
-        agent_cfg.neptune_project = args_cli.log_project_name
-
-    return agent_cfg
-```
-
-**Isaaclab.sh**
-
-```python
-#!/usr/bin/env bash
-
-# Copyright (c) 2022-2025, The Isaac Lab Project Developers (https://github.com/isaac-sim/IsaacLab/blob/main/CONTRIBUTORS.md).
-# All rights reserved.
-#
-# SPDX-License-Identifier: BSD-3-Clause
-
-#==
-# Configurations
-#==
-
-# Exits if error occurs
-set -e
-
-# Set tab-spaces
-tabs 4
-
-# get source directory
-export ISAACLAB_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
-
-#==
-# Helper functions
-#==
-
-# install system dependencies
-install_system_deps() {
-    # check if cmake is already installed
-    if command -v cmake &> /dev/null; then
-        echo "[INFO] cmake is already installed."
-    else
-        # check if running as root
-        if [ "$EUID" -ne 0 ]; then
-            echo "[INFO] Installing system dependencies..."
-            sudo apt-get update && sudo apt-get install -y --no-install-recommends \
-                cmake \
-                build-essential
-        else
-            echo "[INFO] Installing system dependencies..."
-            apt-get update && apt-get install -y --no-install-recommends \
-                cmake \
-                build-essential
-        fi
-    fi
-}
-
-# Returns success (exit code 0 / "true") if the detected Isaac Sim version starts with 4.5,
-# otherwise returns non-zero ("false"). Works with both symlinked binary installs and pip installs.
-is_isaacsim_version_4_5() {
-    local version=""
-    local python_exe
-    python_exe=$(extract_python_exe)
-
-    # 0) Fast path: read VERSION file from the symlinked _isaac_sim directory (binary install)
-    # If the repository has _isaac_sim → <IsaacSimRoot> symlink, the VERSION file is the simplest source of truth.
-    if [[ -f "${ISAACLAB_PATH}/_isaac_sim/VERSION" ]]; then
-        # Read first line of the VERSION file; don't fail the whole script on errors.
-        version=$(head -n1 "${ISAACLAB_PATH}/_isaac_sim/VERSION" || true)
-    fi
-
-    # 1) Package-path probe: import isaacsim and walk up to ../../VERSION (pip or nonstandard layouts)
-    # If we still don't know the version, ask Python where the isaacsim package lives
-    if [[ -z "$version" ]]; then
-        local sim_file=""
-        # Print isaacsim.__file__; suppress errors so set -e won't abort.
-        sim_file=$("${python_exe}" -c 'import isaacsim, os; print(isaacsim.__file__)' 2>/dev/null || true)
-        if [[ -n "$sim_file" ]]; then
-            local version_path
-            version_path="$(dirname "$sim_file")/../../VERSION"
-            # If that VERSION file exists, read it.
-            [[ -f "$version_path" ]] && version=$(head -n1 "$version_path" || true)
-        fi
-    fi
-
-    # 2) Fallback: use package metadata via importlib.metadata.version("isaacsim")
-    if [[ -z "$version" ]]; then
-        version=$("${python_exe}" <<'PY' 2>/dev/null || true
-from importlib.metadata import version, PackageNotFoundError
-try:
-    print(version("isaacsim"))
-except PackageNotFoundError:
-    pass
-PY
-)
-    fi
-
-    # Final decision: return success if version begins with "4.5", 0 if match, 1 otherwise.
-    [[ "$version" == 4.5* ]]
-}
-
-# check if running in docker
-is_docker() {
-    [ -f /.dockerenv ] || \
-    grep -q docker /proc/1/cgroup || \
-    [[ $(cat /proc/1/comm) == "containerd-shim" ]] || \
-    grep -q docker /proc/mounts || \
-    [[ "$(hostname)" == *"."* ]]
-}
-
-# extract isaac sim path
-extract_isaacsim_path() {
-    # Use the sym-link path to Isaac Sim directory
-    local isaac_path=${ISAACLAB_PATH}/_isaac_sim
-    # If above path is not available, try to find the path using python
-    if [ ! -d "${isaac_path}" ]; then
-        # Use the python executable to get the path
-        local python_exe=$(extract_python_exe)
-        # Retrieve the path importing isaac sim and getting the environment path
-        if [ $(${python_exe} -m pip list | grep -c 'isaacsim-rl') -gt 0 ]; then
-            local isaac_path=$(${python_exe} -c "import isaacsim; import os; print(os.environ['ISAAC_PATH'])")
-        fi
-    fi
-    # check if there is a path available
-    if [ ! -d "${isaac_path}" ]; then
-        # throw an error if no path is found
-        echo -e "[ERROR] Unable to find the Isaac Sim directory: '${isaac_path}'" >&2
-        echo -e "\tThis could be due to the following reasons:" >&2
-        echo -e "\t1. Conda environment is not activated." >&2
-        echo -e "\t2. Isaac Sim pip package 'isaacsim-rl' is not installed." >&2
-        echo -e "\t3. Isaac Sim directory is not available at the default path: ${ISAACLAB_PATH}/_isaac_sim" >&2
-        # exit the script
-        exit 1
-    fi
-    # return the result
-    echo ${isaac_path}
-}
-
-# extract the python from isaacsim
-extract_python_exe() {
-    # check if using conda
-    if ! [[ -z "${CONDA_PREFIX}" ]]; then
-        # use conda python
-        local python_exe=${CONDA_PREFIX}/bin/python
-    else
-        # use kit python
-        local python_exe=${ISAACLAB_PATH}/_isaac_sim/python.sh
-
-    if [ ! -f "${python_exe}" ]; then
-            # note: we need to check system python for cases such as docker
-            # inside docker, if user installed into system python, we need to use that
-            # otherwise, use the python from the kit
-            if [ $(python -m pip list | grep -c 'isaacsim-rl') -gt 0 ]; then
-                local python_exe=$(which python)
-            fi
-        fi
-    fi
-    # check if there is a python path available
-    if [ ! -f "${python_exe}" ]; then
-        echo -e "[ERROR] Unable to find any Python executable at path: '${python_exe}'" >&2
-        echo -e "\tThis could be due to the following reasons:" >&2
-        echo -e "\t1. Conda environment is not activated." >&2
-        echo -e "\t2. Isaac Sim pip package 'isaacsim-rl' is not installed." >&2
-        echo -e "\t3. Python executable is not available at the default path: ${ISAACLAB_PATH}/_isaac_sim/python.sh" >&2
-        exit 1
-    fi
-    # return the result
-    echo ${python_exe}
-}
-
-# extract the simulator exe from isaacsim
-extract_isaacsim_exe() {
-    # obtain the isaac sim path
-    local isaac_path=$(extract_isaacsim_path)
-    # isaac sim executable to use
-    local isaacsim_exe=${isaac_path}/isaac-sim.sh
-    # check if there is a python path available
-    if [ ! -f "${isaacsim_exe}" ]; then
-        # check for installation using Isaac Sim pip
-        # note: pip installed Isaac Sim can only come from a direct
-        # python environment, so we can directly use 'python' here
-        if [ $(python -m pip list | grep -c 'isaacsim-rl') -gt 0 ]; then
-            # Isaac Sim - Python packages entry point
-            local isaacsim_exe="isaacsim isaacsim.exp.full"
-        else
-            echo "[ERROR] No Isaac Sim executable found at path: ${isaac_path}" >&2
-            exit 1
-        fi
-    fi
-    # return the result
-    echo ${isaacsim_exe}
-}
-
-# check if input directory is a python extension and install the module
-install_isaaclab_extension() {
-    # retrieve the python executable
-    python_exe=$(extract_python_exe)
-    # if the directory contains setup.py then install the python module
-    if [ -f "$1/setup.py" ]; then
-        echo -e "\t module: $1"
-        ${python_exe} -m pip install --editable $1
-    fi
-}
-
-# setup anaconda environment for Isaac Lab
-setup_conda_env() {
-    # get environment name from input
-    local env_name=$1
-    # check conda is installed
-    if ! command -v conda &> /dev/null
-    then
-        echo "[ERROR] Conda could not be found. Please install conda and try again."
-        exit 1
-    fi
-
-    # check if _isaac_sim symlink exists and isaacsim-rl is not installed via pip
-    if [ ! -L "${ISAACLAB_PATH}/_isaac_sim" ] && ! python -m pip list | grep -q 'isaacsim-rl'; then
-        echo -e "[WARNING] _isaac_sim symlink not found at ${ISAACLAB_PATH}/_isaac_sim"
-        echo -e "\tThis warning can be ignored if you plan to install Isaac Sim via pip."
-        echo -e "\tIf you are using a binary installation of Isaac Sim, please ensure the symlink is created before setting up the conda environment."
-    fi
-
-    # check if the environment exists
-    if { conda env list | grep -w ${env_name}; } >/dev/null 2>&1; then
-        echo -e "[INFO] Conda environment named '${env_name}' already exists."
-    else
-        echo -e "[INFO] Creating conda environment named '${env_name}'..."
-        echo -e "[INFO] Installing dependencies from ${ISAACLAB_PATH}/environment.yml"
-
-        # patch Python version if needed, but back up first
-        cp "${ISAACLAB_PATH}/environment.yml"{,.bak}
-        if is_isaacsim_version_4_5; then
-            echo "[INFO] Detected Isaac Sim 4.5 → forcing python=3.10"
-            sed -i 's/^  - python=3\.11/  - python=3.10/' "${ISAACLAB_PATH}/environment.yml"
-        else
-            echo "[INFO] Isaac Sim 5.0, installing python=3.11"
-        fi
-
-        conda env create -y --file ${ISAACLAB_PATH}/environment.yml -n ${env_name}
-        # (optional) restore original environment.yml:
-        if [[ -f "${ISAACLAB_PATH}/environment.yml.bak" ]]; then
-            mv "${ISAACLAB_PATH}/environment.yml.bak" "${ISAACLAB_PATH}/environment.yml"
-        fi
-    fi
-
-    # cache current paths for later
-    cache_pythonpath=$PYTHONPATH
-    cache_ld_library_path=$LD_LIBRARY_PATH
-    # clear any existing files
-    rm -f ${CONDA_PREFIX}/etc/conda/activate.d/setenv.sh
-    rm -f ${CONDA_PREFIX}/etc/conda/deactivate.d/unsetenv.sh
-    # activate the environment
-    source $(conda info --base)/etc/profile.d/conda.sh
-    conda activate ${env_name}
-    # setup directories to load Isaac Sim variables
-    mkdir -p ${CONDA_PREFIX}/etc/conda/activate.d
-    mkdir -p ${CONDA_PREFIX}/etc/conda/deactivate.d
-
-    # add variables to environment during activation
-    printf '%s\n' '#!/usr/bin/env bash' '' \
-        '# for Isaac Lab' \
-        'export ISAACLAB_PATH='${ISAACLAB_PATH}'' \
-        'alias isaaclab='${ISAACLAB_PATH}'/isaaclab.sh' \
-        '' \
-        '# show icon if not runninng headless' \
-        'export RESOURCE_NAME="IsaacSim"' \
-        '' > ${CONDA_PREFIX}/etc/conda/activate.d/setenv.sh
-
-    # check if we have _isaac_sim directory -> if so that means binaries were installed.
-    # we need to setup conda variables to load the binaries
-    local isaacsim_setup_conda_env_script=${ISAACLAB_PATH}/_isaac_sim/setup_conda_env.sh
-
-    if [ -f "${isaacsim_setup_conda_env_script}" ]; then
-        # add variables to environment during activation
-        printf '%s\n' \
-            '# for Isaac Sim' \
-            'source '${isaacsim_setup_conda_env_script}'' \
-            '' >> ${CONDA_PREFIX}/etc/conda/activate.d/setenv.sh
-    fi
-
-    # reactivate the environment to load the variables
-    # needed because deactivate complains about Isaac Lab alias since it otherwise doesn't exist
-    conda activate ${env_name}
-
-    # remove variables from environment during deactivation
-    printf '%s\n' '#!/usr/bin/env bash' '' \
-        '# for Isaac Lab' \
-        'unalias isaaclab &>/dev/null' \
-        'unset ISAACLAB_PATH' \
-        '' \
-        '# restore paths' \
-        'export PYTHONPATH='${cache_pythonpath}'' \
-        'export LD_LIBRARY_PATH='${cache_ld_library_path}'' \
-        '' \
-        '# for Isaac Sim' \
-        'unset RESOURCE_NAME' \
-        '' > ${CONDA_PREFIX}/etc/conda/deactivate.d/unsetenv.sh
-
-    # check if we have _isaac_sim directory -> if so that means binaries were installed.
-    if [ -f "${isaacsim_setup_conda_env_script}" ]; then
-        # add variables to environment during activation
-        printf '%s\n' \
-            '# for Isaac Sim' \
-            'unset CARB_APP_PATH' \
-            'unset EXP_PATH' \
-            'unset ISAAC_PATH' \
-            '' >> ${CONDA_PREFIX}/etc/conda/deactivate.d/unsetenv.sh
-    fi
-
-    # deactivate the environment
-    conda deactivate
-    # add information to the user about alias
-    echo -e "[INFO] Added 'isaaclab' alias to conda environment for 'isaaclab.sh' script."
-    echo -e "[INFO] Created conda environment named '${env_name}'.\n"
-    echo -e "\t\t1. To activate the environment, run:                conda activate ${env_name}"
-    echo -e "\t\t2. To install Isaac Lab extensions, run:            isaaclab -i"
-    echo -e "\t\t3. To perform formatting, run:                      isaaclab -f"
-    echo -e "\t\t4. To deactivate the environment, run:              conda deactivate"
-    echo -e "\n"
-}
-
-# update the vscode settings from template and isaac sim settings
-update_vscode_settings() {
-    echo "[INFO] Setting up vscode settings..."
-    # retrieve the python executable
-    python_exe=$(extract_python_exe)
-    # path to setup_vscode.py
-    setup_vscode_script="${ISAACLAB_PATH}/.vscode/tools/setup_vscode.py"
-    # check if the file exists before attempting to run it
-    if [ -f "${setup_vscode_script}" ]; then
-        ${python_exe} "${setup_vscode_script}"
-    else
-        echo "[WARNING] Unable to find the script 'setup_vscode.py'. Aborting vscode settings setup."
-    fi
-}
-
-# print the usage description
-print_help () {
-    echo -e "\nusage: $(basename "$0") [-h] [-i] [-f] [-p] [-s] [-t] [-o] [-v] [-d] [-n] [-c] -- Utility to manage Isaac Lab."
-    echo -e "\noptional arguments:"
-    echo -e "\t-h, --help           Display the help content."
-    echo -e "\t-i, --install [LIB]  Install the extensions inside Isaac Lab and learning frameworks as extra dependencies. Default is 'all'."
-    echo -e "\t-f, --format         Run pre-commit to format the code and check lints."
-    echo -e "\t-p, --python         Run the python executable provided by Isaac Sim or virtual environment (if active)."
-    echo -e "\t-s, --sim            Run the simulator executable (isaac-sim.sh) provided by Isaac Sim."
-    echo -e "\t-t, --test           Run all python pytest tests."
-    echo -e "\t-o, --docker         Run the docker container helper script (docker/container.sh)."
-    echo -e "\t-v, --vscode         Generate the VSCode settings file from template."
-    echo -e "\t-d, --docs           Build the documentation from source using sphinx."
-    echo -e "\t-n, --new            Create a new external project or internal task from template."
-    echo -e "\t-c, --conda [NAME]   Create the conda environment for Isaac Lab. Default name is 'env_isaaclab'."
-    echo -e "\n" >&2
-}
-
-
-#==
-# Main
-#==
-
-# check argument provided
-if [ -z "$*" ]; then
-    echo "[Error] No arguments provided." >&2;
-    print_help
-    exit 0
-fi
-
-# pass the arguments
-while [[ $# -gt 0 ]]; do
-    # read the key
-    case "$1" in
-        -i|--install)
-            # install system dependencies first
-            install_system_deps
-            # install the python packages in IsaacLab/source directory
-            echo "[INFO] Installing extensions inside the Isaac Lab repository..."
-            python_exe=$(extract_python_exe)
-            # check if pytorch is installed and its version
-            # install pytorch with cuda 12.8 for blackwell support
-            if ${python_exe} -m pip list 2>/dev/null | grep -q "torch"; then
-                torch_version=$(${python_exe} -m pip show torch 2>/dev/null | grep "Version:" | awk '{print $2}')
-                echo "[INFO] Found PyTorch version ${torch_version} installed."
-                if [[ "${torch_version}" != "2.7.0+cu128" ]]; then
-                    echo "[INFO] Uninstalling PyTorch version ${torch_version}..."
-                    ${python_exe} -m pip uninstall -y torch torchvision torchaudio
-                    echo "[INFO] Installing PyTorch 2.7.0 with CUDA 12.8 support..."
-                    ${python_exe} -m pip install torch==2.7.0 torchvision==0.22.0 --index-url https://download.pytorch.org/whl/cu128
-                else
-                    echo "[INFO] PyTorch 2.7.0 is already installed."
-                fi
-            else
-                echo "[INFO] Installing PyTorch 2.7.0 with CUDA 12.8 support..."
-                ${python_exe} -m pip install torch==2.7.0 torchvision==0.22.0 --index-url https://download.pytorch.org/whl/cu128
-            fi
-            # recursively look into directories and install them
-            # this does not check dependencies between extensions
-            export -f extract_python_exe
-            export -f install_isaaclab_extension
-            # source directory
-            find -L "${ISAACLAB_PATH}/source" -mindepth 1 -maxdepth 1 -type d -exec bash -c 'install_isaaclab_extension "{}"' \;
-            # install the python packages for supported reinforcement learning frameworks
-            echo "[INFO] Installing extra requirements such as learning frameworks..."
-            # check if specified which rl-framework to install
-            if [ -z "$2" ]; then
-                echo "[INFO] Installing all rl-frameworks..."
-                framework_name="all"
-            elif [ "$2" = "none" ]; then
-                echo "[INFO] No rl-framework will be installed."
-                framework_name="none"
-                shift # past argument
-            else
-                echo "[INFO] Installing rl-framework: $2"
-                framework_name=$2
-                shift # past argument
-            fi
-            # install the learning frameworks specified
-            ${python_exe} -m pip install -e ${ISAACLAB_PATH}/source/isaaclab_rl["${framework_name}"]
-            ${python_exe} -m pip install -e ${ISAACLAB_PATH}/source/isaaclab_mimic["${framework_name}"]
-
-            # check if we are inside a docker container or are building a docker image
-            # in that case don't setup VSCode since it asks for EULA agreement which triggers user interaction
-            if is_docker; then
-                echo "[INFO] Running inside a docker container. Skipping VSCode settings setup."
-                echo "[INFO] To setup VSCode settings, run 'isaaclab -v'."
-            else
-                # update the vscode settings
-                update_vscode_settings
-            fi
-
-            # unset local variables
-            unset extract_python_exe
-            unset install_isaaclab_extension
-            shift # past argument
-            ;;
-        -c|--conda)
-            # use default name if not provided
-            if [ -z "$2" ]; then
-                echo "[INFO] Using default conda environment name: env_isaaclab"
-                conda_env_name="env_isaaclab"
-            else
-                echo "[INFO] Using conda environment name: $2"
-                conda_env_name=$2
-                shift # past argument
-            fi
-            # setup the conda environment for Isaac Lab
-            setup_conda_env ${conda_env_name}
-            shift # past argument
-            ;;
-        -f|--format)
-            # reset the python path to avoid conflicts with pre-commit
-            # this is needed because the pre-commit hooks are installed in a separate virtual environment
-            # and it uses the system python to run the hooks
-            if [ -n "${CONDA_DEFAULT_ENV}" ]; then
-                cache_pythonpath=${PYTHONPATH}
-                export PYTHONPATH=""
-            fi
-            # run the formatter over the repository
-            # check if pre-commit is installed
-            if ! command -v pre-commit &>/dev/null; then
-                echo "[INFO] Installing pre-commit..."
-                pip install pre-commit
-                sudo apt-get install -y pre-commit
-            fi
-            # always execute inside the Isaac Lab directory
-            echo "[INFO] Formatting the repository..."
-            cd ${ISAACLAB_PATH}
-            pre-commit run --all-files
-            cd - > /dev/null
-            # set the python path back to the original value
-            if [ -n "${CONDA_DEFAULT_ENV}" ]; then
-                export PYTHONPATH=${cache_pythonpath}
-            fi
-            shift # past argument
-            # exit neatly
-            break
-            ;;
-        -p|--python)
-            # run the python provided by isaacsim
-            python_exe=$(extract_python_exe)
-            echo "[INFO] Using python from: ${python_exe}"
-            shift # past argument
-            ${python_exe} "$@"
-            # exit neatly
-            break
-            ;;
-        -s|--sim)
-            # run the simulator exe provided by isaacsim
-            isaacsim_exe=$(extract_isaacsim_exe)
-            echo "[INFO] Running isaac-sim from: ${isaacsim_exe}"
-            shift # past argument
-            ${isaacsim_exe} --ext-folder ${ISAACLAB_PATH}/source $@
-            # exit neatly
-            break
-            ;;
-        -n|--new)
-            # run the template generator script
-            python_exe=$(extract_python_exe)
-            shift # past argument
-            echo "[INFO] Installing template dependencies..."
-            ${python_exe} -m pip install -q -r ${ISAACLAB_PATH}/tools/template/requirements.txt
-            echo -e "\n[INFO] Running template generator...\n"
-            ${python_exe} ${ISAACLAB_PATH}/tools/template/cli.py $@
-            # exit neatly
-            break
-            ;;
-        -t|--test)
-            # run the python provided by isaacsim
-            python_exe=$(extract_python_exe)
-            shift # past argument
-            ${python_exe} -m pytest ${ISAACLAB_PATH}/tools $@
-            # exit neatly
-            break
-            ;;
-        -o|--docker)
-            # run the docker container helper script
-            docker_script=${ISAACLAB_PATH}/docker/container.sh
-            echo "[INFO] Running docker utility script from: ${docker_script}"
-            shift # past argument
-            bash ${docker_script} $@
-            # exit neatly
-            break
-            ;;
-        -v|--vscode)
-            # update the vscode settings
-            update_vscode_settings
-            shift # past argument
-            # exit neatly
-            break
-            ;;
-        -d|--docs)
-            # build the documentation
-            echo "[INFO] Building documentation..."
-            # retrieve the python executable
-            python_exe=$(extract_python_exe)
-            # install pip packages
-            cd ${ISAACLAB_PATH}/docs
-            ${python_exe} -m pip install -r requirements.txt > /dev/null
-            # build the documentation
-            ${python_exe} -m sphinx -b html -d _build/doctrees . _build/current
-            # open the documentation
-            echo -e "[INFO] To open documentation on default browser, run:"
-            echo -e "\n\t\txdg-open $(pwd)/_build/current/index.html\n"
-            # exit neatly
-            cd - > /dev/null
-            shift # past argument
-            # exit neatly
-            break
-            ;;
-        -h|--help)
-            print_help
-            exit 0
-            ;;
-        *) # unknown option
-            echo "[Error] Invalid argument provided: $1"
-            print_help
-            exit 1
-            ;;
-    esac
-done
-```
-  ```bash
-  # 环境（示例）
-  conda create -n isaaclab python=3.10 -y
-  conda activate isaaclab
-  # 安装依赖（按官方指引）
-  # ...
-  # 运行最小任务（如 Isaac-Ant-v0）
-  ./isaaclab.sh -p scripts/reinforcement_learning/rsl_rl/train.py --task=Isaac-Ant-v0 --headless
-  ./isaaclab.sh -p scripts/reinforcement_learning/rsl_rl/play.py --task Isaac-Isaac-Ant-v0 --checkpoint model_999.pt
-  ```
-
-  * ✅ 目标：能在 5–10 分钟内跑出第一个曲线与视频
-  * ✅ 交付：`/sim/isaaclab-minimal/README.md`（命令、注意事项、常见坑）
 
 ---
 
