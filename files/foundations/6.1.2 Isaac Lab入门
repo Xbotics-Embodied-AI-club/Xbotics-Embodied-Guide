@@ -1,0 +1,358 @@
+#### 2、Isaac Lab入门
+##### 2.1 安装
+###### 系统要求
+
+**一般要求**
+有关详细要求，请参阅 Isaac Sim 系统要求 。基本要求包括：
+
+OS: Ubuntu 22.04 (Linux x64) 或 Windows 11 (x64)
+
+RAM: 32 GB 或更多
+
+GPU VRAM: 16 GB 或更多 (渲染工作流程可能需要额外的 VRAM)
+
+Isaac Sim 是针对特定的 Python 版本构建的 ，在安装 Isaac Lab 时，使用相同的 Python 版本至关重要。所需的 Python 版本如下：
+
+对于 Isaac Sim 5.X，所需的 Python 版本是 3.11。
+
+对于 Isaac Sim 4.X，所需的 Python 版本是 3.10。
+
+**驱动要求**
+除了在 Omniverse技术要求 中推荐的驱动程序之外，其他驱动程序可能可用，但尚未经过所有Omniverse测试的验证。
+
+使用 最新的NVIDIA生产分支驱动程序。
+
+在 Linux 上，建议使用版本 580.65.06 或更高版本，特别是在升级到 Ubuntu 22.04.5，内核为 6.8.0-48-generic 或更新版本时。
+
+在 Spark 上，建议使用版本 580.95.05 。
+
+在 Windows 上，建议使用版本 580.88 。
+
+如果您在使用新的GPU或遇到驱动程序问题，请从 Unix Driver Archive <https://www.nvidia.com/en-us/drivers/unix/> 中安装最新的生产分支驱动程序，使用 .run 安装程序。
+
+###### DGX Spark: 详细信息和限制
+
+DGX Spark 是一款采用 aarch64 架构的独立机器学习设备。因此，Isaac Lab 的某些功能目前在 DGX Spark 上不受支持。最值得注意的是，该架构 需要 CUDA ≥ 13，因此需要 PyTorch 的 cu13 构建或更新版本。关于 Isaac Lab 的其他值得注意的限制包括…
+
+SkillGen 不支持开箱即用。这是因为 cuRobo 构建原生 CUDA/C++ 扩展，需要特定的工具和库版本，这些版本尚未经过验证可用于 DGX Spark。
+
+扩展现实远程操作工具，例如 OpenXR 不受支持。这是由于尚未完全调查的编码性能限制。
+
+使用 JAX <[https://docs.jax.dev/en/latest/notebooks/thinking_in_jax.html](https://docs.jax.dev/en/latest/notebooks/thinking_in_jax.html)>_ 的 SKRL 训练尚未在 DGX Spark 上的 Isaac Lab 中经过明确验证或测试。JAX 仅为 Linux x86_64 提供预构建的 CUDA wheels，因此在 aarch64 系统（例如 DGX Spark）上默认仅在 CPU 上运行。GPU 支持需要从源代码构建 JAX，这在 Isaac Lab 中尚未经过验证。
+
+DGX Spark 不支持 Livestream 和 Hub Workstation Cache。
+
+多节点训练可能需要 Spark 机器之间的直接连接或额外的网络配置。
+
+由于 aarch64 上缺少非 DLSS 图像降噪器，DGX Spark 不支持 Isaac Lab Mimic 数据生成和视觉运动环境的策略推理。
+
+Running Cosmos Transfer1 is not currently supported on the DGX Spark.
+
+故障排除
+请参考 Linux故障排除 解决Linux安装问题。
+
+您可以使用 Isaac Sim兼容性检查器 来自动检查您的系统是否满足运行Isaac Sim所需的要求。
+
+###### 选择安装方法
+
+不同的工作流程需要不同的安装方法。使用此表格进行决定：
+
+<img width="819" height="259" alt="image" src="https://github.com/user-attachments/assets/8efc368a-b524-42a4-a480-319836d442a4" />
+
+
+###### 后续步骤
+
+一旦您查看了安装方法，请继续阅读与您工作流程相匹配的指南：
+
+- 😃 使用 Isaac Sim Pip 包安装
+
+通过pip安装Isaac Sim，从源代码构建安装Isaac Lab。
+
+最适合初学者和大多数用户。
+
+- 使用 Isaac Sim 预编译二进制安装
+
+从其二进制软件包（网站下载）安装Isaac Sim。
+
+- 从源代码安装Isaac Lab。
+
+选择此选项，如果您不希望在 Isaac Sim 上使用 pip（例如在 Ubuntu 20.04 上）。
+
+- 使用 Isaac Sim 源代码安装
+
+从源码构建 Isaac Sim。
+
+从源代码安装Isaac Lab。
+
+只有在计划修改 Isaac Sim 本身时才建议使用。
+
+- 使用 Isaac Lab Pip 包安装
+
+安装 Isaac Sim 和 Isaac Lab 作为 pip 软件包。
+
+适用于使用自定义执行脚本构建 外部扩展 的高级用户。
+
+注意：这 不 包括训练或示例脚本。
+
+- 容器部署
+
+在 Docker 容器中安装 Isaac Sim 和 Isaac Lab。
+
+最适合希望在容器化环境中使用 Isaac Lab 的用户。
+
+各安装方式具体安装方法细则见官方文档[https://docs.robotsfan.com/isaaclab/source/setup/installation/index.html](https://docs.robotsfan.com/isaaclab/source/setup/installation/index.html)
+
+##### 2.2 快速入门 (推荐)
+###### 环境创建
+
+对于大多数用户来说，安装 Isaac Lab 最简单最快的方法是按照 使用 Isaac Sim Pip 包安装指南操作。
+
+这种方法将通过pip安装Isaac Sim，并通过其源代码安装Isaac Lab。如果您是Isaac Lab的新手，请从这里开始。
+
+首先定义我们的虚拟环境。
+
+```Shell
+conda
+# create a virtual environment named env_isaaclab with python3.11
+conda create -n env_isaaclab python=3.11
+# activate the virtual environment
+conda activate env_isaaclab
+```
+
+接下来，安装一个支持CUDA的PyTorch 2.7.0版本。
+
+```Shell
+pip install -U torch==2.7.0 torchvision==0.22.0 --index-url https://download.pytorch.org/whl/cu128
+```
+
+在安装 Isaac Sim 之前，我们需要确保 pip 已经更新。要更新 pip，请运行
+
+```Shell
+pip install --upgrade pip
+```
+
+现在我们可以安装 Isaac Sim 包。
+```Shell
+pip install "isaacsim[all,extscache]==5.1.0" --extra-index-url https://pypi.nvidia.com
+```
+
+最后，我们可以安装 Isaac Lab。要开始，使用以下命令克隆存储库
+```Shell
+git clone git@github.com:isaac-sim/IsaacLab.git
+```
+
+
+安装现在只需要简单地导航到存储库，然后使用带有 --install 标志的根脚本进行调用！
+
+```Shell
+./isaaclab.sh --install # or "./isaaclab.sh -i"
+```
+
+###### 启动训练
+
+通过位于 isaaclab/scripts/reinforcement_learning 目录中的相应 train.py 和 play.py 脚本访问 Isaac Lab 的各个后端。调用这些脚本将需要一个 任务名称 和对应的 入口点 到 gymnasium API。例如
+
+python scripts/reinforcement_learning/skrl/train.py --task=Isaac-Ant-v0
+这将训练 mujoco 蚂蚁 “奔跑” 。您可以使用 --help 标志查看您可用的各种启动选项。请特别注意 --num_envs 选项和 --headless 标志，这两个在尝试开发和调试新环境时非常有用。在此级别指定的选项将自动覆盖代码中可能定义的任何配置等效项（只要这些定义是 @configclass 的一部分，请参阅下文）。
+
+列出可用环境
+上面， Isaac-Ant-v0 是任务名称， skrl``是使用的 RL 框架。 ``Isaac-Ant-v0 环境已经在 Gymnasium API 中注册，您可以通过调用 list_envs.py 脚本查看入口点是如何定义的，可以在 isaaclab/scripts/environments/lsit_envs.py 中找到。您应该会看到如下条目
+
+```Shell
+$> python scripts/environments/list_envs.py
+
++--------------------------------------------------------------------------------------------------------------------------------------------+
+|  Available Environments in Isaac Lab
++--------+----------------------+--------------------------------------------+---------------------------------------------------------------+
+| S. No. | Task Name            | Entry Point                                | Config
+.
+.
+.
++--------+----------------------+--------------------------------------------+---------------------------------------------------------------+
+|   2    | Isaac-Ant-Direct-v0  |  isaaclab_tasks.direct.ant.ant_env:AntEnv  |  isaaclab_tasks.direct.ant.ant_env:AntEnvCfg
++--------+----------------------+--------------------------------------------+---------------------------------------------------------------+
+.
+.
+.
++--------+----------------------+--------------------------------------------+---------------------------------------------------------------+
+|   48   | Isaac-Ant-v0         | isaaclab.envs:ManagerBasedRLEnv            |   isaaclab_tasks.manager_based.classic.ant.ant_env_cfg:AntEnvCfg
++--------+----------------------+--------------------------------------------+---------------------------------------------------------------+
+```
+
+请注意，有两种不同的 Ant 任务，一种是用于 Direct 环境，另一种是用于 ManagerBased 环境。这是您可以在 Isaac Lab 立即使用的 两个主要工作流程 。Direct 工作流程将为您提供最快速通往用于强化学习的工作自定义环境的路径，但 Manager based 工作流程将为您的项目提供更广泛开发所需的模块化。出于本快速入门指南的目的，我们只会专注于 Direct 工作流程。
+
+###### 生成您自己的项目
+
+使用 Isaac Lab 开始新项目起初可能会让人望而生畏，但这就是为什么我们提供 模板生成器 ，通过命令行快速生成新项目的原因。
+
+```Shell
+./isaaclab.sh --new
+```
+
+这将根据您选择的设置为您创建一个新项目
+
+外部 vs 内部: 确定项目是作为 isaac lab 存储库的一部分构建，还是作为外部扩展加载的。
+
+Direct vs Manager: 直接任务主要包含环境定义中的所有实现细节，而基于 manager 的项目则意味着使用我们各种环境“部件”的模块化定义。
+
+框架: 您可以在这里选择多个选项。这决定了您打算在项目中本地使用的 RL 框架（您想要使用哪些特定算法实现进行训练）。
+
+创建后，导航到安装的项目并运行
+
+```Shell
+python -m pip install -e source/<given-project-name>
+```
+
+来完成安装过程并注册环境。在模板生成器创建的目录中，您将至少找到一个具有类似以下内容的 __init__.py 文件
+
+```python
+import gymnasium as gym
+
+gym.register(
+    id="Template-isaaclabtutorial_env-v0",
+    entry_point=f"{__name__}.isaaclabtutorial_env:IsaaclabtutorialEnv",
+    disable_env_checker=True,
+    kwargs={
+        "env_cfg_entry_point": f"{__name__}.isaaclabtutorial_env_cfg:IsaaclabtutorialEnvCfg",
+        "skrl_cfg_entry_point": f"{agents.__name__}.skrl_ppo_cfg:PPORunnerCfg",
+    },
+)
+```
+
+这是实际为将来使用注册环境的函数。请注意， entry_point 实际上只是环境定义的 python 模块路径。这就是为什么我们需要将项目安装为包: 模块路径 就是 gymnasium API 的入口点。
+
+###### 配置
+
+无论您在 Isaac Lab 中要做什么，您都需要处理**配置** 。所有配置类都可以通过它们的类定义上方的 @configclass 装饰器和缺少 __init__ 函数来识别。例如，考虑下面这个关于 cartpole 环境 的配置类。
+
+```python
+@configclass
+class CartpoleEnvCfg(DirectRLEnvCfg):
+    # env
+    decimation = 2
+    episode_length_s = 5.0
+    action_scale = 100.0  # [N]
+    action_space = 1
+    observation_space = 4
+    state_space = 0
+
+    # simulation
+    sim: SimulationCfg = SimulationCfg(dt=1 / 120, render_interval=decimation)
+
+    # robot
+    robot_cfg: ArticulationCfg = CARTPOLE_CFG.replace(prim_path="/World/envs/env_.*/Robot")
+    cart_dof_name = "slider_to_cart"
+    pole_dof_name = "cart_to_pole"
+
+    # scene
+    scene: InteractiveSceneCfg = InteractiveSceneCfg(num_envs=4096, env_spacing=4.0, replicate_physics=True)
+
+    # reset
+    max_cart_pos = 3.0  # the cart is reset if it exceeds that position [m]
+    initial_pole_angle_range = [-0.25, 0.25]  # the range in which the pole angle is sampled from on reset [rad]
+
+    # reward scales
+    rew_scale_alive = 1.0
+    rew_scale_terminated = -2.0
+    rew_scale_pole_pos = -1.0
+    rew_scale_cart_vel = -0.01
+    rew_scale_pole_vel = -0.005
+```
+
+请注意，整个类定义只是一组值字段和其他配置。配置类对于在训练过程中需要关心向量化的任何内容都是必不可少的。 如果您想要能够将环境复制成千上万次，并且异步地管理每个数据，您需要以某种方式 “标记” 哪些场景部分对这个复制过程（向量化）是重要的。 这就是配置类的作用！
+
+在这种情况下，该类定义了整个训练环境的配置！请注意 InteractiveSceneCfg 中的 num_envs 变量。这实际上会被 train.py 脚本内部的 CLI 参数所覆盖。配置提供了一条通往配置层次结构中的任何变量的直接路径，从而轻松修改在启动时由环境“配置”的任何内容。
+
+###### 机器人
+
+在 Isaac Lab 中，机器人完全被定义为配置的实例。如果您检查 source/isaaclab_assets/isaaclab_assets/robots ，您将看到许多文件，每个文件都包含了有关所讨论机器人的配置。这些单独的文件的目的是更好地定义所有不同机器人的范围，但没有任何阻止您 向您的项目添加新的机器人 ，甚至添加到 isaaclab 存储库中！例如，考虑以下配置中的 Dofbot
+
+```python
+import isaaclab.sim as sim_utils
+from isaaclab.actuators import ImplicitActuatorCfg
+from isaaclab.assets.articulation import ArticulationCfg
+from isaaclab.utils.assets import ISAAC_NUCLEUS_DIR
+
+DOFBOT_CONFIG = ArticulationCfg(
+    spawn=sim_utils.UsdFileCfg(
+        usd_path=f"{ISAAC_NUCLEUS_DIR}/Robots/Dofbot/dofbot.usd",
+        rigid_props=sim_utils.RigidBodyPropertiesCfg(
+            disable_gravity=False,
+            max_depenetration_velocity=5.0,
+        ),
+        articulation_props=sim_utils.ArticulationRootPropertiesCfg(
+            enabled_self_collisions=True, solver_position_iteration_count=8, solver_velocity_iteration_count=0
+        ),
+    ),
+    init_state=ArticulationCfg.InitialStateCfg(
+        joint_pos={
+            "joint1": 0.0,
+            "joint2": 0.0,
+            "joint3": 0.0,
+            "joint4": 0.0,
+        },
+        pos=(0.25, -0.25, 0.0),
+    ),
+    actuators={
+        "front_joints": ImplicitActuatorCfg(
+            joint_names_expr=["joint[1-2]"],
+            effort_limit_sim=100.0,
+            velocity_limit_sim=100.0,
+            stiffness=10000.0,
+            damping=100.0,
+        ),
+        "joint3_act": ImplicitActuatorCfg(
+            joint_names_expr=["joint3"],
+            effort_limit_sim=100.0,
+            velocity_limit_sim=100.0,
+            stiffness=10000.0,
+            damping=100.0,
+        ),
+        "joint4_act": ImplicitActuatorCfg(
+            joint_names_expr=["joint4"],
+            effort_limit_sim=100.0,
+            velocity_limit_sim=100.0,
+            stiffness=10000.0,
+            damping=100.0,
+        ),
+    },
+)
+```
+
+这完全定义了 dofbot！您可以将此内容复制到一个 .py 文件中并将其作为模块导入，以便在自己的 lab sims 中使用 dofbot。您将在定义带有状态的事物的任何配置中看到的一个常见特征是 InitialStateCfg 的存在。请记住，配置是指明向量化的信息， InitialStateCfg 描述了机器人在每个环境中创建时的关节状态。 ImplicitActuatorCfg 使用由关节时间决定的默认执行模型来定义机器人的关节。并不是所有关节都需要被执行，但如果您不打算使用这些未定义的关节，您将会收到警告。如果您不打算使用这些未定义的关节，您通常可以忽略它们。
+
+###### Apps 和 Sims
+
+使用仿真意味着启动 Isaac Sim 应用程序以提供仿真上下文。如果您没有运行由标准工作流程定义的任务，则需要负责创建应用程序、管理上下文并通过时间推进仿真。 这是 “第三个工作流程” : 一个 独立 应用程序，这是我们为框架、演示、基准测试等编写的脚本所谓的事情…
+
+独立工作流程使您可以完全控制应用程序中的一切和仿真上下文。在 Isaac Sim 文档 中详细讨论了开发独立应用程序，但有几点值得着重，因为它们可以非常有用。
+
+```python
+import argparse
+
+from isaaclab.app import AppLauncher
+# add argparse arguments
+parser = argparse.ArgumentParser(
+    description="This script demonstrates adding a custom robot to an Isaac Lab environment."
+)
+parser.add_argument("--num_envs", type=int, default=1, help="Number of environments to spawn.")
+# append AppLauncher cli args
+AppLauncher.add_app_launcher_args(parser)
+# parse the arguments
+args_cli = parser.parse_args()
+
+# launch omniverse app
+app_launcher = AppLauncher(args_cli)
+simulation_app = app_launcher.app
+```
+
+AppLauncher 是任何 Isaac Sim 应用程序的入口点，如 Isaac Lab！ 许多 Isaac Lab 和 Isaac Sim 模块直到应用程序启动之后才能导入！ 这是在上面的代码的倒数第二行执行的，当构造 AppLauncher 时。 app_launcher.app 是我们访问套件应用程序框架的接口；广泛的中介代码将仿真与扩展管理系统、GUI 等等绑定在一起。在独立工作流程中，这个界面，通常被称为 simulation_app 主要用于检查仿真是否正在运行，并在仿真结束后清理。
+
+
+###### 资产缓存
+
+Isaac Lab 资产托管在 AWS S3 云存储 上。 加载时间可能会因您的 网络连接 和 地理位置 而异，在某些情况下，每次运行可能需要几分钟才能加载资产。 为了提高性能或支持 离线工作流 ，我们建议启用 资产缓存 。
+
+缓存的资产被存储在本地，减少重复下载。
+
+如果您的网络连接速度慢或不稳定，或者部署环境处于脱机状态，则这将特别有用。
