@@ -2774,12 +2774,20 @@ python scripts/reinforcement_learning/skrl/train.py --task=Isaac-Ant-v0
 #### 8、 资产与场景构建
 ##### 8.1 任务基准
 
-类别	示例任务	描述
-经典	Isaac-Ant-v0	MuJoCo风格四足运动
-操作臂	Isaac-Lift-Cube-Franka-v0	机械臂抓取立方体
-富接触	Isaac-Factory-PegInsert-Direct-v0	精细装配任务
-自动装配	Isaac-AutoMate-Assembly-Direct-v0	100种装配任务
-运动	Isaac-Allegro-Legged-v0	腿式机器人运动
+| 类别    | 示例任务                                 | 描述                   |
+| --------- | --------------------------------------------- | ---------------------- |
+| 经典    | Isaac-Ant-v0 | MuJoCo风格四足运动         |
+| 操作臂    | Isaac-Lift-Cube-Franka-v0        | 机械臂抓取立方体   |
+| 富接触     | Isaac-Factory-PegInsert-Direct-v0                    | 精细装配任务   |
+| 自动装配     | Isaac-AutoMate-Assembly-Direct-v0                    | 100种装配任务   |
+| 运动     | Isaac-Allegro-Legged-v0                    | 腿式机器人运动   |
+
+		
+		
+		
+		
+		
+		
 
 具体见files/foundations/6.1.3-Isaac Lab任务及日志.md。
 
@@ -2957,10 +2965,11 @@ int main(void) {
 ##### 3.2 流行的学习与环境套件
 以下几个基于MuJoCo的项目提供了丰富的预定义环境和任务，非常适合入门和算法测试：
 
-项目名称	主要特点	应用场景
-RoboHive	基于MuJoCo的环境集合，使用OpenAI Gym API统一封装。包含手部操作、手臂操控、肌肉控制等多个套件。	强化学习算法测试，机器人技能学习。
-Gymnasium-Robotics (原OpenAI Gym的机器人分支)	提供了一系列标准的机器人仿真环境，例如Fetch、Shadow Hand等。	强化学习研究，机器人操作任务。
-Robosuite	一个模块化的机器人仿真框架，专注于机器人操作任务。	机器人操作算法开发与基准测试。
+| 项目名称    | 主要特点                                 | 应用场景                   |
+| --------- | ----------------------------------------------- | ------------------------ |
+| RoboHive    | 基于MuJoCo的环境集合，使用OpenAI Gym API统一封装。包含手部操作、手臂操控、肌肉控制等多个套件。 | 强化学习算法测试，机器人技能学习。         |
+| Gymnasium-Robotics    | 提供了一系列标准的机器人仿真环境，例如Fetch、Shadow Hand等。        | 强化学习研究，机器人操作任务。   |
+| Robosuite     | 一个模块化的机器人仿真框架，专注于机器人操作任务。                    | 机器人操作算法开发与基准测试。   |
 
 **快速体验RoboHive**：
 
