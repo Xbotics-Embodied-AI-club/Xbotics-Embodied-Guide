@@ -2599,7 +2599,7 @@ Meta在《LIMA: Less Is More for Alignment》中证实：​**1万份高质量�
 #### 2、安装与配置
 ##### 2.1 安装
 
-###### 系统要求
+###### 系统要求：
 
 [https://docs.omniverse.nvidia.com/platform/latest/common/technical-requirements.html](https://docs.omniverse.nvidia.com/platform/latest/common/technical-requirements.html)
 
