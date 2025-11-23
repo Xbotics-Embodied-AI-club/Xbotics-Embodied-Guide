@@ -1523,7 +1523,7 @@ GAIL（Generative Adversarial Imitation Learning）借鉴了生成对抗网络�
 
 * 利用大规模未标注或弱标注数据（如图像-文本对）进行学习。
 * 学到的特征可迁移至多种下游任务。
-  **缺点**
+**缺点**
 * 需要大量负样本，否则模型可能陷入“坍缩” (collapse) 问题。
 * 批量大小 (batch size)、负样本数、温度参数 (temperature) 等超参数影响显著。
 * 在模态差异大（如图像 vs 文本）时，对齐难度增大。
