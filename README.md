@@ -86,7 +86,7 @@
 
 ---
 
-## 1.1.1 学习范式与策略框架（IL / RL / VLA / Diffusion Policy / World Model）
+#### 1.1.1 学习范式与策略框架（IL / RL / VLA / Diffusion Policy / World Model）
 - **行为克隆（Behavior Cloning, BC）**：把控制当成监督学习：输入观测/指令，输出动作。优点是数据友好、上手快；缺点是分布外脆弱（covariate shift），需靠干预/DAgger/重置策略兜底。  
 - **逆强化学习（Inverse Reinforcement Learning, IRL）/偏好学习**：先学“奖励/偏好”，再用 RL 求策略；泛化好，但链路长、训练贵。  
 - **GAIL / 对抗模仿**：通过判别器让“机器人轨迹像专家”，绕开显式奖励建模。对抗稳定性与探索机理是工程挑战。  
@@ -100,7 +100,7 @@
 
 ---
 
-## 1.1.2 控制与规划常用概念
+#### 1.1.2 控制与规划常用概念
 - **PID 控制**：比例-积分-微分反馈控制，调参直观但对时延/强耦合系统需小心。  
 - **计算力矩 / 反馈线性化（Computed-Torque Control）**：用模型抵消非线性，等效成线性目标再配 PD/PI。  
 - **阻抗/导纳控制（Impedance / Admittance Control）**：在末端力–位移间设“机械阻抗”，适合接触/打磨/装配任务。  
@@ -110,7 +110,7 @@
 
 ---
 
-## 1.1.3 感知与表征（Robotics Models）
+#### 1.1.3 感知与表征（Robotics Models）
 - **视觉编码器**：ResNet、ViT、DINO 等提取语义与几何；点云侧 PointNet、PointTransformer 做位姿/重建/抓取。  
 - **VLM/LLM 融合**：CLIP、SigLIP 语义对齐；LLaVA、PaLM-E、Prism 等多模态骨干用于目标描述、子目标定位、失败解释。  
 - **表示学习**：SE(3) 等变、神经隐式（SDF/NeRF/3DGS）、可供性图（Affordance Map）、接触图谱。  
@@ -118,7 +118,7 @@
 
 ---
 
-## 1.1.4 系统工程（Robot System Engineering）
+#### 1.1.4 系统工程（Robot System Engineering）
 - **手–眼标定（AX=XB / A=XBY）**：求相机与机械臂坐标系刚体变换。  
 - **URDF / ROS**：机器人结构、惯量、关节、碰撞的统一描述格式。  
 - **DH 参数与现代几何表示**：关节链参数化、雅可比、奇异性分析。  
@@ -128,7 +128,7 @@
 
 ---
 
-## 1.1.5 人机交互（HRI）
+#### 1.1.5 人机交互（HRI）
 - **共享控制（Shared Autonomy）**：人提供意图/指令，机器人做低层补偿与安全保障。  
 - **可解释性（Explainability / Justification）**：策略过程可被人理解、可追溯。  
 - **信任与接受度（Trust & Acceptance）**：人对系统可靠性／可控性的主观信任度，影响系统投放与合规。  
@@ -138,14 +138,14 @@
 
 ---
 
-## 1.1.6 安全与标准
+#### 1.1.6 安全与标准
 - **ISO 10218-1 / -2**：工业机器人及其系统安全要求（机械、控制、集成）。  
 - **ISO/TS 15066**：协作机器人（cobot）安全指南（人机共域力限值、协作模式、安全模式等）。  
   👉 这些标准是落地部署／验收时常被查验的条款，建议据此设计“速度／力矩限幅、停止等级、围栏／扫描仪联锁”等安全壳。
 
 ---
 
-## 1.1.7 常见文件与工具栈
+#### 1.1.7 常见文件与工具栈
 - **URDF / SRDF / xACRO**：机构学与语义描述格式。  
 - **USD / GLB**：高保真几何交换格式。  
 - **ROS / ROS 2**：通信中间件；**tf/tf2** 用于坐标变换。  
@@ -157,15 +157,15 @@
 
 ---
 
-## 1.1.8 行业顶会 / 顶刊
-### 🧭 会议（Conferences）
+#### 1.1.8 行业顶会 / 顶刊
+##### 🧭 会议（Conferences）
 - **ICRA** – IEEE Intl. Conf. on Robotics and Automation  
 - **IROS** – IEEE/RSJ Intl. Conf. on Intelligent Robots and Systems  
 - **RSS** – Robotics: Science and Systems  
 - **CoRL** – Conference on Robot Learning  
 - **Humanoids / CASE / ISRR / ISER** 等专题会议
 
-### 📘 期刊（Journals）
+##### 📘 期刊（Journals）
 - **IEEE Transactions on Robotics (T-RO)**、**IEEE Robotics and Automation Letters (RA-L)**  
 - **The International Journal of Robotics Research (IJRR)**、**Autonomous Robots (AURO)**  
 - **Science Robotics**  
@@ -174,7 +174,7 @@
 
 ---
 
-## 1.1.9 机器人基础（Robotics Basics）
+#### 1.1.9 机器人基础（Robotics Basics）
 - **自由度（DoF）/工作空间**：构型可动维数与末端可达区域。  
 - **正／逆运动学（FK/IK）**：通过关节角求末端位姿；或反求关节角。雅可比矩阵用于速度／力映射与奇异性分析。  
 - **动力学**：包含惯量、科氏力、离心力、重力项；控制器设计必须考虑执行器力矩、关节摩擦、负载变化。  
@@ -187,14 +187,14 @@
 
 ### 1.2-操作综述
 
-# 🤖 机器人操作（Robot Manipulation）综述
+#### 🤖 机器人操作（Robot Manipulation）综述
 
 > 一文搞清“从感知到动作”的关键脉络与落地路线：用 **数据驱动** 的 **表示—策略—执行** 链路，支撑在 **家庭、工业、农业、科学** 等真实场景中的泛化与稳定。  
 > 目标是“够用、可落地”：不面面俱到，但给到每一条主线的代表性工作与开源落地点。
 
 ---
 
-## 🧠 为什么是“具身智能中的操作”
+#### 🧠 为什么是“具身智能中的操作”
 
 **本节导读**：本节回答“为什么要做操作”。操作是具身智能的闭环中枢：**感知 → 表征/理解 → 决策/规划 → 执行/安全**。  
 它与纯感知或语言任务不同，强调**物理可行性、实时性与安全性**。理解这点有助于选择合适的**数据、策略与系统工程**路线。
@@ -207,68 +207,68 @@
 
 ---
 
-## ⚙️ 全栈视角：从感知到动作的四层架构
+#### ⚙️ 全栈视角：从感知到动作的四层架构
 
 **本节导读**：这里给出工程上常用的“四层分工”，便于团队分拆与接口定义。  
 建议把**模块边界、消息格式和时序**确定清楚，后续替换任意一层（如策略或控制）都更顺滑。
 
-### 1. 感知与编码（Perception & Encoding）
+##### 1. 感知与编码（Perception & Encoding）
 - 视觉（RGB/RGB-D/点云）、触觉（高分辨率皮肤/力觉）、音频、IMU/关节状态等。  
 - 目标：学得**通用、可迁移**的语义与几何表征，支撑下游策略。
 
-### 2. 潜在学习（Latent Learning）
+##### 2. 潜在学习（Latent Learning）
 - 通过**对比/自监督/视频-语言/价值隐式**等，学到与任务相关的**紧凑潜在空间**；  
 - “潜在动作”（离散/连续）进一步成为**控制接口**，连接表示与策略。
 
-### 3. 策略学习（Policy Learning）
+##### 3. 策略学习（Policy Learning）
 - MLP/Transformer 自回归、**扩散策略（Diffusion Policy）**、**流匹配（Flow Matching）**、**SSM（Mamba）**等；  
 - 关注**长时依赖、动作多模态、实时性、等变性（SE(3)/SIM(3)）**与**安全约束**。
 
-### 4. 执行与安全（Control & Safety）
+##### 4. 执行与安全（Control & Safety）
 - 轨迹生成/插补、阻抗/力控、限位/碰撞/急停；  
 - 工程上通过**高层（语义/关键姿态）+ 低层（闭环力位控）**提升稳定性与安全性。
 
 ---
 
-## 🔍 表示学习：可迁移的感知与潜在空间
+#### 🔍 表示学习：可迁移的感知与潜在空间
 
 **本节导读**：表示是“共用底座”。你需要一个能跨物体、跨场景、跨任务的**稳定表征**，否则策略在分布外就会崩。  
 建议先选一个**通用视觉编码器**（R3M/VIP/VC-1），再视任务引入**潜在动作**或**世界模型**。
 
-### 通用视觉与多模态预训练
+##### 通用视觉与多模态预训练
 - [R3M](https://arxiv.org/abs/2203.12601)：基于 Ego4D 的时间对比视频语言表征。  
 - [VIP](https://www.lcsr.jhu.edu/wp-content/uploads/2022/10/vip.pdf)：基于目标价值的隐式预训练。  
 - [VC-1 / Theia / RPT](https://arxiv.org/abs/2307.15127)：从人类视频或机器人轨迹学习世界模型式特征。
 
-### 潜在动作与世界模型
+##### 潜在动作与世界模型
 - 动作/状态离散化为 token 或连续向量，作为策略接口，便于迁移与复用；  
 - 视频世界模型预测未来潜在表征，用于“**想象—评估—执行**”的一体化闭环。
 
 ---
 
-## 🧩 策略学习：从 MLP/Transformer 到 Diffusion/Flow/SSM
+#### 🧩 策略学习：从 MLP/Transformer 到 Diffusion/Flow/SSM
 
 **本节导读**：策略是“怎么做”的大脑。不同范式在**实时性、稳健性、训练成本**上各有取舍。  
 建议按**时延预算、动作多峰性、可解释/合规**需求做选型（DP 工程成熟；FM 更快更顺滑；SSM 长序列性价比高）。
 
-### 1️⃣ 基础自回归策略
+##### 1️⃣ 基础自回归策略
 - [RT-1](https://robotics-transformer.github.io/)：多任务 Transformer 策略。  
 - [RT-2](https://robotics-transformer2.github.io/)：把网页/图文知识迁移到机器人控制。  
 - [OpenVLA](https://www.alphaxiv.org/abs/2406.07476)：开放 VLA 基线。
 
-### 2️⃣ 扩散策略（Diffusion Policy）
+##### 2️⃣ 扩散策略（Diffusion Policy）
 - **原始论文**：[2303.04137](https://arxiv.org/abs/2303.04137) ｜ **项目页**：[diffusion-policy.cs.columbia.edu](https://diffusion-policy.cs.columbia.edu/)  
 - **加速方向**：  
   - [Consistency Policy](https://arxiv.org/abs/2408.00633)  
   - [ManiCM](https://arxiv.org/abs/2406.01586)  
   - [EquiBot（等变性 DP）](https://ut-austin-rpl.github.io/EquiBot/)
 
-### 3️⃣ 流匹配（Flow Matching）
+##### 3️⃣ 流匹配（Flow Matching）
 - [FLOWER](https://www.semanticscholar.org/paper/fdcad3d7a26b0e9b8d7d8d4a555b3b5a5c5e3dc1)  
 - [FlowPolicy](https://arxiv.org/abs/2412.04987)  
 - [Streaming Flow Policy](https://www.semanticscholar.org/paper/5f0d1f4b43fdb5b0dfd68a7b4f8d1f0b3f657b2c)
 
-### 4️⃣ 状态空间模型（SSM / Mamba）
+##### 4️⃣ 状态空间模型（SSM / Mamba）
 - [MaIL: Mamba as Motion Encoder](https://arxiv.org/abs/2409.02636)
 
 > ✅ **小结**：DP → FM → SSM 是策略层的三条主线。  
@@ -276,24 +276,24 @@
 
 ---
 
-## 📦 数据：采集—利用—扩展—重加权
+#### 📦 数据：采集—利用—扩展—重加权
 
 **本节导读**：数据决定上限，策略决定下限。构建**低成本、持续化**的数据飞轮，是小团队突围的关键。  
 从**遥操/合成**冷启动，依靠**选择/检索/增广/扩展/重加权**滚动提效，最后接**在线纠错**闭环。
 
-### 采集方式
+##### 采集方式
 - [RoboTurk](https://arxiv.org/abs/1811.02790)：众包远程遥操。  
 - [MimicGen / DexMimicGen](https://arxiv.org/abs/2307.15127)：系统化示范合成。  
 - [AnyTeleop](https://www.alphaxiv.org/abs/2305.06343)：多形态视觉遥操。  
 - [DemoGen](https://arxiv.org/abs/2403.08716)：全合成示范生成。
 
-### 数据利用与优化
+##### 数据利用与优化
 - **选择/清洗 → 检索 → 增广 → 扩展 → 重加权**；  
 - 冷启动靠检索，规模化靠增广，鲁棒性靠重加权。
 
 ---
 
-## 🌍 泛化：环境 / 任务 / 跨具身
+#### 🌍 泛化：环境 / 任务 / 跨具身
 
 **本节导读**：泛化不是“自动出现”，需要**评测协议 + 结构性先验**。  
 分别从**环境、任务、具身差异**三条线补齐方法与验证，避免“单场景过拟合”。
@@ -304,7 +304,7 @@
 
 ---
 
-## 🏭 典型应用：家务、工业、农业、AI4Science、艺术与体育
+#### 🏭 典型应用：家务、工业、农业、AI4Science、艺术与体育
 
 **本节导读**：不同场景的**约束、容错、合规**差异很大。  
 这里给到每类应用的**技术侧重点**，方便你对号入座做最小可行方案（MVP）。
@@ -319,7 +319,7 @@
 
 ---
 
-## 🧭 落地攻略：一条可执行的端到端流水线
+#### 🧭 落地攻略：一条可执行的端到端流水线
 
 **本节导读**：这是一份**可直接执行**的路线图。每个阶段都有**目标—动作—产出**，便于周/双周节奏推进与复盘。
 
@@ -334,7 +334,7 @@
 
 ---
 
-## 🔮 开放问题与未来方向
+#### 🔮 开放问题与未来方向
 
 
 1. **One Brain, Multiple Embodiments**：通用大脑支持多形态机器人。  
@@ -343,9 +343,13 @@
 4. **安全与协作**：规则/MPC + 学习策略的混合范式。
 
 
-### 1.3-感知综述
+### 1.3-世界模型综述
+https://github.com/tsinghua-fib-lab/World-Model
+
 ### 1.4-运控综述
+
 ### 1.5-交互综述
+
 ### 1.6-数据综述
 ---
 
