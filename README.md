@@ -58,7 +58,6 @@
 9. [具身公司图谱（Landscape）](#9-具身公司图谱landscape)
 10. [Ask Me Anything（提 Issue 问我任何）](#10-ask-me-anything提-issue-问我任何)
 11. [如何贡献 & 目录约定](#11-如何贡献--目录约定)｜[License](#license)
-12. [Xdog项目专栏](#12-Xdog项目专栏)｜[License](#license)
 ---
 
 ## 1. 具身综述（Embodied AI Overview）
