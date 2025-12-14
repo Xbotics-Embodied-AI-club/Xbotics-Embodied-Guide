@@ -58,6 +58,7 @@
 9. [具身公司图谱（Landscape）](#9-具身公司图谱landscape)
 10. [Ask Me Anything（提 Issue 问我任何）](#10-ask-me-anything提-issue-问我任何)
 11. [如何贡献 & 目录约定](#11-如何贡献--目录约定)｜[License](#license)
+12. [Xdog项目专栏](#12-Xdog项目专栏)｜[License](#license)
 ---
 
 ## 1. 具身综述（Embodied AI Overview）
@@ -4832,3 +4833,12 @@ labels: ["AMA","question"]
 * **致谢**：感谢所有贡献者的链接推荐、SOP 总结与复现实验。
 
 > 💡 有想加入的方向？直接开 Issue；也欢迎在 Discussions 里提需求与想法。
+
+
+
+## 12. Xdog项目专栏
+
+
+* 12.1 xdog功能介绍
+* 12.2 xdog视觉伺服以及语音控制模块
+* 12.3 xdog强化simtoreal实现逻辑
