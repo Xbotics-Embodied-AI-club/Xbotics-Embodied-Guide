@@ -4496,9 +4496,6 @@ python lerobot/scripts/eval.py \
 ## 8. 人物（People）
 
 **贡献者**：@Mumu
-```markdown
-# Embodied AI 领军人物名录
-### Manipulation · Humanoid · Whole-Body Control
 
 **维护者**：@Mumu  
 **规模**：120 人  
