@@ -4549,50 +4549,43 @@ python lerobot/scripts/eval.py \
    🎥 [Video](https://www.youtube.com/results?search_query=Jitendra+Malik+robotics+manipulation+talk) ·  
    💻 [Code](https://github.com/search?q=Jitendra+Malik+robot+manipulation&type=repositories)
 
-6. **Trevor Darrell**
-   
+6. **Trevor Darrell**   
    📄 [Paper](https://scholar.google.com/scholar?q=Trevor+Darrell+robotics+manipulation+humanoid) ·  
    🧪 [Project](https://www.google.com/search?q=Trevor+Darrell+robot+manipulation+humanoid) ·  
    🎥 [Video](https://www.youtube.com/results?search_query=Trevor+Darrell+robotics+manipulation+talk) ·  
    💻 [Code](https://github.com/search?q=Trevor+Darrell+robot+manipulation&type=repositories)
    
-7. **Masayoshi Tomizuka**
- 
+7. **Masayoshi Tomizuka** 
    📄 [Paper](https://scholar.google.com/scholar?q=Masayoshi+Tomizuka+robotics+manipulation+humanoid) ·  
    🧪 [Project](https://www.google.com/search?q=Masayoshi+Tomizuka+robot+manipulation+humanoid) ·  
    🎥 [Video](https://www.youtube.com/results?search_query=Masayoshi+Tomizuka+robotics+manipulation+talk) ·  
    💻 [Code](https://github.com/search?q=Masayoshi+Tomizuka+robot+manipulation&type=repositories)
    
 8. **Claire Tomlin**
-
    📄 [Paper](https://scholar.google.com/scholar?q=Claire+Tomlin+robotics+manipulation+humanoid) ·  
    🧪 [Project](https://www.google.com/search?q=Claire+Tomlin+robot+manipulation+humanoid) ·  
    🎥 [Video](https://www.youtube.com/results?search_query=Claire+Tomlin+robotics+manipulation+talk) ·  
    💻 [Code](https://github.com/search?q=Claire+Tomlin+robot+manipulation&type=repositories)
 
 9. **Koushil Sreenath**
-
    📄 [Paper](https://scholar.google.com/scholar?q=Koushil+Sreenath+robotics+manipulation+humanoid) ·  
    🧪 [Project](https://www.google.com/search?q=Koushil+Sreenath+robot+manipulation+humanoid) ·  
    🎥 [Video](https://www.youtube.com/results?search_query=Koushil+Sreenath+robotics+manipulation+talk) ·  
    💻 [Code](https://github.com/search?q=Koushil+Sreenath+robot+manipulation&type=repositories)
 
 10. **Ron Fearing**
-
     📄 [Paper](https://scholar.google.com/scholar?q=Ron+Fearing+robotics+manipulation+humanoid) ·  
    🧪 [Project](https://www.google.com/search?q=Ron+Fearing+robot+manipulation+humanoid) ·  
    🎥 [Video](https://www.youtube.com/results?search_query=Ron+Fearing+robotics+manipulation+talk) ·  
    💻 [Code](https://github.com/search?q=Ron+Fearing+robot+manipulation&type=repositories)
 
 11. **Francesco Borrelli**
-
     📄 [Paper](https://scholar.google.com/scholar?q=Francesco+Borrelli+robotics+manipulation+humanoid) ·  
    🧪 [Project](https://www.google.com/search?q=Francesco+Borrelli+robot+manipulation+humanoid) ·  
    🎥 [Video](https://www.youtube.com/results?search_query=Francesco+Borrelli+robotics+manipulation+talk) ·  
    💻 [Code](https://github.com/search?q=Francesco+Borrelli+robot+manipulation&type=repositories)
     
-12. **Ruzena Bajcsy**
- 
+12. **Ruzena Bajcsy** 
     📄 [Paper](https://scholar.google.com/scholar?q=Ruzena+Bajcsy+robotics+manipulation+humanoid) ·  
    🧪 [Project](https://www.google.com/search?q=Ruzena+Bajcsy+robot+manipulation+humanoid) ·  
    🎥 [Video](https://www.youtube.com/results?search_query=Ruzena+Bajcsy+robotics+manipulation+talk) ·  
