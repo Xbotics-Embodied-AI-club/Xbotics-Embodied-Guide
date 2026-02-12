@@ -14,6 +14,8 @@
 | 6.4 Genesis | 仿真平台 | [📖 阅读](../../files/foundations/6.4-Genesis.md) |
 | 6.5 Gazebo | 机器人仿真平台 | [📖 阅读](../../files/foundations/6.5-Gazebo.md) |
 
+**延伸**：Isaac Lab 机器人强化学习实战（配置架构、机器人添加、调参技巧）→ [Isaac Lab RL 实战笔记](../../files/foundations/Isaac-Lab-RL实战-配置与调参-笔记.md)。
+
 ---
 
 [← 返回主 README](../../README.md)

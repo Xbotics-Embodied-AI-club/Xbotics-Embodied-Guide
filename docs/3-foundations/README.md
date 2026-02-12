@@ -14,8 +14,6 @@
 | 3.5 工程环境 | Conda/Docker、日志与可视化 | [📖 阅读](../../files/foundations/3.5-工程环境.md) |
 | 3.6 实战与应用 | 机器人中的多模态/GAT | [📖 阅读](../../files/foundations/3.6-实战.md) |
 
-**延伸**：Isaac Lab 机器人强化学习实战（配置架构、机器人添加、调参技巧）→ [Isaac Lab RL 实战笔记](../../files/foundations/Isaac-Lab-RL实战-配置与调参-笔记.md)。
-
 ---
 
 [← 返回主 README](../../README.md)
