@@ -808,7 +808,7 @@
 | 主题 | 说明 | 笔记 |
 |------|------|------|
 | 1X 模型评估负责人：世界模型的价值，从泛化到模型评估 | 产业视角下的世界模型与模型评估 | [对谈1X-世界模型与模型评估-笔记](../../files/interviews/对谈1X-世界模型与模型评估-笔记.md) |
-| 北大王鹤老师团队 2025 年具身智能工作盘点 | 具身智能学术之星团队年度盘点 | [PKU-WangHe-team-2025-embodied-roundup-笔记](../../files/interviews/PKU-WangHe-team-2025-embodied-roundup-笔记.md) |
+| 北大王鹤老师团队 2025 年具身智能工作盘点 | 具身智能学术之星团队年度盘点 | [笔记](../../files/interviews/PKU-WangHe-team-2025-embodied-roundup-笔记.md) · [整理](../../files/source/pku-wanghe-2025-embodied-roundup.md) |
 
 ---
 

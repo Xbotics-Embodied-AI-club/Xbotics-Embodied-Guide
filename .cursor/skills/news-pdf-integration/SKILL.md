@@ -1,205 +1,161 @@
 ---
 name: news-pdf-integration
-description: Integrate PDF content from news/ (papers, interviews, foundations) into Xbotics-Embodied-Guide. Use when the user adds PDFs to news/, wants to incorporate news content into the project, or asks about integrating papers, interviews, or foundational materials.
+description: 从 news/source.md 读取多篇文章，逐篇原创整理为 MD 输出到 files/source/，保留核心内容、规避侵权。当用户更新 source.md、需要批量处理多篇来源文章、或将外部文章整理进项目时使用。
 ---
 
-# News PDF 内容集成流程
+# 从 source.md 多篇文章到 files/source 整理流程
 
-将 `news/` 下的 PDF（论文、访谈、基础类资料）**仅提取文字**并集成到项目中。**必须生成原创整理内容**，避免侵权；不直接复制原文。**不处理图片**。
-
----
-
-## 一、内容类型与集成目标
-
-| 类型 | 示例 | 主要集成位置 |
-|------|------|--------------|
-| **论文** (论文) | 世界模型、VLA、Diffusion Policy 等论文 | docs/1-embodied-overview、docs/5-sota、docs/4-classical、docs/2-roadmaps |
-| **访谈** (访谈) | 1X、公司、人物对谈 | docs/8-people、docs/9-landscape、docs/1-embodied-overview（产业视角） |
-| **基础类** (基础) | 教程、入门材料 | docs/3-foundations、docs/2-roadmaps |
+从 **`news/source.md`** 读取**多篇**聚合文章，在 **Plan 阶段** 明确识别每篇边界与数量，对**每一篇**进行**重新整理**，生成原创 MD 写入 **`files/source/`**，**只保留核心内容**，避免侵权。不直接复制原文。
 
 ---
 
-## 二、目录与文件规范
+## 一、数据源与输出约定
 
-**路径约定**：假定项目根下 `files/` 与 `news/` 同级；从 `files/papers/` 或 `files/interviews/` 到 `news/` 的相对路径为 `../../news/`。
+| 项目 | 约定 |
+|------|------|
+| **输入** | `news/source.md`（单文件内多篇文章聚合，可能来自公众号、转载等） |
+| **输出** | 每篇文章对应一个 MD：`files/source/<主题简写>.md` |
+| **原则** | 每篇**重新整理**、用自己的话归纳，**保留核心内容**即可，不逐段抄录 |
 
-**主题约定**：主题优先用 PDF 文件名（去掉 `.pdf`），或人工指定简短英文/拼音标识；多 PDF 聚合时的主题简写由人工定名。输出目录（如 `files/papers/`、`files/interviews/`）若不存在则按所选方案创建。
-
-### 1. 源文件位置
-
-- PDF 放在 `news/` 下。**开始时先将 PDF 与后续生成的 `-提取.txt` 重命名为英文**（如 `1X-interview-world-models.pdf`、`isaac-lab-rl-practice-extract.txt`），避免移动或跨环境后出现乱码；可用拼音或主题简写。
-- **执行完成后**：将已处理过的 PDF 移至 `files/source/` 下归档（保持英文文件名）；原创整理文档中的**原文链接**指向 `../source/英文文件名.pdf`（从 `files/papers/`、`files/interviews/`、`files/foundations/` 出发）。
-- 同主题索引：`news/<主题简写>-整理.md`（可选，用于多 PDF 聚合；多 PDF 聚合本期不展开，仅保留索引文件约定）
-
-### 2. 原创整理文档（按内容类型选目录）
-
-按类型选择输出目录，文件名：`<主题>-笔记.md` 或 `<主题>-整理.md`。**格式**：Markdown；**必须包含**：标题、原文链接（指向 `news/` 下 PDF，执行完成后改为指向 `files/source/` 下 PDF）、原创整理正文。
-
-| 内容类型 | 推荐路径（任选一种方案） | 说明 |
-|----------|--------------------------|------|
-| **论文** | `files/papers/` | 论文笔记、SOTA/经典方法整理（与 docs/4-classical、5-sota 对应） |
-| **访谈/对谈** | `files/interviews/` | 人物访谈、公司对谈（与 docs/8-people、9-landscape 对应） |
-| **基础/教程** | `files/foundations/` | 入门、教程类（与 docs/3-foundations、2-roadmaps 对应；工程已有此目录） |
-
-**可选方案**（与工程现有结构兼容）：
-
-- **方案 A（推荐）**：按类型分顶层目录  
-  - 论文 → `files/papers/`  
-  - 访谈 → `files/interviews/`  
-  - 基础 → `files/foundations/`（已有）
-- **方案 B**：保留待定。
-
-- **方案 C**：与 docs 命名风格一致  
-  - 论文 → `files/paper/`  
-  - 访谈 → `files/people/` 或 `files/talks/`（对应 docs/8-people）  
-  - 基础 → `files/foundations/`
+**侵权规避**：source.md 中内容可能涉及版权，因此**必须**对每一篇做原创化整理（提炼观点、术语、结论，改写表述），仅保留核心信息，不原文照搬。
 
 ---
 
-## 三、原创整理文档模板
+## 二、Plan 阶段（必做）
+
+在处理前必须先完成**规划**，避免漏篇或重复：
+
+1. **读取** `news/source.md` 全文。
+2. **识别多篇文章边界**：
+   - 文章通常以**主标题**或**明显分隔**（如空行+新标题、`END`、下一篇文章标题）为界。
+   - 常见模式：首行或前几行为第一篇标题；后续出现与上文无关的新标题、或「END」+ 大量空行/列表/“留言”等，多为下一篇开始。
+3. **列出每篇文章**：
+   - 序号、**标题/主题**、**建议文件名**（英文或拼音，如 `pku-wanghe-2025-embodied-roundup.md`、`leju-showroom-strategy-2026.md`）。
+4. **确认**：共 N 篇，输出到 `files/source/` 的 N 个 MD 与之一一对应。
+
+只有在 Plan 中明确「篇数 + 每篇标题 + 输出文件名」后，再逐篇执行整理。
+
+---
+
+## 三、文章边界识别参考
+
+- **第一篇**：多为文件开头到第一个「结尾标志」或下一篇文章标题之前。
+- **下一篇**：新出现的独立标题（与上文无连贯关系）、或「END」/「写在最后」+ 空行/列表/“留言”之后的**新标题**。
+- **噪音**：企业名单、公众号引导、留言、精选推荐等可视为分隔或文末噪音，不纳入正文；若某段明显是下一篇开头，则从该处切开。
+
+不确定时，宁可先按「标题 + 语义连贯性」切出候选篇，在整理时再微调边界。
+
+---
+
+## 四、单篇整理与输出规范
+
+对 **每一篇** 独立执行：
+
+1. **从 source.md 中截取**该篇的完整正文（按 Plan 中划定的边界）。
+2. **原创整理**：
+   - 提炼：核心观点、关键术语、重要结论、数据/结果（若有）。
+   - 用自己的话重写，分节归纳（可加小标题），**不逐段抄录**。
+3. **写出 MD** 到 `files/source/<主题简写>.md`：
+   - 必须包含：**标题**、**整理说明**（如「基于 [原文主题] 的整理，仅保留核心内容」）、**正文**（分节、列表均可）。
+   - 可选：文末注明「—— 整理自 Xbotics 具身智能学习指南 | 供学习参考」。
+
+### 单篇 MD 模板
 
 ```markdown
-# [主题名称]
+# [文章主题标题]
 
-*基于 [原文标题] 的整理与延伸*
-
-**原文链接**：[原文标题](../source/原文文件名.pdf)（PDF，X 页）  
-（执行完成后 PDF 归档在 `files/source/`，从 `files/papers/`、`files/interviews/`、`files/foundations/` 出发用 `../source/`）
+*基于原文的整理，仅保留核心内容，供学习参考。*
 
 ---
 
-[原创整理内容，非原文摘录。按主题分节撰写。]
+## 1. [小节名]
+[原创归纳内容……]
+
+## 2. [小节名]
+[原创归纳内容……]
 
 ---
 
 *—— 整理自 Xbotics 具身智能学习指南 | 供学习参考*
 ```
 
-**要点**：
-
-- 正文为**原创归纳**：提炼观点、方法论、术语，用自己的话重写
-- 不逐段抄录原文，避免版权问题
-- 原文链接使用相对路径：执行完成后 PDF 在 `files/source/`，用 `../source/xxx.pdf`（从 `files/papers/`、`files/interviews/`、`files/foundations/` 出发）；执行前可临时用 `../../news/xxx.pdf`
+**文件名**：`files/source/` 下使用英文或拼音，如 `pku-wanghe-2025-roundup.md`、`leju-showroom-2026.md`、`xiaomi-vla-open-source.md`，避免中文与特殊字符。
 
 ---
 
-## 四、实施步骤
+## 五、检查（必做）
 
-### Step 0：将 news/ 下 PDF 重命名为英文（必做）
+每篇整理并写出 MD 后，**必须**做以下两项检查；不合格则修正再继续。
 
-为避免移动或跨环境后出现乱码，**在提取与归档前**将 `news/` 下的 PDF 重命名为英文（或拼音/主题简写），例如：`对谈1X 模型评估...pdf` → `1X-interview-world-models-evaluation.pdf`，`Isaac Lab 机器人强化学习...pdf` → `isaac-lab-rl-practice.pdf`。后续生成的 `-提取.txt` 也使用同一英文前缀（如 `1X-interview-world-models-evaluation-extract.txt`）。
+### 5.1 内容一致性检查（总结与原文是否一致）
 
-### Step 1：提取 PDF 文字
+- **对照原文**：用 source.md 中该篇的原文段落，逐条核对整理稿是否覆盖了**核心信息**（主要观点、关键术语、重要结论、数据/结果）。
+- **通过标准**：无**实质性遗漏**（如漏掉原文明确的核心论点、关键数字、方法名/论文名）；无**实质性偏差**（如把“A 优于 B”写成“B 优于 A”）；允许概括与改写，但语义不得与原文矛盾。
+- **若不一致**：在整理稿中补全遗漏、修正偏差，必要时调整小节结构，使总结与原文核心一致。
 
-若仓库中无 `news/extract_pdf.py`，则先创建最小可用脚本：支持单 PDF 路径参数（如 `python news/extract_pdf.py "news/xxx.pdf"`），仅输出文本到 `news/<英文主题>-extract.txt`，再执行下述步骤。
+### 5.2 放置位置检查（放的位置是否合适）
 
-运行 `news/extract_pdf.py`，**仅提取文本**（不提取图片）：
+- **主输出位置**：所有整理稿的**主产出**一律放在 `files/source/<主题简写>.md`，无需再检查“是否该放 source”。
+- **可选集成时的位置**：若做了「在 files/papers/、files/interviews/、files/foundations/ 写摘要或索引，并在 docs 中加链接」，则需检查：
+  - **类型是否匹配**：论文/技术 → `files/papers/` 及 docs/5-sota、4-classical、1.3 等；访谈/产业 → `files/interviews/` 及 docs/8-people、9-landscape、1.3 产业视角；基础/教程 → `files/foundations/` 及 docs/3-foundations、2-roadmaps。
+  - **链接是否到位**：摘要/索引中指向 `../source/xxx.md` 的链接正确；docs 内链接到的是最相关的小节，而非随便挂到某章末尾。
+- **通过标准**：主产出均在 `files/source/`；若做了可选集成，则类型与目录对应正确、链接有效且挂到合适小节。
+- **若不合适**：移动或重命名摘要/索引文件到正确目录，或调整 docs 中的链接目标到更贴切的小节。
 
-```bash
-python news/extract_pdf.py "news/英文名.pdf"
-# 输出：news/<英文主题>-extract.txt
-```
+**检查清单（可逐篇勾选）**：
 
-- 若文本为 **0 字符**，说明 PDF 为扫描件，进入 **Step 1b 扫描件 OCR**。
-- 若有文字，直接进入 Step 2，根据 `-extract.txt` 撰写原创整理。
-
-### Step 1b：扫描件 OCR（当 Step 1 提取为空时）
-
-若仓库中无 `news/ocr_pdf.py`，则先创建：使用 PyMuPDF 将每页渲染为图像，再用 EasyOCR（ch_sim+en）识别，输出到 `news/<主题>-ocr.txt`。依赖：`pymupdf`、`Pillow`、`easyocr`（若遇 NumPy 2.x 与 torch 不兼容，可 `pip install "numpy<2"` 后重试）。
-
-```bash
-python news/ocr_pdf.py "news/英文名.pdf" -o "news/英文名-ocr.txt"
-# 或对已归档 PDF：python news/ocr_pdf.py "files/source/英文名.pdf" -o "news/英文名-ocr.txt"
-```
-
-- 输出：`news/<主题>-ocr.txt`（或与 PDF 同目录的 `-ocr.txt`）。OCR 可能有少量误字（如「王鹤」→「壬鹤」），整理时按语义修正。
-- **Step 2 创建原创整理文档时，以 `-ocr.txt` 内容为主要依据**，按主题分节归纳、用自己的话重写，避免逐段抄录。
-
-### Step 2：创建原创整理文档
-
-1. 按内容类型选择目录（见上文「2. 原创整理文档」）：
-   - **论文** → `files/papers/`（或所选方案中的论文目录）
-   - **访谈** → `files/interviews/`
-   - **基础** → `files/foundations/`
-2. 在该目录下新建 `xxx-笔记.md` 或 `xxx-整理.md`
-3. 按模板填写标题、原文链接
-4. 根据提取文本或主题，撰写**原创**分节内容
-
-### Step 3：在 docs 中建立链接
-
-按内容类型选择目标：
-
-| 类型 | 目标文件 | 更新方式 |
-|------|----------|----------|
-| 论文 | docs/1-embodied-overview、5-sota、4-classical | 在相关小节末增加「延伸」「参考」链接 |
-| 访谈 | docs/8-people（对谈表 + 人物条目）、docs/9-landscape（公司条目） | 增加对谈/笔记链接 |
-| 访谈-世界模型 | docs/1-embodied-overview/1.3-世界模型综述.md | 增加「产业视角」小节 |
-| 基础 | docs/3-foundations、docs/2-roadmaps | 在对应路线「延伸」或子节中增加链接 |
-
-**相关小节**由内容类型与关键词匹配决定：论文看 1.3/4.x/5.x/2.x 目录与标题，访谈看 8-people、9-landscape、1.3 产业视角，基础看 3-foundations、2-roadmaps；不确定时在对应章末 README 或最接近的节末加链接。
-
-### Step 4：更新 news 索引（可选）
-
-若存在 `news/<主题>-整理.md`，在其中加入对 `files/papers/`、`files/interviews/` 或 `files/foundations/` 下对应原创笔记的链接。
-
-### Step 5：归档源 PDF 至 files/source（执行完成后）
-
-1. 将本流程已处理过的 PDF 从 `news/` 移至 `files/source/`，**保持英文文件名**（若 Step 0 已重命名则无需再改）。
-2. 更新对应原创整理文档（`files/papers/`、`files/interviews/`、`files/foundations/` 下的笔记）中的**原文链接**：由 `../../news/xxx.pdf` 改为 `../source/英文文件名.pdf`。
-3. `news/` 下可保留 `-extract.txt` / `-ocr.txt` 供后续查阅，或按需清理。
+- [ ] 内容一致性：核心信息无遗漏、无语义偏差
+- [ ] 放置位置：主产出在 `files/source/`；若做了集成，类型与链接位置合适
 
 ---
 
-## 五、对 files/source/ 下已有 PDF 的整理（补 OCR + 笔记）
+## 六、实施步骤总览
 
-当需要**对已归档在 `files/source/` 下的 PDF 统一做「OCR → 按正文整理」**时，按以下流程执行（与上述 Step 0–5 一致，仅起点为 source 而非 news）：
-
-1. **列出** `files/source/` 下所有 `.pdf`，确定每个 PDF 对应的笔记路径（`files/papers/`、`files/interviews/`、`files/foundations/` 下已有的 `xxx-笔记.md` 或 `xxx-整理.md`）。
-2. **对每个 PDF**：
-   - 先运行 `news/extract_pdf.py "files/source/xxx.pdf"`；若提取文本为空，则运行 `news/ocr_pdf.py "files/source/xxx.pdf" -o "news/xxx-ocr.txt"`（或输出到 `files/source/` 同目录的 `xxx-ocr.txt`）。
-   - 根据 `-extract.txt` 或 `-ocr.txt` 内容，**重写或新建**对应的原创整理笔记：标题、原文链接（`../source/xxx.pdf`）、按主题分节的归纳（以 PDF 正文为主，修正 OCR 误字，不逐段抄录）。
-   - 若该 PDF 尚未在 docs 中建链，按「四、Step 3」在对应小节末增加延伸/参考链接。
-3. **约定**：同一套脚本（`news/extract_pdf.py`、`news/ocr_pdf.py`）既用于 `news/` 新稿，也用于 `files/source/` 的补整理；OCR 结果可统一放在 `news/` 下 `xxx-ocr.txt`，便于与后续新 PDF 的 OCR 输出一致管理。
+| 步骤 | 说明 |
+|------|------|
+| **Step 0 Plan** | 读 `news/source.md` → 识别多篇文章边界 → 列出每篇标题与 `files/source/<名>.md` |
+| **Step 1 逐篇整理** | 对每篇：截取正文 → 原创归纳（保留核心）→ 写入 `files/source/<主题简写>.md` |
+| **Step 2 检查** | 每篇：内容与原文一致性检查 + 放置位置检查；不合格则修正 |
+| **Step 3 可选** | 若需接入项目文档：在 `files/papers/`、`files/interviews/`、`files/foundations/` 做摘要或索引，并在 docs 相应小节增加链接（见下节） |
 
 ---
 
-## 六、集成位置速查
+## 七、可选：与 docs 的集成
+
+整理结果以 **`files/source/*.md`** 为主产出。若需在项目知识库中引用：
+
+- **论文/技术类**：可在 `files/papers/` 增加简短笔记或索引，链到 `../source/xxx.md`；在 docs/1-embodied-overview、5-sota、4-classical、2-roadmaps 相关小节末加「延伸」链接。
+- **访谈/产业类**：可在 `files/interviews/` 做摘要，链到 `../source/xxx.md`；在 docs/8-people、9-landscape、1.3 产业视角加链接。
+- **基础/教程类**：可在 `files/foundations/` 做索引，链到 `../source/xxx.md`；在 docs/3-foundations、2-roadmaps 加链接。
+
+链接格式示例：`[主题](../source/主题简写.md)`（从 `files/papers/`、`files/interviews/`、`files/foundations/` 出发）。
+
+---
+
+## 八、集成位置速查
 
 ```
 docs/
-├── 1-embodied-overview/   # 术语、操作、世界模型、运控、导航
-├── 2-roadmaps/            # 各技术学习路线（2.1–2.10）
-├── 3-foundations/         # 机器人学、Transformer、Diffusion 等
-├── 4-classical/           # 模仿学习、RL、视觉、轨迹优化
-├── 5-sota/                # VLA、Diffusion Policy、Sim2Real、SFT
-├── 6-simulation/          # Isaac Lab、MuJoCo 等
-├── 7-real-robots/         # LeRobot 等
-├── 8-people/              # 人物名录 + 对谈/访谈区
-└── 9-landscape/           # 公司图谱（如 1X 等）
+├── 1-embodied-overview/   # 术语、世界模型、产业视角
+├── 2-roadmaps/            # 学习路线与延伸
+├── 3-foundations/         # 基础与教程
+├── 4-classical/  5-sota/  # 经典与 SOTA
+├── 8-people/  9-landscape/ # 人物与公司
+└── …
+files/
+├── source/                # 本流程主输出：每篇整理 MD
+├── papers/  interviews/  foundations/  # 可选摘要与链接
+└── …
 ```
 
-- **论文**：优先 1.3 世界模型、5.x 前沿、4.x 经典、2.x 路线延伸
-- **访谈**：8-people 对谈表、9-landscape 公司条目、1.3 产业视角
-- **基础**：3-foundations、2-roadmaps 延伸
-
 ---
 
-## 七、参考示例
+## 九、若仍有 PDF 需求（可选保留）
 
-以下为路径与命名示例，无需与仓库内已有文件一致。
+若项目中**同时**存在需要从 **PDF** 提取并整理的内容（例如 `news/` 下个别 PDF）：
 
-- **论文**：`files/papers/xxx-笔记.md` → 链到 docs/5-sota、4-classical 等
-- **访谈**：`files/interviews/1X对谈-世界模型与模型评估笔记.md`（或 `files/people/`、`files/talks/` 视所选方案而定）
-- **链接**：`docs/1-embodied-overview/1.3-世界模型综述.md`（1.3.7 产业视角）、`docs/8-people/README.md`（对谈表、Bernt Børnich）、`docs/9-landscape/README.md`（1X 条目）、`docs/2-roadmaps/README.md`（2.9 延伸）
+- 可继续使用现有 `news/extract_pdf.py`、`news/ocr_pdf.py` 提取文字；
+- 提取后的文本建议**先汇总或粘贴到 `news/source.md` 的独立“文章块”中**，再按本流程统一「Plan → 逐篇整理 → 输出到 `files/source/`」；
+- 或对单份 PDF 单独执行：提取/OCR → 原创整理 → 输出 `files/source/<主题>.md`。
 
----
-
-## 八、提取与 OCR 脚本说明
-
-若不存在 `news/extract_pdf.py`，见 Step 1：先创建再使用。已有脚本时，`news/extract_pdf.py` 可能写死单个 PDF。新增 PDF 时：
-
-1. 将 `PDF_NAME` 改为新文件名，或
-2. 改为支持命令行参数：`python news/extract_pdf.py "news/新文件.pdf"`
-3. 输出路径中的前缀（如 `对谈1X`）改为与主题一致的标识
-
-**约定**：本流程仅做文字提取，脚本中若有图片导出逻辑可移除或关闭，以保持「只提取相关文字」的流程一致。
+本 skill 的**主流程**以 **`news/source.md` 多篇文章 → `files/source/*.md`** 为准；PDF 仅作为可选输入来源之一。

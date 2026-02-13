@@ -2,6 +2,8 @@
 
 *基于《具身智能学术之星｜北大王鹤老师团队2025年工作盘点》的整理与延伸（原文已通过 OCR 提取）*
 
+**完整整理稿**（仅保留核心内容）：[pku-wanghe-2025-embodied-roundup.md](../source/pku-wanghe-2025-embodied-roundup.md)
+
 **原文链接**：[具身智能学术之星｜北大王鹤老师团队2025年工作盘点](../source/PKU-WangHe-team-2025-embodied-roundup.pdf)（PDF）
 
 ---

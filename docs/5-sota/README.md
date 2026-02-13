@@ -16,6 +16,7 @@
 
 - **NVIDIA CHIP 模块**（人形机器人高难度动作）：[NVIDIA-CHIP-humanoid-motor-skills-笔记](../../files/papers/NVIDIA-CHIP-humanoid-motor-skills-笔记.md)
 - **NVIDIA 30 人联名论文**（44000 小时人类视频学灵巧操作）：[NVIDIA-30auth-44k-hours-video-dexterous-manipulation-笔记](../../files/papers/NVIDIA-30auth-44k-hours-video-dexterous-manipulation-笔记.md)
+- **小米 Xiaomi-Robotics-0**（首代 VLA 大模型开源，双脑 MoT、低延迟）：[xiaomi-vla-open-source-2026-索引](../../files/papers/xiaomi-vla-open-source-2026-索引.md) · [完整整理](../../files/source/xiaomi-vla-open-source-2026.md)
 
 ---
 
