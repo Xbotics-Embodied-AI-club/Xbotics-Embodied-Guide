@@ -16,44 +16,46 @@
 
 | 图标 | 类型 | 说明 |
 |---|---|---|
-| 📄 | Paper | Google Scholar（论文 / 引用） |
-| 🧪 | Project | 项目主页 / 实验系统 / Demo |
-| 🎥 | Video | 公开视频（YouTube / B站） |
-| 💻 | Code | GitHub 开源仓库 |
+| 📄 | Paper | Google Scholar 个人资料页（论文 / 引用）；未找到时写「更新中」 |
+| 🧪 | Project | 个人/实验室/项目主页；未找到时写「更新中」 |
+| 🎥 | Video | 单条公开视频（YouTube / B站）；未找到时写「更新中」 |
+| 💻 | Code | GitHub 仓库或 profile；未找到时写「更新中」 |
+
+每人名后附一句简介（机构 + 方向）；链接均为**真实直达 URL**，采纳前经可访问性校验。
 
 ---
 
 ## 🏫 Berkeley / BAIR（操作 & 机器人学习）
 
-1. **Sergey Levine**  
-   📄 [Paper](https://scholar.google.com/scholar?q=Sergey+Levine+robotics+manipulation+humanoid) ·  
-   🧪 [Project](https://www.google.com/search?q=Sergey+Levine+robot+manipulation+humanoid) ·  
-   🎥 [Video](https://www.youtube.com/results?search_query=Sergey+Levine+robotics+manipulation+talk) ·  
-   💻 [Code](https://github.com/search?q=Sergey+Levine+robot+manipulation&type=repositories)
+1. **Sergey Levine**（UC Berkeley 教授，机器人学习 / 深度 RL、offline RL）  
+   📄 [Paper](https://scholar.google.com/citations?user=8R35rCwAAAAJ) ·  
+   🧪 [Project](https://people.eecs.berkeley.edu/~svlevine/) ·  
+   🎥 更新中 ·  
+   💻 更新中
 
-2. **Pieter Abbeel**  
-   📄 [Paper](https://scholar.google.com/scholar?q=Pieter+Abbeel+robotics+manipulation+humanoid) ·  
-   🧪 [Project](https://www.google.com/search?q=Pieter+Abbeel+robot+manipulation+humanoid) ·  
-   🎥 [Video](https://www.youtube.com/results?search_query=Pieter+Abbeel+robotics+manipulation+talk) ·  
-   💻 [Code](https://github.com/search?q=Pieter+Abbeel+robot+manipulation&type=repositories)
+2. **Pieter Abbeel**（UC Berkeley 教授，机器人学习 / RL、模仿学习、Covariant）  
+   📄 [Paper](https://scholar.google.com/citations?user=vtwH6GkAAAAJ) ·  
+   🧪 [Project](https://people.eecs.berkeley.edu/~pabbeel/) ·  
+   🎥 更新中 ·  
+   💻 更新中
 
-3. **Anca Dragan**  
-   📄 [Paper](https://scholar.google.com/scholar?q=Anca+Dragan+robotics+manipulation+humanoid) ·  
-   🧪 [Project](https://www.google.com/search?q=Anca+Dragan+robot+manipulation+humanoid) ·  
-   🎥 [Video](https://www.youtube.com/results?search_query=Anca+Dragan+robotics+manipulation+talk) ·  
-   💻 [Code](https://github.com/search?q=Anca+Dragan+robot+manipulation&type=repositories)
+3. **Anca Dragan**（UC Berkeley 教授，人机交互 / 价值对齐、InterACT Lab）  
+   📄 [Paper](https://scholar.google.com/citations?user=UgHB5oAAAAAJ) ·  
+   🧪 [Project](https://people.eecs.berkeley.edu/~anca/) ·  
+   🎥 更新中 ·  
+   💻 更新中
 
-4. **Ken Goldberg**  
-   📄 [Paper](https://scholar.google.com/scholar?q=Ken+Goldberg+robotics+manipulation+humanoid) ·  
-   🧪 [Project](https://www.google.com/search?q=Ken+Goldberg+robot+manipulation+humanoid) ·  
-   🎥 [Video](https://www.youtube.com/results?search_query=Ken+Goldberg+robotics+manipulation+talk) ·  
-   💻 [Code](https://github.com/search?q=Ken+Goldberg+robot+manipulation&type=repositories)
+4. **Ken Goldberg**（UC Berkeley 教授，机器人、自动化、医疗机器人、AUTOLab）  
+   📄 [Paper](https://scholar.google.com/citations?user=8fztli4AAAAJ) ·  
+   🧪 [Project](https://goldberg.berkeley.edu/) ·  
+   🎥 更新中 ·  
+   💻 更新中
 
-5. **Jitendra Malik**  
-   📄 [Paper](https://scholar.google.com/scholar?q=Jitendra+Malik+robotics+manipulation+humanoid) ·  
-   🧪 [Project](https://www.google.com/search?q=Jitendra+Malik+robot+manipulation+humanoid) ·  
-   🎥 [Video](https://www.youtube.com/results?search_query=Jitendra+Malik+robotics+manipulation+talk) ·  
-   💻 [Code](https://github.com/search?q=Jitendra+Malik+robot+manipulation&type=repositories)
+5. **Jitendra Malik**（UC Berkeley 教授，计算机视觉、图像分割）  
+   📄 [Paper](https://scholar.google.com/citations?user=aOklxsQAAAAJ) ·  
+   🧪 [Project](https://people.eecs.berkeley.edu/~malik/) ·  
+   🎥 更新中 ·  
+   💻 更新中
 
 6. **Trevor Darrell**   
    📄 [Paper](https://scholar.google.com/scholar?q=Trevor+Darrell+robotics+manipulation+humanoid) ·  
