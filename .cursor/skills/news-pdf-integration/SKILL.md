@@ -93,15 +93,27 @@ description: Integrate PDF content from news/ (papers, interviews, foundations) 
 
 若仓库中无 `news/extract_pdf.py`，则先创建最小可用脚本：支持单 PDF 路径参数（如 `python news/extract_pdf.py "news/xxx.pdf"`），仅输出文本到 `news/<英文主题>-extract.txt`，再执行下述步骤。
 
-运行或改造 `news/extract_pdf.py`，**仅提取文本**（不提取图片）：
+运行 `news/extract_pdf.py`，**仅提取文本**（不提取图片）：
 
-```python
-# 修改 PDF_NAME、输出路径后运行
-python news/extract_pdf.py
+```bash
+python news/extract_pdf.py "news/英文名.pdf"
+# 输出：news/<英文主题>-extract.txt
 ```
 
-- 文本输出：`news/<英文主题>-extract.txt`（或 `-提取.txt`，建议统一用英文避免乱码）
-- 若文本为 0 字符，说明 PDF 可能为扫描件。**本流程不包含 OCR**，扫描件请先自行 OCR 或手动整理后再放入 `news/` 或跳过该 PDF。
+- 若文本为 **0 字符**，说明 PDF 为扫描件，进入 **Step 1b 扫描件 OCR**。
+- 若有文字，直接进入 Step 2，根据 `-extract.txt` 撰写原创整理。
+
+### Step 1b：扫描件 OCR（当 Step 1 提取为空时）
+
+若仓库中无 `news/ocr_pdf.py`，则先创建：使用 PyMuPDF 将每页渲染为图像，再用 EasyOCR（ch_sim+en）识别，输出到 `news/<主题>-ocr.txt`。依赖：`pymupdf`、`Pillow`、`easyocr`（若遇 NumPy 2.x 与 torch 不兼容，可 `pip install "numpy<2"` 后重试）。
+
+```bash
+python news/ocr_pdf.py "news/英文名.pdf" -o "news/英文名-ocr.txt"
+# 或对已归档 PDF：python news/ocr_pdf.py "files/source/英文名.pdf" -o "news/英文名-ocr.txt"
+```
+
+- 输出：`news/<主题>-ocr.txt`（或与 PDF 同目录的 `-ocr.txt`）。OCR 可能有少量误字（如「王鹤」→「壬鹤」），整理时按语义修正。
+- **Step 2 创建原创整理文档时，以 `-ocr.txt` 内容为主要依据**，按主题分节归纳、用自己的话重写，避免逐段抄录。
 
 ### Step 2：创建原创整理文档
 
@@ -134,11 +146,24 @@ python news/extract_pdf.py
 
 1. 将本流程已处理过的 PDF 从 `news/` 移至 `files/source/`，**保持英文文件名**（若 Step 0 已重命名则无需再改）。
 2. 更新对应原创整理文档（`files/papers/`、`files/interviews/`、`files/foundations/` 下的笔记）中的**原文链接**：由 `../../news/xxx.pdf` 改为 `../source/英文文件名.pdf`。
-3. `news/` 下可保留 `-提取.txt` 供后续查阅，或按需清理。
+3. `news/` 下可保留 `-extract.txt` / `-ocr.txt` 供后续查阅，或按需清理。
 
 ---
 
-## 五、集成位置速查
+## 五、对 files/source/ 下已有 PDF 的整理（补 OCR + 笔记）
+
+当需要**对已归档在 `files/source/` 下的 PDF 统一做「OCR → 按正文整理」**时，按以下流程执行（与上述 Step 0–5 一致，仅起点为 source 而非 news）：
+
+1. **列出** `files/source/` 下所有 `.pdf`，确定每个 PDF 对应的笔记路径（`files/papers/`、`files/interviews/`、`files/foundations/` 下已有的 `xxx-笔记.md` 或 `xxx-整理.md`）。
+2. **对每个 PDF**：
+   - 先运行 `news/extract_pdf.py "files/source/xxx.pdf"`；若提取文本为空，则运行 `news/ocr_pdf.py "files/source/xxx.pdf" -o "news/xxx-ocr.txt"`（或输出到 `files/source/` 同目录的 `xxx-ocr.txt`）。
+   - 根据 `-extract.txt` 或 `-ocr.txt` 内容，**重写或新建**对应的原创整理笔记：标题、原文链接（`../source/xxx.pdf`）、按主题分节的归纳（以 PDF 正文为主，修正 OCR 误字，不逐段抄录）。
+   - 若该 PDF 尚未在 docs 中建链，按「四、Step 3」在对应小节末增加延伸/参考链接。
+3. **约定**：同一套脚本（`news/extract_pdf.py`、`news/ocr_pdf.py`）既用于 `news/` 新稿，也用于 `files/source/` 的补整理；OCR 结果可统一放在 `news/` 下 `xxx-ocr.txt`，便于与后续新 PDF 的 OCR 输出一致管理。
+
+---
+
+## 六、集成位置速查
 
 ```
 docs/
@@ -159,7 +184,7 @@ docs/
 
 ---
 
-## 六、参考示例
+## 七、参考示例
 
 以下为路径与命名示例，无需与仓库内已有文件一致。
 
@@ -169,7 +194,7 @@ docs/
 
 ---
 
-## 七、提取脚本通用化
+## 八、提取与 OCR 脚本说明
 
 若不存在 `news/extract_pdf.py`，见 Step 1：先创建再使用。已有脚本时，`news/extract_pdf.py` 可能写死单个 PDF。新增 PDF 时：
 

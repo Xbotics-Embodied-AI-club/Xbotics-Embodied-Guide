@@ -13,4 +13,10 @@
 
 ---
 
+### 延伸与参考
+
+- **NVIDIA 30 人联名论文**（从 44000 小时人类视频学灵巧操作）：[NVIDIA-30auth-44k-hours-video-dexterous-manipulation-笔记](../../files/papers/NVIDIA-30auth-44k-hours-video-dexterous-manipulation-笔记.md)
+
+---
+
 [← 返回主 README](../../README.md)
