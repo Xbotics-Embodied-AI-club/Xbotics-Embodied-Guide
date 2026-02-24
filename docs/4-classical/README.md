@@ -11,11 +11,7 @@
 | 4.3 视觉与多模态 | 表征学习、对比学习、SigLIP/CLIP | [📖 阅读](4.3-visual.md) |
 | 4.4 轨迹优化与控制 | iLQR、MPPI、MPC、TrajOpt | [📖 阅读](4.4-trajectory.md) |
 
----
-
-### 延伸与参考
-
-- **NVIDIA 30 人联名论文**（从 44000 小时人类视频学灵巧操作）：[NVIDIA-30auth-44k-hours-video-dexterous-manipulation-笔记](../../files/papers/NVIDIA-30auth-44k-hours-video-dexterous-manipulation-笔记.md)
+- **延伸**：[NVIDIA 30 人联名论文](../../files/papers/NVIDIA-30auth-44k-hours-video-dexterous-manipulation-笔记.md)（从 44000 小时人类视频学灵巧操作）
 
 ---
 

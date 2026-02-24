@@ -10,15 +10,11 @@
 | 5.4 Sim2Real | 技术入门指南 | [📖 阅读](5.4-Sim2Real.md) |
 | 5.5 大模型SFT | 经验分享 | [📖 阅读](5.5-SFT.md) |
 
----
-
-### 延伸与参考（论文/报道笔记）
-
-- **NVIDIA CHIP 模块**（人形机器人高难度动作）：[NVIDIA-CHIP-humanoid-motor-skills-笔记](../../files/papers/NVIDIA-CHIP-humanoid-motor-skills-笔记.md)
-- **NVIDIA 30 人联名论文**（44000 小时人类视频学灵巧操作）：[NVIDIA-30auth-44k-hours-video-dexterous-manipulation-笔记](../../files/papers/NVIDIA-30auth-44k-hours-video-dexterous-manipulation-笔记.md)
-- **小米 Xiaomi-Robotics-0**（首代 VLA 大模型开源，双脑 MoT、低延迟）：[xiaomi-vla-open-source-2026-索引](../../files/papers/xiaomi-vla-open-source-2026-索引.md) · [完整整理](../../files/source/xiaomi-vla-open-source-2026.md)
-- **星海图 G0 系列**（端侧 VLA：G0 Tiny 250M/Orin 10Hz、G0 Plus 3B 开源）：[galaxea-g0-tiny-vla-2026-索引](../../files/papers/galaxea-g0-tiny-vla-2026-索引.md) · [完整整理](../../files/source/galaxea-g0-tiny-vla-2026.md)
-- **VAM 视频动作模型**（6 篇综述：LVP/1XWM/Video Policy/mimic-video/Cosmos Policy/DreamZero）：[vam-video-action-model-survey-2026-索引](../../files/papers/vam-video-action-model-survey-2026-索引.md) · [完整整理](../../files/source/vam-video-action-model-survey-2026.md)
+- **延伸**：[NVIDIA CHIP 模块](../../files/papers/NVIDIA-CHIP-humanoid-motor-skills-笔记.md)（人形机器人高难度动作）
+- **延伸**：[NVIDIA 30 人联名论文](../../files/papers/NVIDIA-30auth-44k-hours-video-dexterous-manipulation-笔记.md)（44000 小时人类视频学灵巧操作）
+- **延伸**：[小米 Xiaomi-Robotics-0](../../files/papers/xiaomi-vla-open-source-2026-索引.md)（首代 VLA 大模型开源，双脑 MoT、低延迟）· [完整整理](../../files/source/xiaomi-vla-open-source-2026.md)
+- **延伸**：[星海图 G0 系列](../../files/papers/galaxea-g0-tiny-vla-2026-索引.md)（端侧 VLA：G0 Tiny 250M/Orin 10Hz、G0 Plus 3B 开源）· [完整整理](../../files/source/galaxea-g0-tiny-vla-2026.md)
+- **延伸**：[VAM 视频动作模型](../../files/papers/vam-video-action-model-survey-2026-索引.md)（6 篇综述）· [完整整理](../../files/source/vam-video-action-model-survey-2026.md)
 
 ---
 
