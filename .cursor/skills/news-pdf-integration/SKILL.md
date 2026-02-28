@@ -81,6 +81,11 @@ description: 优先从 news/source-daily.md（若存在）或 news/source.md 读
 
 **文件名**：`files/source/` 下使用英文或拼音，如 `pku-wanghe-2025-roundup.md`、`leju-showroom-2026.md`、`xiaomi-vla-open-source.md`，避免中文与特殊字符。
 
+### 图标与表情（必做）
+
+- **`news/source-daily.md`（或 `news/source.md`）**：在编辑或生成日报/源文件时，在**主标题、本期重点、各篇标题、小节标题**（如「一句话记住」「为什么重要」「核心亮点」「配图建议」「资源」）及**要点列表**前使用适量图标与表情，使内容更生动、易扫读。可参考：📰 🎯 🤖 🧭 📐 🔄 💡 ❓ ✨ 🖼️ 🔗 📌 🏷️ 等，按主题选用。
+- **`files/source/*.md` 整理稿**：写入每篇整理稿时，在**文章标题、小节标题**（如「背景与目标」「核心亮点」「实验结果与意义」）及**要点条目前**同样使用适量图标与表情，与 source-daily 风格一致，便于阅读。
+
 ---
 
 ## 五、检查（必做）
